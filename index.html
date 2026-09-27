@@ -7,7 +7,7 @@
   <script>try{if(sessionStorage.getItem("dy-intro")==="1")document.documentElement.classList.add("dy-seen")}catch(e){}</script>
   <meta name="description" content="A Dynos AI desenvolve sistemas inteligentes por vertical profissional. Contabilidade, Direito, Medicina, Odontologia. Notalink é o primeiro produto." />
   <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260428a" />
-  <link rel="stylesheet" href="/assets/css/dynos-cinema.css?v=20260927a" />
+  <link rel="stylesheet" href="/assets/css/dynos-cinema.css?v=20260927b" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/img/dynos_logo_square.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,7 +99,13 @@
   </div>
 </header>
 
-<section class="dy-hero">
+<section class="dy-hero dy-has-video">
+  <div class="dy-bgvideo" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata" poster="/assets/video/nucleo-poster.jpg?v=20260927b">
+      <source src="/assets/video/nucleo.mp4?v=20260927b" type="video/mp4" />
+      <source src="/assets/video/nucleo.webm?v=20260927b" type="video/webm" />
+    </video>
+  </div>
   <div class="dy-container">
     <img src="/assets/img/dynos_logo_square.png" alt="" class="logo-grande" />
     <span class="badge-pre"><span class="dot"></span> Software inteligente por vertical profissional</span>
@@ -283,6 +289,50 @@
   </div>
 </section>
 
+<!-- Sala de máquinas: vídeos dos produtos em funcionamento -->
+<section id="tecnologia" class="dy-secao" style="padding-top: 40px;">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// Sala de máquinas</span>
+      <h2>Veja a tecnologia <span class="gradient-text">trabalhando.</span></h2>
+      <p>Por trás de cada produto, robôs e inteligência artificial rodando em segundo plano, enquanto você cuida do que importa.</p>
+    </div>
+
+    <div class="dy-reel" data-dur="10">
+      <div class="dy-reel-screen">
+        <video class="ativo" muted loop playsinline preload="metadata" poster="/assets/video/notalink-poster.jpg?v=20260927b" data-src="/assets/video/notalink.mp4?v=20260927b" aria-label="Animação: notas fiscais capturadas na SEFAZ e organizadas pelo Notalink"></video>
+        <video muted loop playsinline preload="none" poster="/assets/video/tribus-poster.jpg?v=20260927b" data-src="/assets/video/tribus.mp4?v=20260927b" aria-label="Animação: painel de apuração fiscal do Tribus"></video>
+        <video muted loop playsinline preload="none" poster="/assets/video/lexlink-poster.jpg?v=20260927b" data-src="/assets/video/lexlink.mp4?v=20260927b" aria-label="Animação: publicações do DJE lidas e prazos calculados pelo LexLink"></video>
+        <div class="dy-reel-hud" aria-hidden="true"><span><i class="rec"></i><b class="dy-reel-canal">CANAL 01 · NOTALINK</b></span><span>DYNOS AI // LIVE</span></div>
+        <div class="dy-reel-nota" aria-hidden="true">ANIMAÇÃO ILUSTRATIVA</div>
+      </div>
+
+      <div class="dy-reel-abas" role="tablist">
+        <div tabindex="0" class="dy-reel-aba ativo" role="tab" aria-selected="true" data-canal="CANAL 01 · NOTALINK">
+          <span class="num">01 · CONTABILIDADE</span>
+          <strong>Notalink</strong>
+          <span class="desc">NF-e, NFS-e e CT-e capturadas na SEFAZ e organizadas sozinhas, prontas para a escrituração.</span>
+          <a href="/produtos/notalink.html">Conhecer →</a>
+          <i class="barra"></i>
+        </div>
+        <div tabindex="0" class="dy-reel-aba" role="tab" aria-selected="false" data-canal="CANAL 02 · TRIBUS">
+          <span class="num">02 · CONTABILIDADE</span>
+          <strong>Tribus</strong>
+          <span class="desc">ERP fiscal completo: apuração, conferência e relatórios fiscais num só painel.</span>
+          <i class="barra"></i>
+        </div>
+        <div tabindex="0" class="dy-reel-aba" role="tab" aria-selected="false" data-canal="CANAL 03 · LEXLINK">
+          <span class="num">03 · DIREITO</span>
+          <strong>LexLink</strong>
+          <span class="desc">Publicações do DJE/DJEN capturadas e prazos do CPC calculados automaticamente.</span>
+          <a href="/produtos/lexlink.html">Conhecer →</a>
+          <i class="barra"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="produtos" class="dy-secao" style="padding-top: 60px;">
   <div class="dy-container">
     <div class="dy-secao-titulo">
@@ -426,6 +476,6 @@
 </script>
 <script src="/assets/js/cookies-banner.js"></script>
 
-<script src="/assets/js/dynos-cinema.js?v=20260927a" defer></script>
+<script src="/assets/js/dynos-cinema.js?v=20260927b" defer></script>
 </body>
 </html>

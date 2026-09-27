@@ -258,3 +258,82 @@
 
   onScroll();
 })();
+
+/* =========================================================
+   VÍDEOS: economia de dados, "reduzir movimento" e sala de máquinas
+   ========================================================= */
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var conn = navigator.connection || {};
+  var economia = conn.saveData === true;
+
+  // vídeos de fundo: só tocam quando aparecem na tela
+  var bgs = document.querySelectorAll(".dy-bgvideo video");
+  bgs.forEach(function (v) {
+    if (reduce || economia) { v.removeAttribute("autoplay"); v.pause(); v.preload = "none"; return; }
+  });
+  if ("IntersectionObserver" in window && !reduce && !economia) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.05 });
+    bgs.forEach(function (v) { vio.observe(v); });
+  }
+
+  // sala de máquinas: abas que trocam o vídeo
+  document.querySelectorAll(".dy-reel").forEach(function (reel) {
+    var vids = reel.querySelectorAll(".dy-reel-screen video");
+    var abas = reel.querySelectorAll(".dy-reel-aba");
+    var canal = reel.querySelector(".dy-reel-canal");
+    var dur = (+reel.getAttribute("data-dur") || 10) * 1000;
+    var atual = 0, timer = null, visivel = false;
+    reel.style.setProperty("--dur", dur / 1000 + "s");
+
+    var mp4 = document.createElement("video").canPlayType('video/mp4; codecs="avc1.640028"');
+    function carregar(v) {
+      if (v.src || !v.dataset.src) return;
+      v.src = mp4 ? v.dataset.src : v.dataset.src.replace(".mp4", ".webm");
+    }
+    function tocar(v) { if (reduce || economia) return; carregar(v); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+
+    function mostrar(i, manual) {
+      atual = i;
+      vids.forEach(function (v, k) {
+        v.classList.toggle("ativo", k === i);
+        if (k === i) { if (visivel) tocar(v); } else v.pause();
+      });
+      abas.forEach(function (a, k) {
+        a.classList.toggle("ativo", k === i);
+        a.setAttribute("aria-selected", k === i ? "true" : "false");
+        var b = a.querySelector(".barra");
+        if (b && k === i) { b.style.animation = "none"; void b.offsetWidth; b.style.animation = ""; }
+      });
+      if (canal) canal.textContent = abas[i].getAttribute("data-canal");
+      clearTimeout(timer);
+      // depois de um clique a troca automática para, para a pessoa assistir com calma
+      if (!manual && !reduce && visivel) timer = setTimeout(function () { mostrar((atual + 1) % vids.length); }, dur);
+      if (manual) abas.forEach(function (a) { var b = a.querySelector(".barra"); if (b) b.style.animation = "none"; });
+    }
+
+    abas.forEach(function (a, k) {
+      a.addEventListener("click", function (e) {
+        if (e.target.closest("a")) return; // o link "Conhecer" funciona normalmente
+        mostrar(k, true);
+      });
+      a.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { if (e.target.closest("a")) return; e.preventDefault(); mostrar(k, true); }
+      });
+    });
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        visivel = entries[0].isIntersecting;
+        if (visivel) mostrar(atual);
+        else { clearTimeout(timer); vids.forEach(function (v) { v.pause(); }); }
+      }, { threshold: 0.25 }).observe(reel);
+    } else { visivel = true; mostrar(0); }
+  });
+})();
