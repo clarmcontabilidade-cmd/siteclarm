@@ -407,7 +407,7 @@ body.dy-locked { overflow: hidden; }
   background: radial-gradient(circle, rgba(28,200,168,.22), rgba(10,6,18,.95) 70%);
   border-color: rgba(28,200,168,.55); box-shadow: 0 0 80px rgba(28,200,168,.3), inset 0 0 40px rgba(28,200,168,.12);
 }
-.nl-tema .dy-orbita-centro img { width: 52%; border-radius: 16px; box-shadow: 0 0 30px rgba(28,200,168,.45); }
+.nl-tema .dy-orbita-centro img { width: 60%; border-radius: 18px; box-shadow: 0 0 30px rgba(28,200,168,.45); }
 .nl-tema .dy-orbita-centro span { color: var(--nl-verde-claro); }
 .nl-tema .dy-orbita-anel.r1 span { border-color: rgba(28,200,168,.5); }
 .nl-tema .dy-orbita-anel.r2 span { border-color: rgba(45,92,242,.6); }
