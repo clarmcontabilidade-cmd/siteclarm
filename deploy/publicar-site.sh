@@ -12,7 +12,10 @@
 #      (vídeos antigos, instalador do Auditor SPED etc. continuam)
 #   4. Ajusta permissões e confere se o site responde
 #
-# Para voltar ao site antigo, se precisar:
+# Para publicar SEM guardar cópia do site antigo, acrescente SEM_BACKUP=1 antes do bash:
+#   SEM_BACKUP=1 bash <(curl -fsSL ...)
+#
+# Para voltar ao site antigo, se precisar (só existe se o backup foi feito):
 #   cp -a /opt/dynosai-site-backup-<data-hora>/. /opt/dynosai-site/
 # =========================================================
 set -euo pipefail
@@ -26,8 +29,11 @@ BACKUP="${DEST}-backup-${STAMP}"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-echo "==> 1/4 Backup do site atual em: $BACKUP"
-if [ -d "$DEST" ]; then
+if [ "${SEM_BACKUP:-0}" = "1" ]; then
+  echo "==> 1/4 Backup desativado (SEM_BACKUP=1): publicando direto por cima do site atual"
+  mkdir -p "$DEST"
+elif [ -d "$DEST" ]; then
+  echo "==> 1/4 Backup do site atual em: $BACKUP"
   mkdir -p "$BACKUP"
   cp -a "$DEST"/. "$BACKUP"/
   echo "    ok ($(du -sh "$BACKUP" | cut -f1))"
@@ -63,4 +69,4 @@ CODE="$(curl -s -o /dev/null -w '%{http_code}' -H 'Host: www.dynosai.com.br' htt
 echo "    Resposta do site: HTTP $CODE (esperado: 200)"
 echo
 echo "PRONTO. Abra https://www.dynosai.com.br e aperte Ctrl+F5."
-echo "Backup do site antigo: $BACKUP"
+[ "${SEM_BACKUP:-0}" = "1" ] || echo "Backup do site antigo: $BACKUP"
