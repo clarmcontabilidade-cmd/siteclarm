@@ -352,3 +352,32 @@ body.dy-locked { overflow: hidden; }
   .dy-escudo .escudo { animation: none; stroke-dashoffset: 0; }
   .dy-orbita-anel span { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(var(--r)) rotate(calc(var(--ang) * -1)); }
 }
+
+/* =========================================================
+   VÍDEOS GERADOS (Higgsfield)
+   ========================================================= */
+/* Topo: o vídeo real precisa aparecer mais que a animação antiga */
+.dy-hero .dy-bgvideo video { opacity: .78; }
+.dy-hero .dy-bgvideo::after {
+  background:
+    radial-gradient(ellipse 55% 60% at 50% 55%, rgba(10,6,18,.55), rgba(10,6,18,.12) 70%, transparent),
+    linear-gradient(180deg, rgba(10,6,18,.5) 0%, transparent 25%, transparent 65%, var(--dy-bg) 100%);
+}
+/* Segurança: vídeo atrás do escudo, dentro da moldura redonda */
+.dy-seg-visual { border-radius: 28px; overflow: hidden; padding: 24px 0 18px; isolation: isolate; }
+.dy-seg-visual .dy-bgvideo { border-radius: 28px; }
+.dy-seg-visual .dy-bgvideo video { opacity: .55; }
+.dy-seg-visual .dy-bgvideo::after { background: radial-gradient(circle at 50% 45%, rgba(10,6,18,.15), rgba(10,6,18,.75) 85%); }
+.dy-seg-visual .dy-escudo, .dy-seg-visual .dy-seg-status { position: relative; z-index: 1; }
+/* Sobre nós: vídeo com moldura dourada */
+.dy-video-moldura {
+  display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+  border-radius: var(--dy-radius-lg); border: 1px solid var(--dy-border-strong);
+  box-shadow: 0 30px 80px rgba(212,175,55,.2);
+}
+/* Cartões de vertical: vídeo curto no topo do cartão */
+.vertical-card { display: flex; flex-direction: column; }
+.dy-card-video {
+  display: block; width: calc(100% + 72px); margin: -36px -36px 22px; aspect-ratio: 21 / 9; object-fit: cover;
+  border-bottom: 1px solid var(--dy-border); opacity: .9;
+}

@@ -268,7 +268,7 @@
   var economia = conn.saveData === true;
 
   // vídeos de fundo: só tocam quando aparecem na tela
-  var bgs = document.querySelectorAll(".dy-bgvideo video");
+  var bgs = document.querySelectorAll(".dy-bgvideo video, .dy-card-video");
   bgs.forEach(function (v) {
     if (reduce || economia) { v.removeAttribute("autoplay"); v.pause(); v.preload = "none"; return; }
   });
