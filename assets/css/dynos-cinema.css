@@ -381,3 +381,89 @@ body.dy-locked { overflow: hidden; }
   display: block; width: calc(100% + 72px); margin: -36px -36px 22px; aspect-ratio: 21 / 9; object-fit: cover;
   border-bottom: 1px solid var(--dy-border); opacity: .9;
 }
+
+/* =========================================================
+   NOTALINK: cores do produto (verde-água → azul)
+   ========================================================= */
+:root {
+  --nl-verde: #1cc8a8; --nl-verde-claro: #2ddbb5; --nl-azul: #2d5cf2;
+  --nl-grad: linear-gradient(120deg, var(--nl-verde-claro), var(--nl-verde) 45%, var(--nl-azul));
+}
+/* botão do Notalink */
+.btn-nl { background: linear-gradient(135deg, var(--nl-verde), var(--nl-verde-claro)); color: #052020 !important; font-weight: 700; box-shadow: 0 4px 20px rgba(28,200,168,.35); }
+.btn-nl:hover { box-shadow: 0 8px 30px rgba(28,200,168,.55); color: #052020; }
+.nl-ghost:hover { border-color: var(--nl-verde); background: rgba(28,200,168,.08); }
+
+/* seções da página inicial que falam do Notalink */
+.nl-tema .label, .nl-tema .dy-secao-titulo .label { color: var(--nl-verde-claro); }
+.nl-tema .gradient-text { background-image: var(--nl-grad); }
+.nl-tema .dy-fluxo-no { color: var(--nl-verde-claro); border-color: rgba(28,200,168,.6); box-shadow: 0 0 30px rgba(28,200,168,.25); background: radial-gradient(circle at 50% 35%, rgba(28,200,168,.25), rgba(10,6,18,1) 70%); }
+.nl-tema .dy-fluxo::before { background: linear-gradient(90deg, transparent, rgba(28,200,168,.55), transparent); }
+.nl-tema .dy-fluxo::after { background: var(--nl-verde-claro); box-shadow: 0 0 16px 4px rgba(45,219,181,.7); }
+.nl-tema .dy-fluxo-tag { color: var(--nl-azul); filter: brightness(1.5); }
+.nl-tema .dy-orbita::before { border-color: rgba(28,200,168,.3); }
+.nl-tema .dy-orbita::after { border-color: rgba(45,92,242,.45); }
+.nl-tema .dy-orbita-centro {
+  background: radial-gradient(circle, rgba(28,200,168,.22), rgba(10,6,18,.95) 70%);
+  border-color: rgba(28,200,168,.55); box-shadow: 0 0 80px rgba(28,200,168,.3), inset 0 0 40px rgba(28,200,168,.12);
+}
+.nl-tema .dy-orbita-centro img { width: 52%; border-radius: 16px; box-shadow: 0 0 30px rgba(28,200,168,.45); }
+.nl-tema .dy-orbita-centro span { color: var(--nl-verde-claro); }
+.nl-tema .dy-orbita-anel.r1 span { border-color: rgba(28,200,168,.5); }
+.nl-tema .dy-orbita-anel.r2 span { border-color: rgba(45,92,242,.6); }
+.nl-tema .dy-feature-row .visual { background: linear-gradient(135deg, rgba(28,200,168,.12), rgba(45,92,242,.10)); }
+.nl-tema .dy-feature-row .visual::before { background: radial-gradient(circle at 50% 0%, rgba(28,200,168,.22), transparent 60%); }
+/* aba do Notalink na Sala de máquinas */
+.dy-reel-aba.nl .num { color: var(--nl-verde-claro); }
+.dy-reel-aba.nl.ativo { border-color: rgba(28,200,168,.55); background: rgba(28,200,168,.07); }
+.dy-reel-aba.nl .barra { background: var(--nl-grad); }
+.dy-reel-aba.nl a { color: var(--nl-verde-claro); }
+
+/* ---------- Página do Notalink ---------- */
+.nl-page .gradient-text { background-image: var(--nl-grad); }
+.nl-page .label, .nl-page .dy-secao-titulo .label { color: var(--nl-verde-claro); }
+.nl-page a { color: var(--nl-verde-claro); }
+.nl-page a:hover { color: #7ff0d8; }
+.nl-page .dy-nav a:not(.dy-btn) { color: var(--dy-text-muted); }
+.nl-page .dy-nav a:not(.dy-btn):hover { color: var(--nl-verde-claro); }
+.nl-page .dy-progress { background: var(--nl-grad); box-shadow: 0 0 12px rgba(28,200,168,.7); }
+.nl-page .dy-logo-wrap img { filter: drop-shadow(0 0 12px rgba(28,200,168,.4)); }
+.nl-page .dy-typed::after { color: var(--nl-verde); }
+.nl-page .dy-spotlight { background: radial-gradient(circle, rgba(28,200,168,.10), rgba(45,92,242,.06) 40%, transparent 68%); }
+.nl-page .nl-hero { min-height: calc(100vh - 72px); min-height: calc(100svh - 72px); display: flex; align-items: center; justify-content: center; }
+.nl-page .nl-hero .dy-bgvideo video { opacity: .72; }
+.nl-page .nl-hero .dy-bgvideo::after {
+  background:
+    radial-gradient(ellipse 55% 60% at 50% 55%, rgba(10,6,18,.55), rgba(10,6,18,.12) 70%, transparent),
+    linear-gradient(180deg, rgba(10,6,18,.5) 0%, transparent 25%, transparent 65%, var(--dy-bg) 100%);
+}
+.nl-page .nl-logo-tile { box-shadow: 0 0 0 1px rgba(28,200,168,.5), 0 0 0 8px rgba(28,200,168,.06), 0 0 90px rgba(28,200,168,.35); }
+.nl-garantias { padding-top: 32px; }
+.nl-garantias i { background: rgba(28,200,168,.14); border-color: rgba(28,200,168,.5); }
+.nl-garantias i::after { border-color: var(--nl-verde-claro); }
+/* tela de cinema para o vídeo institucional */
+.nl-tela {
+  position: relative; max-width: 920px; margin: 0 auto; border-radius: 22px; overflow: hidden; background: #050a10;
+  border: 1px solid rgba(28,200,168,.3); box-shadow: 0 40px 140px -40px rgba(28,200,168,.4);
+}
+.nl-tela video { display: block; width: 100%; aspect-ratio: 16 / 9; }
+/* cartões da plataforma */
+.nl-feats { grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 18px; margin-top: 36px; }
+.nl-feat { padding: 24px; border-radius: 16px; }
+.nl-feat::before { background: linear-gradient(135deg, rgba(28,200,168,.12) 0%, transparent 60%); }
+.nl-feat:hover { border-color: rgba(28,200,168,.45); box-shadow: 0 30px 80px -30px rgba(28,200,168,.35); }
+.nl-feat-icone {
+  width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; font-size: 24px; margin-bottom: 14px;
+  background: linear-gradient(135deg, rgba(28,200,168,.2), rgba(45,92,242,.12)); border: 1px solid rgba(28,200,168,.3);
+}
+.nl-feat h3 { margin: 0 0 8px; font-size: 18px; }
+.nl-feat p { margin: 0; color: var(--dy-text-muted); font-size: 14px; line-height: 1.6; }
+.nl-page .dy-glow-layer { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(28,200,168,.16), transparent 45%); }
+/* antes/depois, FAQ e chamada final */
+.nl-page .vs-bom { border: 1px solid rgba(28,200,168,.35); background: linear-gradient(160deg, rgba(28,200,168,.08), rgba(45,92,242,.04)); box-shadow: 0 30px 80px -40px rgba(28,200,168,.35); }
+.nl-page .vs-bom ul li::before { color: var(--nl-verde-claro); }
+.nl-page .nl-faq details[open] { border-color: rgba(28,200,168,.35); box-shadow: 0 10px 40px rgba(28,200,168,.1); }
+.nl-page .nl-faq summary::after { color: var(--nl-verde-claro); }
+.nl-page .cta-final { background: radial-gradient(ellipse at center, rgba(28,200,168,.12), transparent 60%); }
+.nl-page .dy-footer a:hover { color: var(--nl-verde-claro); }
+@media (prefers-reduced-motion: reduce) { .nl-page .dy-word { opacity: 1; transform: none; filter: none; } }

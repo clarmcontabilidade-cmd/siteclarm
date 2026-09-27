@@ -6,7 +6,7 @@
   <title>Notalink — Captura fiscal automática para escritórios de contabilidade | Dynos AI</title>
   <meta name="description" content="O Notalink captura automaticamente todos os documentos fiscais dos seus clientes na SEFAZ — NF-e, notas de serviço (NFS-e), conhecimentos de transporte (CT-e), MDF-e e CF-e — manifesta ciência sozinho e organiza tudo para o seu escritório. Trial grátis, sem cartão." />
   <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260427d" />
-  <link rel="stylesheet" href="/assets/css/dynos-cinema.css?v=20260928a" />
+  <link rel="stylesheet" href="/assets/css/dynos-cinema.css?v=20260928b" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/img/notalink_logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -252,7 +252,7 @@
     }
   </style>
 </head>
-<body>
+<body class="nl-page" data-dy-words>
 
 <header class="dy-header">
   <div class="dy-container">
@@ -264,7 +264,7 @@
       <a href="/">← Home</a>
       <a href="#planos">Planos</a>
       <a href="#faq">FAQ</a>
-      <a href="https://notalink.dynosai.com.br/cadastrar" class="dy-btn dy-btn-dourado" style="padding: 10px 20px; font-size: 14px;">Trial 7 dias</a>
+      <a href="https://notalink.dynosai.com.br/cadastrar" class="dy-btn btn-nl" style="padding: 10px 20px; font-size: 14px;">Trial 7 dias</a>
     </nav>
   </div>
 </header>
@@ -298,12 +298,24 @@
   </div>
 </section>
 
+
+<div class="dy-garantias nl-garantias" role="list">
+  <span role="listitem"><i></i>7 dias grátis com tudo liberado</span>
+  <span role="listitem"><i></i>Sem cartão para começar</span>
+  <span role="listitem"><i></i>Setup em 5 minutos</span>
+  <span role="listitem"><i></i>Cancele quando quiser</span>
+  <span role="listitem"><i></i>Suporte humano no chat</span>
+</div>
+
 <section class="dy-secao" style="padding-top: 40px;">
   <div class="dy-container" style="text-align: center;">
-    <h2 style="margin-bottom: 32px;">Entenda o Notalink em <span class="gradient-text">50 segundos</span></h2>
-    <video controls style="width:100%; max-width: 920px; border-radius: var(--dy-radius-lg); box-shadow: 0 30px 80px rgba(0,0,0,0.5); border: 1px solid var(--dy-border-strong);">
-      <source src="/assets/notalink_institucional_50s.mp4" type="video/mp4" />
-    </video>
+    <span class="label">// Em 50 segundos</span>
+    <h2 style="margin: 16px 0 32px;">Entenda o Notalink em <span class="gradient-text">50 segundos</span></h2>
+    <div class="nl-tela">
+      <video controls preload="metadata" poster="/assets/video/hf/notalink-poster.jpg?v=20260928b">
+        <source src="/assets/notalink_institucional_50s.mp4" type="video/mp4" />
+      </video>
+    </div>
   </div>
 </section>
 
@@ -421,46 +433,46 @@
       <h2>Muito <span class="gradient-text">além de baixar notas</span></h2>
       <p>Virou uma central fiscal: captura, organiza, analisa, integra e atende — tudo num lugar só.</p>
     </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:18px; margin-top:36px;">
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
-        <div style="font-size:28px; margin-bottom:10px;">📄</div>
-        <h3 style="margin:0 0 8px; font-size:18px;">Todos os documentos</h3>
-        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">NF-e, NFC-e, NFS-e, CT-e, MDF-e e CF-e — e até contas de <strong style="color:var(--dy-text);">energia (NF3e)</strong> e <strong style="color:var(--dy-text);">telecom (NFCom)</strong>.</p>
+    <div class="dy-grid nl-feats">
+      <div class="dy-card nl-feat">
+        <div class="nl-feat-icone">📄</div>
+        <h3>Todos os documentos</h3>
+        <p>NF-e, NFC-e, NFS-e, CT-e, MDF-e e CF-e — e até contas de <strong style="color:var(--dy-text);">energia (NF3e)</strong> e <strong style="color:var(--dy-text);">telecom (NFCom)</strong>.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
-        <div style="font-size:28px; margin-bottom:10px;">📈</div>
-        <h3 style="margin:0 0 8px; font-size:18px;">Relatórios avançados</h3>
-        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Evolução mensal, top fornecedores e clientes, distribuição por documento e CFOP, com exportação.</p>
+      <div class="dy-card nl-feat">
+        <div class="nl-feat-icone">📈</div>
+        <h3>Relatórios avançados</h3>
+        <p>Evolução mensal, top fornecedores e clientes, distribuição por documento e CFOP, com exportação.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
-        <div style="font-size:28px; margin-bottom:10px;">🧮</div>
-        <h3 style="margin:0 0 8px; font-size:18px;">Confere Chaves &amp; SPED</h3>
-        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Confronta o que você capturou com o ERP/SPED (blocos C100/D100) e recupera o que falta pela SEFAZ.</p>
+      <div class="dy-card nl-feat">
+        <div class="nl-feat-icone">🧮</div>
+        <h3>Confere Chaves &amp; SPED</h3>
+        <p>Confronta o que você capturou com o ERP/SPED (blocos C100/D100) e recupera o que falta pela SEFAZ.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
-        <div style="font-size:28px; margin-bottom:10px;">↩️</div>
-        <h3 style="margin:0 0 8px; font-size:18px;">Controle de devolução</h3>
-        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Identifica as NF-e de devolução (de venda e de compra) pelo CFOP, com totais e DANFE.</p>
+      <div class="dy-card nl-feat">
+        <div class="nl-feat-icone">↩️</div>
+        <h3>Controle de devolução</h3>
+        <p>Identifica as NF-e de devolução (de venda e de compra) pelo CFOP, com totais e DANFE.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
-        <div style="font-size:28px; margin-bottom:10px;">⚙️</div>
-        <h3 style="margin:0 0 8px; font-size:18px;">Automações</h3>
-        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">"Quando chegar a nota X, faça Y": etiqueta, notifica e organiza sozinho.</p>
+      <div class="dy-card nl-feat">
+        <div class="nl-feat-icone">⚙️</div>
+        <h3>Automações</h3>
+        <p>"Quando chegar a nota X, faça Y": etiqueta, notifica e organiza sozinho.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
-        <div style="font-size:28px; margin-bottom:10px;">🔌</div>
-        <h3 style="margin:0 0 8px; font-size:18px;">Exporta pro seu sistema</h3>
-        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">No formato que cada sistema contábil importa: Fortes, Domínio, Mastermaq, Contmatic, Calima, SCI e AlterData — além de Omie, Bling e API REST.</p>
+      <div class="dy-card nl-feat">
+        <div class="nl-feat-icone">🔌</div>
+        <h3>Exporta pro seu sistema</h3>
+        <p>No formato que cada sistema contábil importa: Fortes, Domínio, Mastermaq, Contmatic, Calima, SCI e AlterData — além de Omie, Bling e API REST.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
-        <div style="font-size:28px; margin-bottom:10px;">🔗</div>
-        <h3 style="margin:0 0 8px; font-size:18px;">Integração Tribus</h3>
-        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Manda as NF-e de entrada e saída automaticamente para o Tribus das empresas.</p>
+      <div class="dy-card nl-feat">
+        <div class="nl-feat-icone">🔗</div>
+        <h3>Integração Tribus</h3>
+        <p>Manda as NF-e de entrada e saída automaticamente para o Tribus das empresas.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
-        <div style="font-size:28px; margin-bottom:10px;">💬</div>
-        <h3 style="margin:0 0 8px; font-size:18px;">Atendimento no portal</h3>
-        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Chat de suporte em tempo real e Central de Ajuda com onboarding e vídeos.</p>
+      <div class="dy-card nl-feat">
+        <div class="nl-feat-icone">💬</div>
+        <h3>Atendimento no portal</h3>
+        <p>Chat de suporte em tempo real e Central de Ajuda com onboarding e vídeos.</p>
       </div>
     </div>
   </div>
@@ -738,6 +750,6 @@
   }
 })();
 </script>
-<script src="/assets/js/dynos-cinema.js?v=20260928a" defer></script>
+<script src="/assets/js/dynos-cinema.js?v=20260928b" defer></script>
 </body>
 </html>

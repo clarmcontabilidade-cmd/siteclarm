@@ -188,6 +188,12 @@
         if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
         var s = el("span", cls + (inGrad ? " gradient-text" : ""));
         s.textContent = part;
+        // texto com degradê (background-clip: text) precisa repetir o fundo em cada palavra
+        var cs = getComputedStyle(t.parentNode);
+        if (!inGrad && (cs.webkitBackgroundClip === "text" || cs.backgroundClip === "text")) {
+          s.style.backgroundImage = cs.backgroundImage; s.style.webkitBackgroundClip = "text"; s.style.backgroundClip = "text";
+          s.style.webkitTextFillColor = "transparent"; s.style.color = "transparent";
+        }
         frag.appendChild(s);
         out.push(s);
       });
@@ -198,7 +204,7 @@
 
   /* ---------- Somente na página inicial ---------- */
   function startHero() {
-    var h1 = document.querySelector(".dy-hero h1");
+    var h1 = document.querySelector(".dy-hero h1, .nl-hero h1, .lex-hero h1, .as-hero h1");
     if (!h1 || reduce) return;
     var words = splitWords(h1, "dy-word");
     words.forEach(function (w, i) { w.style.transitionDelay = (0.08 * i) + "s"; });
@@ -255,6 +261,7 @@
       startHero();
     }
   }
+  else if (body.hasAttribute("data-dy-words")) { startHero(); }
 
   onScroll();
 })();

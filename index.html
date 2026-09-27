@@ -7,7 +7,7 @@
   <script>try{if(sessionStorage.getItem("dy-intro")==="1")document.documentElement.classList.add("dy-seen")}catch(e){}</script>
   <meta name="description" content="A Dynos AI desenvolve sistemas inteligentes por vertical profissional. Contabilidade, Direito, Medicina, Odontologia. Notalink é o primeiro produto." />
   <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260428a" />
-  <link rel="stylesheet" href="/assets/css/dynos-cinema.css?v=20260928a" />
+  <link rel="stylesheet" href="/assets/css/dynos-cinema.css?v=20260928b" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/img/dynos_logo_square.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -95,7 +95,7 @@
       <a href="#sobre">Sobre</a>
       <a href="/produtos/lexlink.html" class="dy-btn dy-btn-ghost" style="padding: 10px 18px; font-size: 14px; display:inline-flex; align-items:center; gap:6px;"><img src="/assets/img/lexlink_logo.png?v=20260428b" alt="" style="height:18px; width:18px; border-radius:4px;" /> LexLink</a>
       <a href="https://auditorsped.dynosai.com.br/" class="dy-btn dy-btn-ghost" style="padding: 10px 18px; font-size: 14px;">Auditor SPED 🧾</a>
-      <a href="/produtos/notalink.html" class="dy-btn dy-btn-dourado" style="padding: 10px 18px; font-size: 14px;">Notalink 📊</a>
+      <a href="/produtos/notalink.html" class="dy-btn btn-nl" style="padding: 10px 18px; font-size: 14px;">Notalink 📊</a>
     </nav>
   </div>
 </header>
@@ -113,7 +113,7 @@
     <h1>Tecnologia para profissões <span class="gradient-text">que não admitem erro.</span></h1>
     <p class="subtitulo">A Dynos AI desenvolve sistemas de inteligência artificial específicos por área. Contabilidade, Direito, Medicina, Odontologia — cada vertical, uma solução afiada para automatizar o operacional e libertar o profissional pra análise estratégica.</p>
     <div class="cta-grupo">
-      <a href="/produtos/notalink.html" class="dy-btn dy-btn-dourado dy-btn-lg">Conhecer o Notalink →</a>
+      <a href="/produtos/notalink.html" class="dy-btn btn-nl dy-btn-lg">Conhecer o Notalink →</a>
       <a href="#verticais" class="dy-btn dy-btn-ghost dy-btn-lg">Ver todas as verticais</a>
     </div>
     <p style="margin-top: 20px; font-size: 14px; color: var(--dy-text-subtle);">
@@ -333,7 +333,7 @@
       </div>
 
       <div class="dy-reel-abas" role="tablist">
-        <div tabindex="0" class="dy-reel-aba ativo" role="tab" aria-selected="true" data-canal="CANAL 01 · NOTALINK">
+        <div tabindex="0" class="dy-reel-aba ativo nl" role="tab" aria-selected="true" data-canal="CANAL 01 · NOTALINK">
           <span class="num">01 · CONTABILIDADE</span>
           <strong>Notalink</strong>
           <span class="desc">NF-e, NFS-e e CT-e capturadas na SEFAZ e organizadas sozinhas, prontas para a escrituração.</span>
@@ -359,7 +359,7 @@
 </section>
 
 <!-- Como funciona -->
-<section id="como-funciona" class="dy-secao" style="padding-top: 40px;">
+<section id="como-funciona" class="dy-secao nl-tema" style="padding-top: 40px;">
   <div class="dy-container">
     <div class="dy-secao-titulo">
       <span class="label">// Como funciona</span>
@@ -434,7 +434,7 @@
 </section>
 
 <!-- Integrações -->
-<section id="integracoes" class="dy-secao" style="padding-top: 40px;">
+<section id="integracoes" class="dy-secao nl-tema" style="padding-top: 40px;">
   <div class="dy-container">
     <div class="dy-secao-titulo">
       <span class="label">// Integrações</span>
@@ -442,7 +442,7 @@
       <p>O Notalink exporta no formato que cada sistema contábil importa. Sem trocar de software, sem digitação.</p>
     </div>
     <div class="dy-orbita" aria-label="Sistemas integrados: Fortes, Domínio, Mastermaq, Contmatic, Calima, SCI, AlterData, Omie, Bling e API REST">
-      <div class="dy-orbita-centro"><img src="/assets/img/dynos_logo_square.png" alt="" /><span>DYNOS AI</span></div>
+      <div class="dy-orbita-centro"><img src="/assets/img/notalink_logo.png" alt="" /><span>NOTALINK</span></div>
       <div class="dy-orbita-anel r1" aria-hidden="true">
         <span style="--i:0">Fortes</span><span style="--i:1">Domínio</span><span style="--i:2">Mastermaq</span><span style="--i:3">Contmatic</span><span style="--i:4">Calima</span>
       </div>
@@ -453,7 +453,7 @@
   </div>
 </section>
 
-<section id="produtos" class="dy-secao" style="padding-top: 60px;">
+<section id="produtos" class="dy-secao nl-tema" style="padding-top: 60px;">
   <div class="dy-container">
     <div class="dy-secao-titulo">
       <span class="label">// Em destaque</span>
@@ -472,8 +472,8 @@
           Cliente final acessa portal próprio e baixa XML+DANFE sozinho — chega de e-mails toda semana de cliente pedindo cópia da nota.
         </p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
-          <a href="/produtos/notalink.html" class="dy-btn dy-btn-dourado dy-btn-lg">Ver Notalink completo →</a>
-          <a href="https://notalink.dynosai.com.br" class="dy-btn dy-btn-ghost dy-btn-lg">Acessar Notalink</a>
+          <a href="/produtos/notalink.html" class="dy-btn btn-nl dy-btn-lg">Ver Notalink completo →</a>
+          <a href="https://notalink.dynosai.com.br" class="dy-btn dy-btn-ghost nl-ghost dy-btn-lg">Acessar Notalink</a>
         </div>
       </div>
       <div class="visual" style="padding: 0; overflow: hidden;">
@@ -599,6 +599,6 @@
 </script>
 <script src="/assets/js/cookies-banner.js"></script>
 
-<script src="/assets/js/dynos-cinema.js?v=20260928a" defer></script>
+<script src="/assets/js/dynos-cinema.js?v=20260928b" defer></script>
 </body>
 </html>
