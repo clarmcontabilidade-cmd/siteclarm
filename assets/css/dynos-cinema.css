@@ -467,3 +467,72 @@ body.dy-locked { overflow: hidden; }
 .nl-page .cta-final { background: radial-gradient(ellipse at center, rgba(28,200,168,.12), transparent 60%); }
 .nl-page .dy-footer a:hover { color: var(--nl-verde-claro); }
 @media (prefers-reduced-motion: reduce) { .nl-page .dy-word { opacity: 1; transform: none; filter: none; } }
+
+/* =========================================================
+   LEXLINK: vinho e dourado
+   ========================================================= */
+:root {
+  --lex-vinho: #7a1f2e; --lex-vinho-claro: #a83a4d; --lex-ouro: #e6c97a; --lex-ouro-esc: #c8a85a;
+  --lex-grad: linear-gradient(120deg, var(--lex-ouro), var(--lex-ouro-esc) 45%, var(--lex-vinho-claro));
+}
+.btn-lex { background: linear-gradient(135deg, var(--lex-ouro), var(--lex-ouro-esc)); color: #1a0e02 !important; font-weight: 700; box-shadow: 0 4px 20px rgba(200,168,90,.4); }
+.btn-lex:hover { box-shadow: 0 8px 30px rgba(200,168,90,.6); }
+.lex-ghost:hover { border-color: var(--lex-ouro); background: rgba(122,31,46,.14); }
+.dy-reel-aba.lex .num { color: var(--lex-ouro); }
+.dy-reel-aba.lex.ativo { border-color: rgba(200,168,90,.55); background: rgba(122,31,46,.12); }
+.dy-reel-aba.lex .barra { background: var(--lex-grad); }
+.dy-reel-aba.lex a { color: var(--lex-ouro); }
+
+.lex-page .label, .lex-page .dy-secao-titulo .label { color: var(--lex-ouro); }
+.lex-page .gradient-text { background-image: var(--lex-grad); }
+.lex-page a { color: var(--lex-ouro); }
+.lex-page a:hover { color: #f3dfa2; }
+.lex-page .dy-nav a:not(.dy-btn) { color: var(--dy-text-muted); }
+.lex-page .dy-nav a:not(.dy-btn):hover { color: var(--lex-ouro); }
+.lex-page .dy-progress { background: var(--lex-grad); box-shadow: 0 0 12px rgba(200,168,90,.7); }
+.lex-page .dy-typed::after { color: var(--lex-ouro); }
+.lex-page .dy-spotlight { background: radial-gradient(circle, rgba(200,168,90,.10), rgba(122,31,46,.10) 40%, transparent 68%); }
+.lex-page .lex-hero { min-height: calc(100vh - 72px); min-height: calc(100svh - 72px); display: flex; align-items: center; justify-content: center; }
+.lex-page .lex-hero .dy-bgvideo video { opacity: .6; }
+.lex-page .lex-hero .dy-bgvideo::after {
+  background:
+    radial-gradient(ellipse 55% 60% at 50% 55%, rgba(10,6,18,.6), rgba(10,6,18,.15) 70%, transparent),
+    linear-gradient(180deg, rgba(10,6,18,.5) 0%, transparent 25%, transparent 65%, var(--dy-bg) 100%);
+}
+.lex-garantias { padding-top: 32px; }
+.lex-garantias i { background: rgba(200,168,90,.14); border-color: rgba(200,168,90,.5); }
+.lex-garantias i::after { border-color: var(--lex-ouro); }
+.lex-etapa::before { background: linear-gradient(135deg, rgba(122,31,46,.18) 0%, transparent 60%); }
+.lex-etapa:hover { border-color: rgba(200,168,90,.45); box-shadow: 0 30px 80px -30px rgba(122,31,46,.6); }
+.lex-ico {
+  width: 64px; height: 64px; border-radius: 16px; display: grid; place-items: center; font-size: 30px; margin-bottom: 16px;
+  background: linear-gradient(135deg, rgba(122,31,46,.35), rgba(200,168,90,.12)); border: 1px solid rgba(200,168,90,.35);
+}
+.lex-page .dy-glow-layer { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(200,168,90,.16), transparent 45%); }
+.lex-page .plano-card { transition: border-color .3s, transform .2s ease-out; }
+.lex-page .plano-card:hover { border-color: rgba(200,168,90,.5); }
+.lex-final { background: radial-gradient(ellipse at center, rgba(122,31,46,.22), transparent 60%); }
+.lex-page .dy-footer a:hover { color: var(--lex-ouro); }
+
+/* =========================================================
+   AUDITOR SPED: azul
+   ========================================================= */
+.as-ghost:hover { border-color: #5b9ae8; background: rgba(91,154,232,.08); }
+.as-page .dy-progress { background: linear-gradient(90deg, #a9c0e4, #5b9ae8, #2f5a9e); box-shadow: 0 0 12px rgba(91,154,232,.7); }
+.as-page .dy-typed::after { color: #5b9ae8; }
+.as-page .dy-spotlight { background: radial-gradient(circle, rgba(91,154,232,.10), rgba(47,90,158,.08) 40%, transparent 68%); }
+.as-page .dy-logo-wrap img { filter: drop-shadow(0 0 12px rgba(91,154,232,.4)); }
+.as-page .as-hero { min-height: calc(100vh - 72px); min-height: calc(100svh - 72px); display: flex; align-items: center; justify-content: center; }
+.as-page .as-hero .dy-bgvideo video { opacity: .62; }
+.as-page .as-hero .dy-bgvideo::after {
+  background:
+    radial-gradient(ellipse 55% 60% at 50% 55%, rgba(10,6,18,.6), rgba(10,6,18,.15) 70%, transparent),
+    linear-gradient(180deg, rgba(10,6,18,.5) 0%, transparent 25%, transparent 65%, var(--dy-bg) 100%);
+}
+.as-garantias { padding-top: 32px; }
+.as-garantias i { background: rgba(91,154,232,.14); border-color: rgba(91,154,232,.5); }
+.as-garantias i::after { border-color: #a9c0e4; }
+.as-page .dy-glow-layer { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(91,154,232,.16), transparent 45%); }
+.as-page .as-confere .cartao, .as-page .plano-card { transition: border-color .3s, transform .2s ease-out, box-shadow .3s; }
+.as-page .as-confere .cartao:hover, .as-page .plano-card:hover { border-color: rgba(91,154,232,.5); box-shadow: 0 30px 80px -30px rgba(47,90,158,.6); }
+.as-page .dy-footer a:hover { color: #a9c0e4; }

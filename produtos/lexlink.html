@@ -6,7 +6,7 @@
   <title>LexLink — Inteligência jurídica que cuida dos seus prazos | Dynos AI</title>
   <meta name="description" content="LexLink captura publicações no DJE/DJEN-CNJ, calcula prazos do CPC automaticamente, gerencia processos. Trial 7 dias grátis." />
   <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260427d" />
-  <link rel="stylesheet" href="/assets/css/dynos-cinema.css?v=20260928b" />
+  <link rel="stylesheet" href="/assets/css/dynos-cinema.css?v=20260928c" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/img/dynos_logo_square.png" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
     .plano-card.destaque { border: 2px solid #c8a85a; box-shadow: 0 30px 60px rgba(200,168,90,0.15); }
   </style>
 </head>
-<body>
+<body class="lex-page" data-dy-words>
 
 <header class="dy-header">
   <div class="dy-container">
@@ -35,7 +35,7 @@
     <nav class="dy-nav">
       <a href="/">← Home</a>
       <a href="#planos">Planos</a>
-      <a href="https://lexlink.dynosai.com.br/cadastrar" class="dy-btn dy-btn-dourado" style="padding: 10px 20px; font-size: 14px;">Trial 7 dias</a>
+      <a href="https://lexlink.dynosai.com.br/cadastrar" class="dy-btn btn-lex" style="padding: 10px 20px; font-size: 14px;">Trial 7 dias</a>
     </nav>
   </div>
 </header>
@@ -68,6 +68,14 @@
   </div>
 </section>
 
+
+<div class="dy-garantias lex-garantias" role="list">
+  <span role="listitem"><i></i>7 dias grátis com tudo liberado</span>
+  <span role="listitem"><i></i>Sem cartão para começar</span>
+  <span role="listitem"><i></i>OAB cadastrada em 5 minutos</span>
+  <span role="listitem"><i></i>Cancele quando quiser</span>
+</div>
+
 <section class="dy-secao">
   <div class="dy-container">
     <div class="dy-secao-titulo">
@@ -75,18 +83,18 @@
       <h2>3 etapas. <span class="lex-dourado">Zero prazo perdido.</span></h2>
     </div>
     <div class="dy-grid dy-grid-3">
-      <div class="dy-card">
-        <div style="font-size: 42px; margin-bottom: 12px;">📋</div>
+      <div class="dy-card lex-etapa">
+        <div class="lex-ico">📋</div>
         <h3>1. Captura DJE 24/7</h3>
         <p style="color: var(--dy-text-muted);">Cadastra sua OAB. O robô consulta o DJEN-CNJ todo dia e baixa as publicações automaticamente. Cada uma chega classificada (citação, intimação, sentença, etc).</p>
       </div>
-      <div class="dy-card">
-        <div style="font-size: 42px; margin-bottom: 12px;">⏰</div>
+      <div class="dy-card lex-etapa">
+        <div class="lex-ico">⏰</div>
         <h3>2. Cálculo CPC</h3>
         <p style="color: var(--dy-text-muted);">Você aprova a publicação. O sistema calcula a data fatal automaticamente respeitando: dias úteis (CPC Art. 219), feriados nacionais, recesso forense (20/12 a 20/01).</p>
       </div>
-      <div class="dy-card">
-        <div style="font-size: 42px; margin-bottom: 12px;">🔔</div>
+      <div class="dy-card lex-etapa">
+        <div class="lex-ico">🔔</div>
         <h3>3. Alerta inteligente</h3>
         <p style="color: var(--dy-text-muted);">Dashboard com prazos vencidos, críticos (≤2d), atenção (3-15d). Notificações por e-mail. Gestão de clientes e processos integrada.</p>
       </div>
@@ -140,9 +148,10 @@
   </div>
 </section>
 
-<section class="dy-secao" style="text-align: center;">
+<section class="dy-secao lex-final" style="text-align: center;">
   <div class="dy-container" style="max-width: 720px;">
-    <h2>Pronto pra <span class="lex-dourado">parar de perder prazos?</span></h2>
+    <span class="label">// Pronto?</span>
+    <h2 style="margin-top: 16px;">Pronto pra <span class="lex-dourado">parar de perder prazos?</span></h2>
     <p style="font-size: 18px; color: var(--dy-text-muted); margin: 24px 0 36px;">
       Em 5 minutos sua OAB tá cadastrada e o robô já vai começar a varrer o DJEN-CNJ.
     </p>
@@ -175,6 +184,6 @@
 </footer>
 
 <script src="/assets/js/cookies-banner.js"></script>
-<script src="/assets/js/dynos-cinema.js?v=20260928b" defer></script>
+<script src="/assets/js/dynos-cinema.js?v=20260928c" defer></script>
 </body>
 </html>

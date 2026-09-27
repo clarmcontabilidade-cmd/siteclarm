@@ -90,7 +90,7 @@
 
   /* ---------- Cartões com inclinação 3D e brilho ---------- */
   if (!touch && !reduce) {
-    document.querySelectorAll(".vertical-card, .dy-card, .dy-produto-card").forEach(function (card) {
+    document.querySelectorAll(".vertical-card, .dy-card, .dy-produto-card, .as-confere .cartao, .plano-card").forEach(function (card) {
       if (getComputedStyle(card).position === "static") card.style.position = "relative";
       card.appendChild(el("span", "dy-glow-layer"));
       card.addEventListener("mousemove", function (e) {
