@@ -111,7 +111,8 @@
   /* ---------- Aparecer ao rolar ---------- */
   var revealSel = [
     ".dy-secao-titulo", ".dy-secao h2", ".dy-card", ".dy-produto-card",
-    ".dy-feature-row > *", ".dy-grid > *", "section table", "section blockquote"
+    ".dy-feature-row > *", ".dy-grid > *", "section table", "section blockquote",
+    ".as-confere .cartao", ".plano-card", ".dy-fluxo > li"
   ].join(",");
   var io = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
@@ -262,6 +263,24 @@
     }
   }
   else if (body.hasAttribute("data-dy-words")) { startHero(); }
+
+  /* ---------- Auditor SPED: a janela de resultado "roda" quando aparece ---------- */
+  var janela = document.querySelector(".as-janela");
+  if (janela && io && !reduce) {
+    var linhas = janela.querySelectorAll(".linha, .rodape");
+    linhas.forEach(function (l) { l.classList.add("as-esconde"); });
+    var scan = el("i", "as-scan"); janela.appendChild(scan);
+    var jio = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      jio.disconnect();
+      janela.classList.add("as-rodando");
+      linhas.forEach(function (l, i) {
+        setTimeout(function () { l.classList.remove("as-esconde"); l.classList.add("as-mostra"); }, 500 + i * 520);
+      });
+      setTimeout(function () { janela.classList.remove("as-rodando"); janela.classList.add("as-pronto"); }, 500 + linhas.length * 520);
+    }, { threshold: 0.35 });
+    jio.observe(janela);
+  }
 
   onScroll();
 })();

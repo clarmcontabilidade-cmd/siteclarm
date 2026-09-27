@@ -536,3 +536,29 @@ body.dy-locked { overflow: hidden; }
 .as-page .as-confere .cartao, .as-page .plano-card { transition: border-color .3s, transform .2s ease-out, box-shadow .3s; }
 .as-page .as-confere .cartao:hover, .as-page .plano-card:hover { border-color: rgba(91,154,232,.5); box-shadow: 0 30px 80px -30px rgba(47,90,158,.6); }
 .as-page .dy-footer a:hover { color: #a9c0e4; }
+
+/* ---------- Auditor SPED: como funciona, janela animada, blocos ---------- */
+.as-page .label { color: #a9c0e4; }
+.as-page .dy-fluxo-no { color: #a9c0e4; border-color: rgba(91,154,232,.6); box-shadow: 0 0 30px rgba(91,154,232,.25); background: radial-gradient(circle at 50% 35%, rgba(91,154,232,.25), rgba(10,6,18,1) 70%); }
+.as-page .dy-fluxo::before { background: linear-gradient(90deg, transparent, rgba(91,154,232,.55), transparent); }
+.as-page .dy-fluxo::after { background: #a9c0e4; box-shadow: 0 0 16px 4px rgba(91,154,232,.7); }
+.as-page .dy-fluxo-tag { color: var(--dy-verde); }
+.as-page .dy-feature-row .visual { background: linear-gradient(135deg, rgba(91,154,232,.12), rgba(47,90,158,.10)); }
+.as-page .dy-feature-row .visual::before { background: radial-gradient(circle at 50% 0%, rgba(91,154,232,.22), transparent 60%); }
+.as-page .dy-feature-row .visual .icone-grande { filter: drop-shadow(0 0 20px rgba(91,154,232,.45)); }
+
+.as-page .as-janela { position: relative; overflow: hidden; }
+.as-page .as-janela .linha, .as-page .as-janela .rodape { transition: opacity .45s ease, transform .45s ease; }
+.as-page .as-janela .as-esconde { opacity: 0; transform: translateX(-10px); }
+.as-page .as-janela .as-mostra { opacity: 1; transform: none; }
+.as-page .as-janela .rodape.as-mostra { animation: as-pisca .6s ease 2; }
+@keyframes as-pisca { 50% { background: rgba(255,92,122,.12); } }
+.as-scan {
+  position: absolute; left: 0; right: 0; top: 0; height: 2px; opacity: 0; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #5b9ae8, transparent); box-shadow: 0 0 14px 3px rgba(91,154,232,.6);
+}
+.as-janela.as-rodando .as-scan { opacity: 1; animation: as-varre 1.6s linear infinite; }
+@keyframes as-varre { from { top: 0; } to { top: 100%; } }
+.as-janela.as-rodando .titulo::after { content: "  · conferindo…"; color: #a9c0e4; }
+.as-janela.as-pronto { box-shadow: 0 0 0 1px rgba(91,154,232,.35), 0 30px 80px -30px rgba(91,154,232,.5); transition: box-shadow .6s; }
+@media (prefers-reduced-motion: reduce) { .as-scan { display: none; } }
