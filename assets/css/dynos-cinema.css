@@ -238,3 +238,117 @@ body.dy-locked { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .dy-reel-aba.ativo .barra { animation: none; width: 100%; }
 }
+
+/* =========================================================
+   CONFIANÇA: garantias, como funciona, segurança, integrações
+   ========================================================= */
+.dy-garantias {
+  position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px;
+  padding: 26px 24px 0; font-size: 14px; color: var(--dy-text-muted);
+}
+.dy-garantias span { display: inline-flex; align-items: center; gap: 9px; white-space: nowrap; }
+.dy-garantias i { width: 16px; height: 16px; border-radius: 50%; position: relative; background: rgba(57,217,170,.14); border: 1px solid rgba(57,217,170,.45); }
+.dy-garantias i::after { content: ""; position: absolute; left: 5px; top: 2px; width: 4px; height: 8px; border: solid var(--dy-verde); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+
+/* Como funciona */
+.dy-fluxo { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; counter-reset: none; }
+.dy-fluxo::before {
+  content: ""; position: absolute; top: 34px; left: 12%; right: 12%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,.5), transparent);
+}
+.dy-fluxo::after {
+  content: ""; position: absolute; top: 30px; left: 12%; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--dy-dourado-glow); box-shadow: 0 0 16px 4px rgba(255,197,107,.7);
+  animation: dy-pulso-fluxo 4s cubic-bezier(.6,0,.4,1) infinite;
+}
+@keyframes dy-pulso-fluxo { 0% { left: 12%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 88%; opacity: 0; } }
+.dy-fluxo li {
+  position: relative; text-align: center; padding: 0 18px 30px;
+  background: linear-gradient(180deg, rgba(255,255,255,.035), transparent 70%); border-radius: 20px;
+}
+.dy-fluxo-no {
+  display: grid; place-items: center; width: 68px; height: 68px; margin: 0 auto 18px; border-radius: 50%;
+  font-family: var(--cin-mono); font-size: 18px; color: var(--dy-dourado-claro); position: relative; z-index: 1;
+  background: radial-gradient(circle at 50% 35%, rgba(212,175,55,.25), rgba(10,6,18,1) 70%);
+  border: 1px solid rgba(212,175,55,.55); box-shadow: 0 0 30px rgba(212,175,55,.25);
+}
+.dy-fluxo-tag { display: block; font-family: var(--cin-mono); font-size: 10.5px; letter-spacing: .2em; color: var(--dy-verde); margin-bottom: 10px; }
+.dy-fluxo h3 { margin-bottom: 10px; }
+.dy-fluxo p { color: var(--dy-text-muted); font-size: 15px; margin: 0; }
+
+/* Segurança */
+.dy-seguranca { background: linear-gradient(180deg, transparent, rgba(57,217,170,.035), transparent); }
+.dy-seg-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: 72px; align-items: center; }
+.dy-seg-visual { position: relative; text-align: center; }
+.dy-escudo { width: 100%; max-width: 380px; overflow: visible; filter: drop-shadow(0 0 40px rgba(212,175,55,.25)); }
+.dy-escudo .anel { fill: none; stroke: rgba(212,175,55,.35); stroke-width: 1; transform-origin: 160px 160px; }
+.dy-escudo .a1 { stroke-dasharray: 2 10; animation: dy-gira 40s linear infinite; }
+.dy-escudo .a2 { stroke: rgba(57,217,170,.4); stroke-dasharray: 60 20 6 20; animation: dy-gira 24s linear infinite reverse; }
+.dy-escudo .a3 { stroke: rgba(110,58,255,.45); stroke-dasharray: 3 6; animation: dy-gira 16s linear infinite; }
+.dy-escudo .escudo { fill: rgba(212,175,55,.07); stroke: url(#dyg); stroke-width: 2.5; stroke-dasharray: 520; stroke-dashoffset: 520; animation: dy-desenha 2.4s ease forwards .3s; }
+.dy-escudo .cadeado { fill: none; stroke: #f5d97e; stroke-width: 2.5; stroke-linecap: round; }
+@keyframes dy-gira { to { transform: rotate(360deg); } }
+@keyframes dy-desenha { to { stroke-dashoffset: 0; } }
+.dy-seg-status { display: inline-block; margin-top: 14px; font-family: var(--cin-mono); font-size: 11px; letter-spacing: .2em; color: var(--dy-verde); animation: pulse 2.4s infinite; }
+.dy-seg-lista { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.dy-seg-lista li {
+  display: flex; gap: 14px; align-items: flex-start; padding: 18px; border-radius: 14px;
+  background: var(--dy-bg-card); border: 1px solid var(--dy-border); transition: border-color .3s, transform .3s;
+}
+.dy-seg-lista li:hover { border-color: rgba(57,217,170,.4); transform: translateY(-2px); }
+.dy-seg-lista b {
+  flex: none; min-width: 64px; padding: 5px 0; text-align: center; border-radius: 7px; font-family: var(--cin-mono); font-size: 10px;
+  letter-spacing: .12em; color: var(--dy-verde); background: rgba(57,217,170,.08); border: 1px solid rgba(57,217,170,.3);
+}
+.dy-seg-lista span { font-size: 14px; color: var(--dy-text-muted); line-height: 1.5; }
+.dy-seg-lista strong { display: block; color: var(--dy-text); font-size: 15px; margin-bottom: 2px; }
+
+/* Integrações em órbita */
+.dy-orbita { position: relative; width: min(620px, 100%); aspect-ratio: 1; margin: 0 auto; }
+.dy-orbita::before, .dy-orbita::after { content: ""; position: absolute; border-radius: 50%; border: 1px dashed rgba(212,175,55,.22); }
+.dy-orbita::before { inset: 4%; }
+.dy-orbita::after { inset: 24%; border-color: rgba(110,58,255,.3); }
+.dy-orbita-centro {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 30%; aspect-ratio: 1; border-radius: 50%;
+  display: grid; place-items: center; align-content: center; gap: 8px;
+  background: radial-gradient(circle, rgba(212,175,55,.22), rgba(10,6,18,.95) 70%);
+  border: 1px solid rgba(212,175,55,.5); box-shadow: 0 0 80px rgba(212,175,55,.3), inset 0 0 40px rgba(212,175,55,.12);
+}
+.dy-orbita-centro img { width: 38%; border-radius: 12px; }
+.dy-orbita-centro span { font-family: var(--cin-mono); font-size: 10px; letter-spacing: .25em; color: var(--dy-dourado-claro); }
+.dy-orbita-anel { position: absolute; inset: 4%; animation: dy-gira 60s linear infinite; }
+.dy-orbita-anel.r2 { inset: 24%; animation-duration: 45s; animation-direction: reverse; }
+.dy-orbita-anel span {
+  --ang: calc(var(--i) * 72deg);
+  position: absolute; left: 50%; top: 50%; white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(var(--ang)) translateY(var(--r)) rotate(calc(var(--ang) * -1));
+  padding: 8px 14px; border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--dy-text);
+  background: rgba(16,10,26,.92); border: 1px solid var(--dy-border-strong); box-shadow: 0 6px 24px rgba(0,0,0,.5);
+}
+.dy-orbita-anel.r2 span { border-color: rgba(110,58,255,.45); }
+/* mantém os nomes em pé enquanto o anel gira */
+.dy-orbita-anel span { animation: dy-contra 60s linear infinite; }
+.dy-orbita-anel.r2 span { animation-duration: 45s; animation-direction: reverse; }
+@keyframes dy-contra {
+  from { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(var(--r)) rotate(calc(var(--ang) * -1)); }
+  to   { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(var(--r)) rotate(calc(var(--ang) * -1 - 360deg)); }
+}
+.dy-orbita-anel.r1 span { --r: calc(min(620px, 100vw - 48px) * -.46); }
+.dy-orbita-anel.r2 span { --r: calc(min(620px, 100vw - 48px) * -.26); }
+
+@media (max-width: 900px) {
+  .dy-seg-grid { grid-template-columns: 1fr; gap: 40px; }
+  .dy-seg-visual { max-width: 280px; margin: 0 auto; }
+}
+@media (max-width: 768px) {
+  .dy-fluxo { grid-template-columns: 1fr; gap: 16px; }
+  .dy-fluxo::before, .dy-fluxo::after { display: none; }
+  .dy-seg-lista { grid-template-columns: 1fr; }
+  .dy-orbita-anel span { font-size: 11px; padding: 6px 10px; }
+  .dy-garantias { font-size: 13px; gap: 8px 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dy-fluxo::after, .dy-escudo .anel, .dy-orbita-anel, .dy-orbita-anel span, .dy-seg-status { animation: none !important; }
+  .dy-escudo .escudo { animation: none; stroke-dashoffset: 0; }
+  .dy-orbita-anel span { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(var(--r)) rotate(calc(var(--ang) * -1)); }
+}
