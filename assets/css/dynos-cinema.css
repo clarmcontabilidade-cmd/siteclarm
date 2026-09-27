@@ -1,0 +1,169 @@
+/* =========================================================
+   Dynos AI — camada cinematográfica e tecnológica
+   Carregada depois de dynosai.css em todas as páginas.
+   Mantém a identidade (dourado, roxo, verde) e só acrescenta efeitos.
+   ========================================================= */
+:root {
+  --cin-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --cin-grad: linear-gradient(100deg, var(--dy-dourado-claro), var(--dy-dourado) 40%, var(--dy-roxo) 75%, var(--dy-verde));
+}
+
+html { overflow-x: clip; }
+body { overflow-x: clip; }
+
+/* ---------- Camadas de fundo ---------- */
+#dy-neural { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.dy-grain {
+  position: fixed; inset: -50%; z-index: 150; pointer-events: none; opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: dy-grain 1s steps(6) infinite;
+}
+@keyframes dy-grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-5%, 3%); }
+  40% { transform: translate(4%, -6%); }
+  60% { transform: translate(-3%, 5%); }
+  80% { transform: translate(6%, 2%); }
+}
+.dy-vignette {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.7) 100%);
+}
+.dy-spotlight {
+  position: fixed; left: 0; top: 0; z-index: 0; width: 560px; height: 560px; border-radius: 50%;
+  pointer-events: none; opacity: 0; transform: translate(-50%, -50%); transition: opacity .5s;
+  background: radial-gradient(circle, rgba(212,175,55,.10), rgba(110,58,255,.06) 40%, transparent 68%);
+}
+
+/* Barra de progresso da leitura */
+.dy-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 100%; z-index: 200; pointer-events: none;
+  background: var(--cin-grad); transform-origin: left; transform: scaleX(0);
+  box-shadow: 0 0 12px rgba(212,175,55,.7);
+}
+
+/* ---------- Abertura com faixas de cinema (só na página inicial, 1x por visita) ---------- */
+.dy-intro {
+  position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; background: #000;
+  transition: background .6s ease .5s, visibility 0s linear 1.4s;
+}
+.dy-intro-bar { position: absolute; left: 0; right: 0; height: 50.5vh; background: #000; transition: transform 1.1s cubic-bezier(.77,0,.18,1); }
+.dy-intro-bar.top { top: 0; }
+.dy-intro-bar.bottom { bottom: 0; }
+.dy-intro-core { position: relative; z-index: 2; text-align: center; transition: opacity .35s, transform .6s; }
+.dy-intro-core img { width: 84px; height: 84px; filter: drop-shadow(0 0 30px rgba(212,175,55,.6)); animation: dy-breathe 1.6s ease-in-out infinite; }
+.dy-intro-code { display: block; margin-top: 18px; font-family: var(--cin-mono); font-size: 11px; letter-spacing: .32em; color: var(--dy-dourado-claro); }
+.dy-intro-track { width: 220px; height: 1px; margin: 14px auto 0; background: rgba(255,255,255,.12); }
+.dy-intro-track span { display: block; height: 100%; width: 0; background: var(--cin-grad); box-shadow: 0 0 10px var(--dy-dourado); }
+@keyframes dy-breathe { 50% { transform: scale(1.06); filter: drop-shadow(0 0 46px rgba(212,175,55,.85)); } }
+.dy-intro.done { background: transparent; visibility: hidden; }
+.dy-intro.done .dy-intro-core { opacity: 0; transform: scale(.9); }
+.dy-intro.done .dy-intro-bar.top { transform: translateY(-100%); }
+.dy-intro.done .dy-intro-bar.bottom { transform: translateY(100%); }
+body.dy-locked { overflow: hidden; }
+/* segurança: se o script não rodar, a abertura some sozinha */
+.dy-intro { animation: dy-intro-failsafe 0s linear 4s forwards; }
+@keyframes dy-intro-failsafe { to { visibility: hidden; opacity: 0; } }
+.dy-seen .dy-intro { display: none; }
+
+/* ---------- Hero da página inicial ---------- */
+.dy-hero { min-height: calc(100vh - 72px); min-height: calc(100svh - 72px); display: flex; align-items: center; justify-content: center; }
+.dy-hud {
+  position: absolute; z-index: 2; font-family: var(--cin-mono); font-size: 10.5px; letter-spacing: .2em;
+  line-height: 1.9; color: rgba(240,231,216,.38); text-transform: uppercase; pointer-events: none;
+}
+.dy-hud.tl { top: 28px; left: 28px; }
+.dy-hud.tr { top: 28px; right: 28px; text-align: right; }
+.dy-hud.bl { bottom: 28px; left: 28px; }
+.dy-hud.br { bottom: 28px; right: 28px; display: flex; align-items: center; gap: 8px; }
+.dy-hud .rec { width: 7px; height: 7px; border-radius: 50%; background: #ff4d4d; box-shadow: 0 0 10px #ff4d4d; animation: pulse 1.4s infinite; }
+.dy-hud-frame { position: absolute; inset: 16px; pointer-events: none; z-index: 1; }
+.dy-hud-frame i { position: absolute; width: 22px; height: 22px; border-color: rgba(212,175,55,.35); border-style: solid; }
+.dy-hud-frame i:nth-child(1) { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.dy-hud-frame i:nth-child(2) { top: 0; right: 0; border-width: 1px 1px 0 0; }
+.dy-hud-frame i:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+.dy-hud-frame i:nth-child(4) { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+/* Título que surge palavra por palavra */
+.dy-word { display: inline-block; opacity: 0; transform: translateY(.45em); filter: blur(10px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1), filter .9s; }
+.dy-words-in .dy-word { opacity: 1; transform: none; filter: none; }
+.dy-hero .gradient-text { background-size: 200% auto; animation: dy-shine 6s linear infinite; }
+.dy-hero .dy-word.gradient-text { background-image: linear-gradient(110deg, var(--dy-dourado-claro) 0%, var(--dy-dourado) 30%, #fff3c4 50%, var(--dy-dourado) 70%, var(--dy-dourado-claro) 100%); }
+@keyframes dy-shine { to { background-position: -200% center; } }
+
+/* Faixa rolante de produtos */
+.dy-marquee {
+  position: relative; z-index: 1; overflow: hidden; padding: 20px 0;
+  border-top: 1px solid var(--dy-border); border-bottom: 1px solid var(--dy-border);
+  background: rgba(16,10,26,.65); backdrop-filter: blur(8px);
+  transform: rotate(-1.2deg) scale(1.02);
+}
+.dy-marquee-track { display: flex; align-items: center; gap: 44px; width: max-content; animation: dy-marquee 36s linear infinite; }
+.dy-marquee span { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(20px, 3vw, 32px); white-space: nowrap; color: var(--dy-text); }
+.dy-marquee span.muted { color: var(--dy-text-subtle); }
+.dy-marquee b { color: var(--dy-dourado); font-size: 18px; }
+@keyframes dy-marquee { to { transform: translateX(-50%); } }
+
+/* Manifesto acende ao rolar */
+.manifesto .dy-lit { color: rgba(240,231,216,.16); transition: color .45s; }
+.manifesto .dy-lit.on { color: var(--dy-text); }
+.manifesto .gradient-text .dy-lit, .manifesto .dy-lit.gradient-text { color: transparent; opacity: .2; transition: opacity .45s; }
+.manifesto .gradient-text .dy-lit.on, .manifesto .dy-lit.gradient-text.on { opacity: 1; }
+
+/* ---------- Aparecer ao rolar (todas as páginas) ---------- */
+.dy-reveal { opacity: 0; transform: translateY(36px); filter: blur(6px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1), filter 1s; }
+.dy-reveal.in { opacity: 1; transform: none; filter: none; }
+
+/* Rótulos "// Seção" em estilo terminal */
+.dy-secao-titulo .label, .label { font-family: var(--cin-mono); }
+.dy-typed::after { content: "▍"; margin-left: 2px; color: var(--dy-dourado); animation: pulse 1s steps(1) infinite; }
+
+/* ---------- Cartões: inclinação 3D + luz que segue o mouse ---------- */
+.vertical-card, .dy-card, .dy-produto-card { transform-style: preserve-3d; will-change: transform; }
+.dy-tilting { transition: transform .12s ease-out, border-color .3s, background .3s !important; }
+.dy-glow-layer {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s; border-radius: inherit; mix-blend-mode: screen;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(212,175,55,.16), transparent 45%);
+}
+.vertical-card:hover .dy-glow-layer, .dy-card:hover .dy-glow-layer, .dy-produto-card:hover .dy-glow-layer { opacity: 1; }
+.vertical-card:hover, .dy-card:hover { box-shadow: 0 30px 80px -30px rgba(212,175,55,.35); }
+
+/* Varredura de luz no vídeo/imagem de destaque */
+.dy-feature-row .visual::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.08) 50%, transparent 65%);
+  transform: translateX(-120%); animation: dy-sweep 6s ease-in-out infinite 2s;
+}
+@keyframes dy-sweep { 0%, 60% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+
+/* Cabeçalho mais "vidro" ao rolar */
+.dy-header { transition: background .4s, padding .4s, box-shadow .4s; }
+.dy-header.dy-scrolled { padding: 10px 0; background: rgba(10,6,18,.82); box-shadow: 0 10px 40px -20px rgba(0,0,0,.9); }
+
+/* Logo com moldura e brilho */
+.dy-logo-wrap img { border-radius: 9px; }
+.dy-hero .logo-grande { border-radius: 28px; box-shadow: 0 0 0 1px rgba(212,175,55,.45), 0 0 0 8px rgba(212,175,55,.06), 0 0 90px rgba(212,175,55,.35); }
+.dy-logo-wrap .marca { white-space: nowrap; }
+
+/* ---------- Celular ---------- */
+@media (max-width: 768px) {
+  .dy-hud.tr, .dy-hud.bl { display: none; }
+  .dy-hud.tl { top: 18px; left: 18px; }
+  .dy-hud.br { bottom: 18px; right: 18px; }
+  .dy-hud-frame { inset: 8px; }
+  .dy-spotlight { display: none; }
+  .dy-header .dy-container { gap: 10px; }
+  .dy-nav { gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .dy-nav a.dy-btn { padding: 8px 12px !important; font-size: 12px !important; }
+  .dy-logo-wrap .marca { font-size: 17px; }
+}
+@media (max-width: 480px) {
+  .dy-logo-wrap .marca { display: none; }
+}
+
+/* Quem prefere menos movimento: sem animações */
+@media (prefers-reduced-motion: reduce) {
+  .dy-grain, .dy-marquee-track, .dy-feature-row .visual::after, .dy-hero .gradient-text { animation: none !important; }
+  .dy-reveal, .dy-word { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
+  .dy-intro { display: none; }
+}

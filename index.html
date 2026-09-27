@@ -4,8 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dynos AI — IA para profissões que exigem precisão</title>
+  <script>try{if(sessionStorage.getItem("dy-intro")==="1")document.documentElement.classList.add("dy-seen")}catch(e){}</script>
   <meta name="description" content="A Dynos AI desenvolve sistemas inteligentes por vertical profissional. Contabilidade, Direito, Medicina, Odontologia. Notalink é o primeiro produto." />
   <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260428a" />
+  <link rel="stylesheet" href="/assets/css/dynos-cinema.css?v=20260927a" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/img/dynos_logo_square.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,7 +69,18 @@
     }
   </style>
 </head>
-<body>
+<body data-dy-home>
+
+<!-- Abertura cinematográfica (aparece 1x por visita) -->
+<div class="dy-intro" id="dy-intro" aria-hidden="true">
+  <div class="dy-intro-bar top"></div>
+  <div class="dy-intro-core">
+    <img src="/assets/img/dynos_logo_square.png" alt="" />
+    <span class="dy-intro-code">INICIALIZANDO NÚCLEO</span>
+    <div class="dy-intro-track"><span></span></div>
+  </div>
+  <div class="dy-intro-bar bottom"></div>
+</div>
 
 <header class="dy-header">
   <div class="dy-container">
@@ -100,6 +114,14 @@
     </p>
   </div>
 </section>
+
+<!-- Faixa rolante com os produtos -->
+<div class="dy-marquee" aria-hidden="true">
+  <div class="dy-marquee-track">
+    <span>Notalink</span><b>✦</b><span>LexLink</span><b>✦</b><span>Auditor SPED</span><b>✦</b><span>Tribus</span><b>✦</b><span class="muted">PetiLink</span><b>✦</b><span class="muted">MediLink</span><b>✦</b><span class="muted">OdontoLink</span><b>✦</b>
+    <span>Notalink</span><b>✦</b><span>LexLink</span><b>✦</b><span>Auditor SPED</span><b>✦</b><span>Tribus</span><b>✦</b><span class="muted">PetiLink</span><b>✦</b><span class="muted">MediLink</span><b>✦</b><span class="muted">OdontoLink</span><b>✦</b>
+  </div>
+</div>
 
 <section class="manifesto">
   <div class="dy-container">
@@ -136,7 +158,7 @@
             <span class="produto-status status-disponivel">disponível</span>
           </li>
           <li>
-            <span class="produto-nome">TribSN — ERP fiscal completo</span>
+            <span class="produto-nome">Tribus — ERP fiscal completo</span>
             <span class="produto-status status-dev">em uso</span>
           </li>
           <li>
@@ -404,5 +426,6 @@
 </script>
 <script src="/assets/js/cookies-banner.js"></script>
 
+<script src="/assets/js/dynos-cinema.js?v=20260927a" defer></script>
 </body>
 </html>
