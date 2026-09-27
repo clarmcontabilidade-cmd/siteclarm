@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LexLink — Inteligência jurídica que cuida dos seus prazos | Dynos AI</title>
+  <meta name="description" content="LexLink captura publicações no DJE/DJEN-CNJ, calcula prazos do CPC automaticamente, gerencia processos. Trial 7 dias grátis." />
+  <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260427d" />
+  <link rel="icon" href="/assets/img/dynos_logo_square.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Override pra cores dourado/bordô do LexLink */
+    .lex-hero { background: radial-gradient(ellipse at top, rgba(200,168,90,0.12), transparent 60%), radial-gradient(ellipse at bottom, rgba(122,31,46,0.10), transparent 60%); padding: 80px 24px; text-align: center; }
+    .lex-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 6vw, 72px); }
+    .lex-bordo { color: #a83a4d; }
+    .lex-dourado { background: linear-gradient(135deg, #e6c97a, #c8a85a); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .lex-cta { background: linear-gradient(135deg, #7a1f2e, #501018); color: #f8f3e8; padding: 16px 32px; border-radius: 999px; font-weight: 600; text-decoration: none; display: inline-block; box-shadow: 0 4px 20px rgba(122,31,46,0.4); transition: all 0.2s; }
+    .lex-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(122,31,46,0.6); color: #f8f3e8; text-decoration: none; }
+    .lex-cta-dourado { background: linear-gradient(135deg, #e6c97a, #c8a85a); color: #1a0e02; box-shadow: 0 4px 20px rgba(200,168,90,0.4); }
+    .lex-cta-dourado:hover { color: #1a0e02; }
+    .plano-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 22px; padding: 40px; text-align: center; }
+    .plano-card.destaque { border: 2px solid #c8a85a; box-shadow: 0 30px 60px rgba(200,168,90,0.15); }
+  </style>
+</head>
+<body>
+
+<header class="dy-header">
+  <div class="dy-container">
+    <a href="/" class="dy-logo-wrap">
+      <img src="/assets/img/dynos_logo_square.png" alt="Dynos AI" />
+      <span class="marca">Dynos AI</span>
+    </a>
+    <nav class="dy-nav">
+      <a href="/">← Home</a>
+      <a href="#planos">Planos</a>
+      <a href="https://lexlink.dynosai.com.br/cadastrar" class="dy-btn dy-btn-dourado" style="padding: 10px 20px; font-size: 14px;">Trial 7 dias</a>
+    </nav>
+  </div>
+</header>
+
+<section class="lex-hero">
+  <div class="dy-container">
+    <span class="badge-pre" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 999px; background: rgba(200,168,90,0.10); border: 1px solid rgba(200,168,90,0.30); color: #e6c97a; font-size: 13px; font-weight: 500;"><span class="dot" style="width:6px; height:6px; border-radius:50%; background:#c8a85a;"></span> Vertical Direito · Powered by Dynos AI</span>
+    <video autoplay muted loop playsinline preload="metadata"
+           poster="/assets/img/lexlink_logo.png?v=20260428b"
+           style="max-width: 360px; width: 80%; margin: 32px auto; display: block; border-radius: 16px; filter: drop-shadow(0 0 40px rgba(200,168,90,0.30));">
+      <source src="/assets/lexlink_video.mp4?v=20260428b" type="video/mp4" />
+      <img src="/assets/img/lexlink_logo.png?v=20260428b" alt="LexLink" style="width:100%; height:auto;" />
+    </video>
+    <h1>Inteligência jurídica que <span class="lex-dourado">cuida dos seus prazos</span>.</h1>
+    <p style="font-size: 22px; color: rgba(248,243,232,0.75); max-width: 720px; margin: 24px auto 36px;">
+      Captura automática de publicações no DJE/DJEN-CNJ. Cálculo preciso de prazos do CPC.
+      Gestão de processos. Pensado pelo advogado, para o advogado.
+    </p>
+    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+      <a href="https://lexlink.dynosai.com.br/cadastrar" class="lex-cta-dourado lex-cta">Teste 7 dias grátis →</a>
+      <a href="https://lexlink.dynosai.com.br" class="dy-btn dy-btn-ghost dy-btn-lg">Acessar LexLink</a>
+    </div>
+    <p style="margin-top: 20px; font-size: 14px; color: rgba(248,243,232,0.5);">Sem cartão pra começar · Cancele quando quiser</p>
+  </div>
+</section>
+
+<section class="dy-secao">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// Como funciona</span>
+      <h2>3 etapas. <span class="lex-dourado">Zero prazo perdido.</span></h2>
+    </div>
+    <div class="dy-grid dy-grid-3">
+      <div class="dy-card">
+        <div style="font-size: 42px; margin-bottom: 12px;">📋</div>
+        <h3>1. Captura DJE 24/7</h3>
+        <p style="color: var(--dy-text-muted);">Cadastra sua OAB. O robô consulta o DJEN-CNJ todo dia e baixa as publicações automaticamente. Cada uma chega classificada (citação, intimação, sentença, etc).</p>
+      </div>
+      <div class="dy-card">
+        <div style="font-size: 42px; margin-bottom: 12px;">⏰</div>
+        <h3>2. Cálculo CPC</h3>
+        <p style="color: var(--dy-text-muted);">Você aprova a publicação. O sistema calcula a data fatal automaticamente respeitando: dias úteis (CPC Art. 219), feriados nacionais, recesso forense (20/12 a 20/01).</p>
+      </div>
+      <div class="dy-card">
+        <div style="font-size: 42px; margin-bottom: 12px;">🔔</div>
+        <h3>3. Alerta inteligente</h3>
+        <p style="color: var(--dy-text-muted);">Dashboard com prazos vencidos, críticos (≤2d), atenção (3-15d). Notificações por e-mail. Gestão de clientes e processos integrada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planos" class="dy-secao" style="background: rgba(122,31,46,0.04);">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// Planos</span>
+      <h2>Simples. <span class="lex-dourado">Sem letras miúdas.</span></h2>
+      <p>Trial de 7 dias com TUDO liberado, sem cartão.</p>
+    </div>
+
+    <div class="dy-grid dy-grid-2" style="max-width: 880px; margin: 0 auto;">
+      <div class="plano-card">
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 28px;">Plano Fixo</h3>
+        <p style="color: var(--dy-text-muted); margin-bottom: 20px;">Pra escritórios médios. OABs ilimitadas.</p>
+        <div style="font-size: 56px; font-weight: 800; line-height: 1;">
+          <span style="font-size: 22px; vertical-align: top; color: var(--dy-text-muted);">R$</span>197<span style="font-size: 18px; color: var(--dy-text-muted); font-weight: 400;">/mês</span>
+        </div>
+        <ul style="list-style: none; padding: 0; line-height: 2.2; margin: 32px 0; text-align: left; color: var(--dy-text-muted);">
+          <li>✓ OABs ilimitadas</li>
+          <li>✓ Captura DJEN-CNJ noturna</li>
+          <li>✓ Cálculo prazos CPC</li>
+          <li>✓ Gestão clientes + processos</li>
+          <li>✓ Notificações por e-mail</li>
+          <li>✓ Suporte por e-mail</li>
+        </ul>
+        <a href="https://lexlink.dynosai.com.br/cadastrar?plano=fixo" class="lex-cta" style="width: 100%; display: block;">Começar trial 7 dias</a>
+      </div>
+
+      <div class="plano-card destaque">
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 28px;">Plano Por OAB</h3>
+        <p style="color: var(--dy-text-muted); margin-bottom: 20px;">Pra advogado solo ou crescimento.</p>
+        <div style="font-size: 56px; font-weight: 800; line-height: 1; color: #c8a85a;">
+          <span style="font-size: 22px; vertical-align: top; color: var(--dy-text-muted);">R$</span>19,90<span style="font-size: 18px; color: var(--dy-text-muted); font-weight: 400;">/OAB/mês</span>
+        </div>
+        <ul style="list-style: none; padding: 0; line-height: 2.2; margin: 32px 0; text-align: left; color: var(--dy-text-muted);">
+          <li>✓ Pague conforme uso</li>
+          <li>✓ Sem mensalidade fixa</li>
+          <li>✓ Captura DJEN-CNJ</li>
+          <li>✓ Cálculo prazos CPC</li>
+          <li>✓ Gestão completa</li>
+          <li>✓ Suporte por e-mail</li>
+        </ul>
+        <a href="https://lexlink.dynosai.com.br/cadastrar?plano=por_oab" class="lex-cta-dourado lex-cta" style="width: 100%; display: block;">Começar trial 7 dias</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dy-secao" style="text-align: center;">
+  <div class="dy-container" style="max-width: 720px;">
+    <h2>Pronto pra <span class="lex-dourado">parar de perder prazos?</span></h2>
+    <p style="font-size: 18px; color: var(--dy-text-muted); margin: 24px 0 36px;">
+      Em 5 minutos sua OAB tá cadastrada e o robô já vai começar a varrer o DJEN-CNJ.
+    </p>
+    <a href="https://lexlink.dynosai.com.br/cadastrar" class="lex-cta-dourado lex-cta" style="font-size: 18px; padding: 22px 44px;">⚖️ Começar trial 7 dias grátis</a>
+  </div>
+</section>
+
+<footer class="dy-footer">
+  <div class="dy-container">
+    <div>
+      <div class="dy-logo-wrap" style="margin-bottom: 16px;"><img src="/assets/img/dynos_logo_square.png" /><span class="marca">Dynos AI</span></div>
+      <p style="font-size: 14px;">LexLink é um produto Dynos AI · Vertical Direito.</p>
+    </div>
+    <div><h4>LexLink</h4><ul>
+      <li><a href="https://lexlink.dynosai.com.br/cadastrar">Trial 7 dias</a></li>
+      <li><a href="https://lexlink.dynosai.com.br">Acessar</a></li>
+      <li><a href="#planos">Planos</a></li>
+    </ul></div>
+    <div><h4>Dynos AI</h4><ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/#produtos">Outros produtos</a></li>
+      <li><a href="/produtos/notalink.html">Notalink</a></li>
+    </ul></div>
+    <div><h4>Contato</h4><ul>
+      <li><a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a></li>
+      <li>Quixadá, CE</li>
+    </ul></div>
+  </div>
+  <div class="dy-container"><div class="copyright">© 2026 Dynos AI · LexLink é uma marca da Dynos AI</div></div>
+</footer>
+
+<script src="/assets/js/cookies-banner.js"></script>
+</body>
+</html>

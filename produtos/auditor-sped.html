@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auditor SPED — Confira o SPED antes de transmitir no PVA | Dynos AI</title>
+  <meta name="description" content="O Auditor SPED confere EFD ICMS/IPI, EFD-Contribuições e ECF no seu próprio computador, antes da transmissão: estrutura, apuração, CNPJ alfanumérico, chaves de NF-e e o cruzamento entre os três arquivos. Laudo em PDF. R$ 79/mês ou R$ 790/ano." />
+  <!-- endereço oficial do produto: a mesma página responde pelo caminho antigo,
+       e sem isto o Google trataria as duas URLs como conteúdo duplicado -->
+  <link rel="canonical" href="https://auditorsped.dynosai.com.br/" />
+  <meta property="og:title" content="Auditor SPED — confira o SPED antes de transmitir no PVA" />
+  <meta property="og:description" content="Confere EFD ICMS/IPI, EFD-Contribuições e ECF no seu computador, e ainda cruza os três arquivos. Laudo em PDF. A partir de R$ 79/mês." />
+  <meta property="og:url" content="https://auditorsped.dynosai.com.br/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Dynos AI" />
+  <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260427d" />
+  <link rel="icon" href="/assets/img/dynos_logo_square.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Identidade do Auditor SPED: o AZUL do próprio programa ──────────────
+       Os tons são os mesmos de `auditor_sped.py` e `laudo_pdf.py`, para quem
+       chega pela página e abre o produto ver a mesma casa:
+         AZUL        #1f3b66   cabeçalho do app
+         AZUL_CLARO  #2f5a9e   botão ativo
+         #a9c0e4               texto sobre o azul do cabeçalho
+       O site é escuro, então os tons claros levam o texto e os escuros levam
+       fundo e borda — o azul-marinho do app não tem contraste sobre #0a0612. */
+    :root {
+      --as-azul-esc:   #1f3b66;
+      --as-azul:       #2f5a9e;
+      --as-azul-claro: #a9c0e4;
+      --as-brilho:     #5b9ae8;
+    }
+
+    /* a página do produto veste a cor do produto — como o Notalink veste o
+       verde dele. Sobrescreve o dourado da marca-mãe só aqui. */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--as-azul-claro) 0%, var(--as-brilho) 50%, #7fb4f0 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    a { color: var(--as-azul-claro); }
+    a:hover { color: var(--as-brilho); }
+    .dy-secao-titulo .label { color: var(--as-azul-claro); }
+    .dy-btn-dourado {
+      background: linear-gradient(135deg, var(--as-brilho), var(--as-azul));
+      color: #ffffff; box-shadow: 0 4px 20px rgba(47, 90, 158, 0.45);
+    }
+    .dy-btn-dourado:hover { box-shadow: 0 8px 30px rgba(91, 154, 232, 0.6); color: #ffffff; }
+    .dy-nav a.dy-btn-dourado, .dy-nav a.dy-btn-dourado:hover { color: #ffffff; }
+    .dy-logo-wrap img { filter: drop-shadow(0 0 12px rgba(91, 154, 232, 0.45)); }
+    .dy-header { background: rgba(8, 14, 28, 0.72); }
+    body {
+      background-image:
+        radial-gradient(circle at 15% 8%, rgba(47, 90, 158, 0.14), transparent 40%),
+        radial-gradient(circle at 85% 90%, rgba(31, 59, 102, 0.16), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(91, 154, 232, 0.05), transparent 60%);
+    }
+    body::before {
+      background-image:
+        linear-gradient(rgba(91, 154, 232, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(91, 154, 232, 0.03) 1px, transparent 1px);
+    }
+
+    .as-hero {
+      padding: 100px 24px 80px; text-align: center; position: relative;
+      background:
+        radial-gradient(ellipse at top, rgba(47, 90, 158, 0.14), transparent 60%),
+        radial-gradient(ellipse at bottom, rgba(31, 59, 102, 0.08), transparent 60%);
+    }
+    .as-hero .badge-pre {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: var(--dy-radius-pill);
+      background: rgba(47, 90, 158, 0.1); border: 1px solid rgba(47, 90, 158, 0.3);
+      color: var(--as-azul-claro); font-size: 13px; font-weight: 500; backdrop-filter: blur(10px);
+    }
+    .as-hero h1 .azul {
+      background: linear-gradient(135deg, var(--as-azul) 0%, var(--as-brilho) 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .as-logo-tile {
+      width: 160px; height: 160px; margin: 0 auto 32px; padding: 26px;
+      background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px);
+      border: 1px solid rgba(47, 90, 158, 0.3); border-radius: 32px;
+      box-shadow: 0 20px 60px rgba(47, 90, 158, 0.2);
+      animation: floatGlow 4s ease-in-out infinite;
+      display: flex; align-items: center; justify-content: center;
+    }
+    @keyframes floatGlow { 0%,100% { transform: translateY(0); box-shadow: 0 20px 60px rgba(47,90,158,0.2); } 50% { transform: translateY(-8px); box-shadow: 0 30px 80px rgba(47,90,158,0.35); } }
+
+    /* Janela de resultado — mostra o produto trabalhando */
+    .as-janela {
+      max-width: 760px; margin: 56px auto 0; text-align: left;
+      background: #0d0818; border: 1px solid var(--dy-border-strong);
+      border-radius: var(--dy-radius); overflow: hidden;
+      box-shadow: 0 40px 90px rgba(0,0,0,0.6);
+    }
+    .as-janela .barra {
+      display: flex; align-items: center; gap: 8px; padding: 12px 16px;
+      background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--dy-border);
+    }
+    .as-janela .barra .bolinha { width: 11px; height: 11px; border-radius: 50%; }
+    .as-janela .barra .titulo {
+      margin-left: 10px; font-size: 13px; color: var(--dy-text-subtle);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .as-janela .corpo { padding: 20px 22px; font-size: 14px; line-height: 2; }
+    .as-janela .linha { display: flex; gap: 12px; align-items: flex-start; }
+    .as-janela .linha .marca-res { flex-shrink: 0; width: 20px; font-weight: 700; }
+    .as-janela .ok { color: var(--dy-verde); }
+    .as-janela .erro { color: var(--dy-vermelho); }
+    .as-janela .aviso { color: #e0a028; }   /* LARANJA do app, clareado p/ fundo escuro */
+    .as-janela .txt { color: var(--dy-text-muted); }
+    .as-janela .txt strong { color: var(--dy-text); font-weight: 600; }
+    .as-janela .rodape {
+      padding: 14px 22px; border-top: 1px solid var(--dy-border);
+      background: rgba(255, 92, 122, 0.05); font-size: 13px; color: var(--dy-text-muted);
+    }
+
+    .vs-card { padding: 36px; border-radius: var(--dy-radius-lg); height: 100%; }
+    .vs-ruim { background: rgba(255, 92, 122, 0.05); border: 1px solid rgba(255, 92, 122, 0.2); }
+    .vs-bom { background: linear-gradient(135deg, rgba(47,90,158,0.08), rgba(57,217,170,0.05)); border: 2px solid rgba(47, 90, 158, 0.4); }
+    .vs-card h3 { display: flex; align-items: center; gap: 12px; }
+    .vs-card ul { list-style: none; padding: 0; line-height: 2.4; color: var(--dy-text-muted); }
+    .vs-ruim ul li::before { content: "✕"; color: var(--dy-vermelho); margin-right: 12px; font-weight: 700; }
+    .vs-bom ul li::before { content: "✓"; color: var(--dy-verde); margin-right: 12px; font-weight: 700; }
+
+    .as-preco { padding: 100px 24px; }
+    .plano-card {
+      background: var(--dy-bg-card); border: 1px solid var(--dy-border);
+      backdrop-filter: blur(20px); border-radius: var(--dy-radius-lg);
+      padding: 44px; display: flex; flex-direction: column;
+      position: relative; transition: all 0.3s ease; text-align: center;
+    }
+    .plano-card:hover { transform: translateY(-6px); border-color: var(--dy-border-strong); }
+    .plano-card.destaque {
+      border: 2px solid rgba(47, 90, 158, 0.5);
+      box-shadow: 0 30px 60px rgba(47, 90, 158, 0.2);
+    }
+    .plano-card.destaque::before {
+      content: "★ 2 MESES GRÁTIS"; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--as-brilho), var(--as-azul)); color: #ffffff;
+      padding: 8px 18px; border-radius: var(--dy-radius-pill); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; white-space: nowrap;
+    }
+    .plano-card h3 { font-size: 26px; margin-bottom: 6px; }
+    .plano-card .desc { color: var(--dy-text-muted); margin-bottom: 20px; min-height: 44px; font-size: 15px; }
+    .plano-card .preco { font-size: 68px; font-weight: 800; line-height: 1; margin: 6px 0; }
+    .plano-card .preco .moeda { font-size: 26px; vertical-align: top; color: var(--dy-text-muted); }
+    .plano-card .preco .periodo { font-size: 19px; font-weight: 400; color: var(--dy-text-muted); }
+    .plano-card .nota-preco { color: var(--dy-text-subtle); font-size: 14px; min-height: 22px; }
+    .plano-card ul {
+      list-style: none; padding: 0; margin: 30px 0; line-height: 2.3; flex: 1;
+      color: var(--dy-text-muted); font-size: 15px; text-align: left;
+    }
+    .plano-card ul li::before { content: "✓"; color: var(--dy-verde); font-weight: 700; margin-right: 10px; }
+    .botoes-plano { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: auto; }
+    .botoes-plano .dy-btn { padding: 14px 10px; font-size: 14px; }
+    .preco-maior {
+      max-width: 940px; margin: 34px auto 0; padding: 22px 28px;
+      border: 1px dashed var(--dy-border-strong); border-radius: var(--dy-radius);
+      text-align: center; font-size: 14px; color: var(--dy-text-muted);
+    }
+
+    .as-confere { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 18px; margin-top: 36px; }
+    .as-confere .cartao {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 24px;
+    }
+    .as-confere .cartao h3 { margin: 0 0 8px; font-size: 18px; }
+    .as-confere .cartao p { margin: 0; color: var(--dy-text-muted); font-size: 14px; line-height: 1.7; }
+    .as-confere .cartao .ico { font-size: 28px; margin-bottom: 10px; }
+
+    .as-faq { max-width: 800px; margin: 0 auto; }
+    .as-faq details {
+      background: var(--dy-bg-card); border: 1px solid var(--dy-border);
+      backdrop-filter: blur(20px); border-radius: var(--dy-radius);
+      padding: 22px 28px; margin-bottom: 14px; transition: all 0.2s;
+    }
+    .as-faq details[open] { border-color: rgba(47, 90, 158, 0.3); box-shadow: 0 10px 40px rgba(47, 90, 158, 0.1); }
+    .as-faq summary {
+      font-weight: 600; cursor: pointer; font-size: 17px; color: var(--dy-text);
+      list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .as-faq summary::after { content: "+"; font-size: 30px; color: var(--as-azul-claro); transition: transform 0.2s; }
+    .as-faq details[open] summary::after { transform: rotate(45deg); }
+    .as-faq details > p { margin-top: 14px; color: var(--dy-text-muted); }
+
+    .cta-final {
+      padding: 100px 24px; text-align: center;
+      background: linear-gradient(135deg, rgba(47,90,158,0.06), rgba(31,59,102,0.04));
+      border-top: 1px solid var(--dy-border); border-bottom: 1px solid var(--dy-border);
+    }
+
+    .selo-local {
+      display: flex; gap: 20px; align-items: center; max-width: 720px; margin: 40px auto 0;
+      padding: 24px 28px; border-radius: var(--dy-radius);
+      background: rgba(57, 217, 170, 0.06); border: 1px solid rgba(57, 217, 170, 0.25);
+      text-align: left;
+    }
+    .selo-local .ico { font-size: 40px; flex-shrink: 0; }
+    .selo-local p { margin: 0; color: var(--dy-text-muted); font-size: 15px; line-height: 1.7; }
+
+    @media (max-width: 720px) {
+      .as-janela .corpo { font-size: 13px; }
+      .preco-unico { padding: 40px 26px; }
+      .preco-unico .preco { font-size: 60px; }
+      .selo-local { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="dy-header">
+  <div class="dy-container">
+    <a href="/" class="dy-logo-wrap">
+      <img src="/assets/img/dynos_logo_square.png" alt="Dynos AI" />
+      <span class="marca">Dynos AI</span>
+    </a>
+    <nav class="dy-nav">
+      <a href="/">← Home</a>
+      <a href="#confere">O que confere</a>
+      <a href="#preco">Preço</a>
+      <a href="#faq">FAQ</a>
+      <a href="#preco" class="dy-btn dy-btn-dourado" style="padding: 10px 20px; font-size: 14px;">Comprar</a>
+    </nav>
+  </div>
+</header>
+
+<section class="as-hero">
+  <div class="dy-container">
+    <span class="badge-pre"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5b9ae8; box-shadow: 0 0 8px #5b9ae8; animation: pulse 2s ease-in-out infinite;"></span> Powered by Dynos AI</span>
+
+    <div style="margin: 40px 0 16px;">
+      <div class="as-logo-tile">
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Auditor SPED">
+          <rect x="18" y="10" width="52" height="68" rx="6" fill="rgba(240,231,216,0.08)" stroke="#5b9ae8" stroke-width="2.5"/>
+          <line x1="28" y1="26" x2="60" y2="26" stroke="#a9c0e4" stroke-width="3" stroke-linecap="round"/>
+          <line x1="28" y1="37" x2="54" y2="37" stroke="rgba(240,231,216,0.45)" stroke-width="3" stroke-linecap="round"/>
+          <line x1="28" y1="48" x2="60" y2="48" stroke="rgba(240,231,216,0.45)" stroke-width="3" stroke-linecap="round"/>
+          <line x1="28" y1="59" x2="46" y2="59" stroke="rgba(240,231,216,0.45)" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="66" cy="64" r="21" fill="#0a0612" stroke="#39d9aa" stroke-width="3"/>
+          <path d="M56 64.5 L63 71.5 L77 57" stroke="#39d9aa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <h1 style="max-width: 980px; margin: 0 auto 24px;">
+      Ache o erro do SPED<br/><span class="azul">antes da Receita achar.</span>
+    </h1>
+
+    <p class="subtitulo">
+      O Auditor SPED abre seus arquivos <strong style="color: var(--as-azul-claro);">EFD ICMS/IPI, EFD-Contribuições e ECF</strong>,
+      identifica cada um sozinho e confere estrutura, apuração e coerência — inclusive
+      <strong style="color: var(--dy-text);">se os três arquivos concordam entre si</strong>.
+      Roda no seu computador, sem mensalidade por CNPJ, sem enviar o arquivo do seu cliente para lugar nenhum.
+    </p>
+
+    <div class="cta-grupo">
+      <a href="#preco" class="dy-btn dy-btn-lg dy-btn-dourado" style="box-shadow: 0 4px 30px rgba(47,90,158,0.4);">Assinar a partir de R$ 79/mês →</a>
+      <a href="#confere" class="dy-btn dy-btn-ghost dy-btn-lg">Ver o que ele confere</a>
+    </div>
+    <p style="margin-top: 20px; font-size: 14px; color: var(--dy-text-subtle);">Mensal ou anual · Download imediato · Windows</p>
+
+    <div class="as-janela">
+      <div class="barra">
+        <span class="bolinha" style="background:#ff5c7a"></span>
+        <span class="bolinha" style="background:var(--as-brilho)"></span>
+        <span class="bolinha" style="background:#39d9aa"></span>
+        <span class="titulo">Auditor SPED — EFD-Contribuições · 06/2026</span>
+      </div>
+      <div class="corpo">
+        <div class="linha"><span class="marca-res ok">✓</span><span class="txt">Estrutura: 9999 confere com <strong>14.208 registros</strong>, blocos abertos e fechados</span></div>
+        <div class="linha"><span class="marca-res erro">✕</span><span class="txt"><strong>M200</strong> diverge da soma dos itens em <strong>R$ 1.284,73</strong> — PIS não cumulativo</span></div>
+        <div class="linha"><span class="marca-res erro">✕</span><span class="txt">3 chaves de NF-e <strong>duplicadas</strong> no bloco C100 (linhas 4.117, 8.902, 9.336)</span></div>
+        <div class="linha"><span class="marca-res aviso">!</span><span class="txt">CST 73 fora da tabela em <strong>11 itens</strong> — verifique a devolução</span></div>
+        <div class="linha"><span class="marca-res ok">✓</span><span class="txt">CNPJ válido, inclusive o dígito do formato alfanumérico</span></div>
+        <div class="linha"><span class="marca-res erro">✕</span><span class="txt">Cruzamento: receita da <strong>ECF</strong> não bate com a EFD-Contribuições</span></div>
+      </div>
+      <div class="rodape">
+        <strong style="color: var(--dy-vermelho);">REPROVADO</strong> — 3 erros e 1 aviso. Corrija antes de transmitir no PVA.
+      </div>
+    </div>
+    <p style="margin-top: 16px; font-size: 13px; color: var(--dy-text-subtle);">
+      Exemplo do resultado na tela. O laudo completo sai em PDF, para anexar ao processo ou entregar ao cliente.
+    </p>
+  </div>
+</section>
+
+<section class="dy-secao">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// Antes vs depois</span>
+      <h2>O que muda no <span class="gradient-text">fechamento</span></h2>
+    </div>
+    <div class="dy-grid dy-grid-2">
+      <div class="vs-card vs-ruim">
+        <h3 style="color: var(--dy-vermelho);">😩 Antes</h3>
+        <ul>
+          <li>Descobrir o erro só quando o PVA recusa, no dia do prazo</li>
+          <li>PVA aponta a linha, mas não diz que a apuração está incoerente</li>
+          <li>Ninguém confere se EFD e ECF contam a mesma receita</li>
+          <li>Chave de NF-e duplicada passa e vira glosa depois</li>
+          <li>Retransmitir com multa por retificação</li>
+          <li>Sem documento nenhum provando que você conferiu</li>
+        </ul>
+      </div>
+      <div class="vs-card vs-bom">
+        <h3 style="color: var(--as-azul-claro);">✨ Depois</h3>
+        <ul>
+          <li>Você roda o Auditor e vê tudo antes de transmitir</li>
+          <li>Confere a apuração: M200/M600 e E110 contra os próprios itens</li>
+          <li>Cruza os três arquivos: CNPJ, competência e receita</li>
+          <li>Chave duplicada, fora de 44 dígitos ou órfã aparece na hora</li>
+          <li>Transmite uma vez só, no prazo</li>
+          <li>Laudo em PDF com data — sua prova de diligência</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="confere" class="dy-secao" style="padding-top: 60px;">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// As quatro frentes</span>
+      <h2>O que ele <span class="gradient-text">realmente confere</span></h2>
+      <p>Não é um validador de leiaute a mais. É a conferência que o PVA não faz por você.</p>
+    </div>
+    <div class="as-confere">
+      <div class="cartao">
+        <div class="ico">🧱</div>
+        <h3>Estrutura</h3>
+        <p>Registro 0000, totalizadores <strong style="color:var(--dy-text);">9999 e 9990</strong>, contagens 9900 por tipo de registro, abertura e fechamento de cada bloco, ordem correta.</p>
+      </div>
+      <div class="cartao">
+        <div class="ico">🧮</div>
+        <h3>Coerência da apuração</h3>
+        <p><strong style="color:var(--dy-text);">M200 e M600</strong> contra a soma dos próprios itens (PIS/COFINS) e <strong style="color:var(--dy-text);">E110</strong> contra a soma dos C190 (ICMS). Se a apuração não fecha com o que foi escriturado, ele mostra a diferença.</p>
+      </div>
+      <div class="cartao">
+        <div class="ico">🛡️</div>
+        <h3>Robustez</h3>
+        <p>Codificação do arquivo, dígito verificador do CNPJ, CST fora da tabela, chaves de NF-e duplicadas ou fora dos 44 dígitos, itens sem documento pai.</p>
+      </div>
+      <div class="cartao">
+        <div class="ico">🔗</div>
+        <h3>Cruzamento entre arquivos</h3>
+        <p>Abra os três juntos e ele confere se <strong style="color:var(--dy-text);">CNPJ, competência e receita batem</strong> entre EFD ICMS/IPI, EFD-Contribuições e ECF. É o erro que ninguém vê olhando um arquivo por vez.</p>
+      </div>
+      <div class="cartao">
+        <div class="ico">🆕</div>
+        <h3>CNPJ alfanumérico</h3>
+        <p>Já valida o dígito verificador do <strong style="color:var(--dy-text);">novo formato alfanumérico</strong> da IN RFB 2.229/2024. Seu validador antigo vai reprovar CNPJ válido; este não.</p>
+      </div>
+      <div class="cartao">
+        <div class="ico">✍️</div>
+        <h3>Arquivo já assinado</h3>
+        <p>SPED que saiu do PVA vem com assinatura digital depois do 9999. O Auditor separa a assinatura antes de conferir, avisa que ela existia — e não confunde envelope com registro.</p>
+      </div>
+      <div class="cartao">
+        <div class="ico">📄</div>
+        <h3>Laudo em PDF</h3>
+        <p>Um documento com data, o que foi conferido e o que foi achado. Para anexar ao processo do cliente ou guardar como prova de diligência do escritório.</p>
+      </div>
+      <div class="cartao">
+        <div class="ico">🏷️</div>
+        <h3>Sua marca no laudo</h3>
+        <p>Escritórios e revendedores autorizados podem colocar o próprio nome na tela e no laudo, sem recompilar nada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dy-secao" style="padding: 60px 24px;">
+  <div class="dy-container">
+
+    <div class="dy-feature-row">
+      <div>
+        <span class="label">// Privacidade</span>
+        <h3 style="font-size: 36px; margin: 16px 0 20px;">O SPED do seu cliente <span class="gradient-text">não sai da sua máquina</span></h3>
+        <p style="font-size: 17px; color: var(--dy-text-muted);">
+          O Auditor SPED é um programa que roda <strong style="color: var(--dy-text);">no seu computador</strong>.
+          Não sobe arquivo para servidor, não precisa de login, não precisa de internet para conferir.
+        </p>
+        <p style="color: var(--dy-text-muted);">
+          Você está manuseando a escrituração fiscal de terceiros. Ela não deveria trafegar para lugar nenhum
+          para ser conferida — e aqui não trafega.
+        </p>
+      </div>
+      <div class="visual">
+        <div class="icone-grande">🔒</div>
+        <h3>100% local</h3>
+        <p>Sem upload, sem nuvem, sem conta. Abriu o arquivo, conferiu, acabou.</p>
+      </div>
+    </div>
+
+    <div class="dy-feature-row">
+      <div class="visual">
+        <div class="icone-grande">🧰</div>
+        <h3>Plano Pro</h3>
+        <p>R$ 159/mês ou R$ 1.590/ano. Conserta o arquivo e explica os achados.</p>
+      </div>
+      <div>
+        <span class="label">// Plano Pro</span>
+        <h3 style="font-size: 36px; margin: 16px 0 20px;">Não só aponta: <span class="gradient-text">conserta e explica</span></h3>
+        <p style="font-size: 17px; color: var(--dy-text-muted);">
+          No plano Pro, o Auditor gera um <strong style="color: var(--dy-text);">arquivo novo</strong> com os erros de
+          conserto determinístico já resolvidos — CST de PIS/COFINS, base de cálculo, documento referenciado
+          e todos os contadores recalculados.
+        </p>
+        <p style="color: var(--dy-text-muted);">
+          E o <strong style="color: var(--dy-text);">Explicar com IA</strong> traduz cada achado para português: o que
+          significa aquele erro, por que ele apareceu e o que fazer. Útil para quem está começando na escrituração —
+          e para justificar o achado ao cliente.
+        </p>
+        <p style="color: var(--dy-text-muted);">
+          O arquivo corrigido sempre precisa ser revalidado no PVA. E se o original estava assinado, a versão
+          corrigida sai sem assinatura: o conteúdo mudou, a assinatura anterior deixou de valer. O programa avisa isso.
+        </p>
+      </div>
+    </div>
+
+    <div class="dy-feature-row">
+      <div>
+        <span class="label">// Para quem é</span>
+        <h3 style="font-size: 36px; margin: 16px 0 20px;">Lucro Real e <span class="gradient-text">Lucro Presumido</span></h3>
+        <p style="font-size: 17px; color: var(--dy-text-muted);">
+          É quem entrega EFD-Contribuições e ECF. Empresa do Simples Nacional é dispensada das duas
+          (IN RFB 1.252/2012 e IN RFB 1.422/2013) — se sua carteira é só Simples, este produto não é para você,
+          e preferimos dizer isso antes de você pagar.
+        </p>
+        <p style="color: var(--dy-text-muted);">
+          Escritório com carteira mista: o Auditor cuida da parte que dá trabalho de verdade.
+        </p>
+      </div>
+      <div class="visual">
+        <div class="icone-grande">🏢</div>
+        <h3>Real e Presumido</h3>
+        <p>EFD ICMS/IPI · EFD-Contribuições · ECF</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="preco" class="as-preco">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// Preço</span>
+      <h2>Dois planos. <span class="gradient-text">Sem letras miúdas.</span></h2>
+      <p>Sem cobrança por CNPJ, sem cobrança por arquivo conferido. Mensal ou anual, cancele quando quiser.</p>
+    </div>
+
+    <div class="dy-grid dy-grid-2" style="max-width: 940px; margin: 0 auto; gap: 28px;">
+
+      <div class="plano-card">
+        <h3>Auditor</h3>
+        <p class="desc">Confere e emite o laudo. É o que a maioria dos escritórios precisa.</p>
+        <div class="preco">
+          <span class="moeda">R$</span>79<span class="periodo">/mês</span>
+        </div>
+        <p class="nota-preco">ou <strong style="color: var(--dy-text);">R$ 790/ano</strong> — <strong style="color: var(--as-azul-claro);">2 meses grátis</strong></p>
+        <ul>
+          <li>Arquivos e empresas <strong style="color:var(--dy-text);">ilimitados</strong></li>
+          <li>EFD ICMS/IPI, EFD-Contribuições e ECF</li>
+          <li>Cruzamento entre os três arquivos</li>
+          <li>Laudo completo em PDF</li>
+          <li>Sua marca no laudo</li>
+          <li>Atualizações e suporte por e-mail</li>
+        </ul>
+        <div class="botoes-plano">
+          <a href="mailto:contato@dynosai.com.br?subject=Quero%20assinar%20o%20Auditor%20SPED%20%E2%80%94%20plano%20Auditor%20mensal&body=Ol%C3%A1%21%20Quero%20assinar%20o%20Auditor%20SPED%20no%20plano%20Auditor%20mensal%20%28R%24%2079/m%C3%AAs%29.%0A%0ARaz%C3%A3o%20social%3A%0ACNPJ%3A%0ANome%20do%20respons%C3%A1vel%3A%0ATelefone%3A%0A%0AAguardo%20o%20link%20de%20pagamento%20e%20o%20instalador.%20Obrigado%21" class="dy-btn dy-btn-ghost">Mensal · R$ 79</a>
+          <a href="mailto:contato@dynosai.com.br?subject=Quero%20assinar%20o%20Auditor%20SPED%20%E2%80%94%20plano%20Auditor%20anual&body=Ol%C3%A1%21%20Quero%20assinar%20o%20Auditor%20SPED%20no%20plano%20Auditor%20anual%20%28R%24%20790/ano%29.%0A%0ARaz%C3%A3o%20social%3A%0ACNPJ%3A%0ANome%20do%20respons%C3%A1vel%3A%0ATelefone%3A%0A%0AAguardo%20o%20link%20de%20pagamento%20e%20o%20instalador.%20Obrigado%21" class="dy-btn dy-btn-ghost">Anual · R$ 790</a>
+        </div>
+      </div>
+
+      <div class="plano-card destaque">
+        <h3>Pro</h3>
+        <p class="desc">Além de apontar, conserta o arquivo — e explica cada achado com IA.</p>
+        <div class="preco">
+          <span class="moeda">R$</span>159<span class="periodo">/mês</span>
+        </div>
+        <p class="nota-preco">ou <strong style="color: var(--dy-text);">R$ 1.590/ano</strong> — <strong style="color: var(--as-azul-claro);">2 meses grátis</strong></p>
+        <ul>
+          <li><strong style="color:var(--dy-text);">Tudo do plano Auditor</strong></li>
+          <li>🧰 <strong style="color:var(--dy-text);">Gera o SPED corrigido</strong></li>
+          <li>🤖 <strong style="color:var(--dy-text);">Explicar com IA</strong> — o que é o erro e como resolver</li>
+          <li>⛽ Módulo de vasilhame de GLP</li>
+          <li>Atualizações e suporte por e-mail</li>
+        </ul>
+        <div class="botoes-plano">
+          <a href="mailto:contato@dynosai.com.br?subject=Quero%20assinar%20o%20Auditor%20SPED%20%E2%80%94%20plano%20Pro%20mensal&body=Ol%C3%A1%21%20Quero%20assinar%20o%20Auditor%20SPED%20no%20plano%20Pro%20mensal%20%28R%24%20159/m%C3%AAs%29.%0A%0ARaz%C3%A3o%20social%3A%0ACNPJ%3A%0ANome%20do%20respons%C3%A1vel%3A%0ATelefone%3A%0A%0AAguardo%20o%20link%20de%20pagamento%20e%20o%20instalador.%20Obrigado%21" class="dy-btn dy-btn-dourado">Mensal · R$ 159</a>
+          <a href="mailto:contato@dynosai.com.br?subject=Quero%20assinar%20o%20Auditor%20SPED%20%E2%80%94%20plano%20Pro%20anual&body=Ol%C3%A1%21%20Quero%20assinar%20o%20Auditor%20SPED%20no%20plano%20Pro%20anual%20%28R%24%201.590/ano%29.%0A%0ARaz%C3%A3o%20social%3A%0ACNPJ%3A%0ANome%20do%20respons%C3%A1vel%3A%0ATelefone%3A%0A%0AAguardo%20o%20link%20de%20pagamento%20e%20o%20instalador.%20Obrigado%21" class="dy-btn dy-btn-dourado">Anual · R$ 1.590</a>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align: center; margin-top: 32px; color: var(--dy-text-subtle); font-size: 14px;">
+      💡 Clique no plano e mande o pedido — respondemos <strong style="color: var(--dy-text);">no mesmo dia útil</strong> com o link de pagamento e o instalador. Sem fidelidade: cancele quando quiser.
+    </p>
+
+    <div class="preco-maior">
+      Escritório com muitos usuários, atendimento com prazo de resposta ou necessidade de contrato próprio?
+      É o plano <strong style="color: var(--as-azul-claro);">Corporativo</strong> —
+      fale com a gente em <a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a> e montamos a proposta.
+    </div>
+
+    <div class="selo-local">
+      <div class="ico">🔐</div>
+      <p>
+        <strong style="color: var(--dy-text);">Sobre o "Explicar com IA" (plano Pro):</strong> vem desligado, e quem liga usa
+        a própria chave — não cobramos por consulta. Mesmo ligado,
+        <strong style="color: var(--dy-text);">o arquivo SPED nunca é enviado</strong>: sai apenas o texto das mensagens de erro,
+        com números de documento e valores substituídos antes do envio, e você vê na tela exatamente o que vai sair
+        antes de confirmar. No plano Auditor essa função não existe — o programa não tem para onde se conectar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="dy-secao">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// FAQ</span>
+      <h2>Perguntas <span class="gradient-text">frequentes</span></h2>
+    </div>
+    <div class="as-faq">
+      <details>
+        <summary>O Auditor substitui a validação no PVA?</summary>
+        <p><strong>Não, e não queremos que você acredite nisso.</strong> "APROVADO" no Auditor quer dizer que as checagens feitas aqui não encontraram erro — não que a Receita vai aceitar a transmissão. O PVA continua sendo obrigatório. O Auditor serve para você chegar no PVA já sabendo que vai passar, em vez de descobrir o problema no dia do prazo.</p>
+      </details>
+      <details>
+        <summary>Ele funciona com arquivo que já saiu do PVA, assinado?</summary>
+        <p>Sim. Todo SPED assinado carrega um envelope de assinatura digital depois do registro 9999. O Auditor separa esse envelope antes de conferir e avisa que a assinatura existia. Validadores que não fazem isso leem a assinatura como se fosse registro e reprovam o arquivo inteiro sem motivo.</p>
+      </details>
+      <details>
+        <summary>Meus arquivos vão para a nuvem?</summary>
+        <p>Não. O programa roda inteiramente no seu computador e não envia o SPED para lugar nenhum — nem para nós. A única função que usa internet é o "Explicar com IA", exclusiva do plano Pro, que vem desligada e, mesmo ligada, envia só o texto dos erros, sem os dados do arquivo.</p>
+      </details>
+      <details>
+        <summary>Serve para empresa do Simples Nacional?</summary>
+        <p>O produto é para <strong>Lucro Real e Lucro Presumido</strong>. Empresa optante pelo Simples é dispensada da EFD-Contribuições (IN RFB 1.252/2012) e da ECF (IN RFB 1.422/2013), então não teria o que conferir. Se sua carteira é mista, o Auditor cuida das que entregam.</p>
+      </details>
+      <details>
+        <summary>Quantos arquivos posso conferir?</summary>
+        <p>Quantos quiser. Não cobramos por arquivo, por empresa nem por CNPJ. A assinatura — mensal ou anual — libera o uso ilimitado enquanto estiver vigente.</p>
+      </details>
+      <details>
+        <summary>Mensal ou anual — qual compensa?</summary>
+        <p>O produto é exatamente o mesmo; muda só a forma de pagar. No anual você paga o equivalente a dez meses — <strong>dois meses de graça</strong> —, o que dá R$ 158 de economia no plano Auditor e R$ 318 no Pro. Se você ainda está conhecendo, comece no mensal; se já sabe que vai usar todo fechamento, o anual sai mais barato.</p>
+      </details>
+      <details>
+        <summary>Qual a diferença entre o Auditor e o Pro?</summary>
+        <p>O <strong>Auditor</strong> (R$ 79/mês ou R$ 790/ano) confere os arquivos e emite o laudo em PDF — é o que a maioria dos escritórios usa. O <strong>Pro</strong> (R$ 159/mês ou R$ 1.590/ano) acrescenta três coisas: gerar o <strong>SPED corrigido</strong>, o <strong>Explicar com IA</strong> (que diz em português o que é cada achado e como resolver) e o módulo de vasilhame de GLP. Se você só quer conferir antes de transmitir, o Auditor basta.</p>
+      </details>
+      <details>
+        <summary>Posso cancelar quando quiser?</summary>
+        <p>Pode, sem fidelidade e sem multa. No plano mensal, a assinatura para na próxima cobrança e você usa até o fim do período já pago. No anual, o programa continua funcionando até o fim dos 12 meses contratados.</p>
+      </details>
+      <details>
+        <summary>Como recebo o programa depois de comprar?</summary>
+        <p>Você recebe por e-mail o instalador e o seu arquivo de licença. É um programa para Windows, instala em poucos minutos e já abre funcionando — não precisa criar conta nem configurar servidor.</p>
+      </details>
+      <details>
+        <summary>E o "gerar SPED corrigido"?</summary>
+        <p>É do plano Pro (R$ 159/mês ou R$ 1.590/ano). Ele produz um arquivo novo com os erros de conserto determinístico já resolvidos e os contadores recalculados. O arquivo corrigido precisa ser revalidado no PVA antes da transmissão, e sai sem assinatura se o original estava assinado — porque o conteúdo mudou.</p>
+      </details>
+      <details>
+        <summary>Posso colocar a marca do meu escritório?</summary>
+        <p>Pode. O nome e o site do seu escritório aparecem na tela e no rodapé do laudo, sem precisar de versão especial do programa. A titularidade do software continua declarada como Dynos AI — o que muda é a marca de quem entrega o laudo ao cliente.</p>
+      </details>
+      <details>
+        <summary>Tem suporte?</summary>
+        <p>Suporte por e-mail em <a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a>, incluso na licença. Atendimento com SLA e prioridade é do plano Corporativo.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="dy-container" style="max-width: 760px;">
+    <span class="label">// Pronto?</span>
+    <h2 style="margin: 16px 0 20px;">Transmita <span class="gradient-text">sabendo que vai passar.</span></h2>
+    <p style="font-size: 18px; color: var(--dy-text-muted); margin-bottom: 36px;">
+      Uma retificação evitada já paga o ano inteiro.
+    </p>
+    <a href="#preco" class="dy-btn dy-btn-dourado dy-btn-lg" style="padding: 22px 44px; font-size: 18px; box-shadow: 0 8px 40px rgba(47,90,158,0.4);">
+      Assinar a partir de R$ 79/mês
+    </a>
+    <p style="margin-top: 20px; font-size: 14px; color: var(--dy-text-subtle);">Windows · Download imediato · Mensal ou anual</p>
+  </div>
+</section>
+
+<footer class="dy-footer">
+  <div class="dy-container">
+    <div>
+      <div class="dy-logo-wrap" style="margin-bottom: 16px;">
+        <img src="/assets/img/dynos_logo_square.png" alt="" />
+        <span class="marca">Dynos AI</span>
+      </div>
+      <p style="font-size: 14px; color: var(--dy-text-muted);">Auditor SPED é um produto Dynos AI. Tecnologia que faz o trabalho pesado pelo seu escritório.</p>
+    </div>
+    <div>
+      <h4>Auditor SPED</h4>
+      <ul>
+        <li><a href="#confere">O que confere</a></li>
+        <li><a href="#preco">Preço</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Dynos AI</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#produtos">Outros produtos</a></li>
+        <li><a href="/produtos/notalink.html">Notalink</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a></li>
+        <li>Quixadá, CE</li>
+      </ul>
+    </div>
+  </div>
+  <div class="dy-container">
+    <div class="copyright">© 2026 Dynos AI · Auditor SPED é uma marca da Dynos AI · Todos os direitos reservados</div>
+  </div>
+</footer>
+
+<script src="/assets/js/cookies-banner.js"></script>
+</body>
+</html>

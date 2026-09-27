@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Política de Privacidade — Dynos AI</title>
+  <meta name="description" content="Política de Privacidade da Dynos AI conforme LGPD (Lei 13.709/2018)." />
+  <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260427d" />
+  <link rel="icon" href="/assets/img/dynos_logo_square.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .legal-content { max-width: 880px; margin: 0 auto; padding: 60px 24px; }
+    .legal-content h2 { font-size: 26px; margin: 40px 0 16px; color: var(--dy-dourado-claro); }
+    .legal-content h3 { font-size: 18px; margin: 24px 0 10px; color: var(--dy-text); }
+    .legal-content p, .legal-content li { color: var(--dy-text-muted); line-height: 1.8; margin-bottom: 12px; font-size: 15px; }
+    .legal-content ul, .legal-content ol { padding-left: 24px; }
+    .legal-content strong { color: var(--dy-text); }
+    .legal-content code { background: rgba(255,255,255,0.04); padding: 2px 8px; border-radius: 4px; font-size: 13px; color: var(--dy-dourado-claro); }
+    .legal-meta { background: var(--dy-bg-card); border: 1px solid var(--dy-border); border-radius: var(--dy-radius); padding: 20px; margin-bottom: 32px; font-size: 14px; }
+    .legal-meta strong { color: var(--dy-dourado-claro); }
+  </style>
+</head>
+<body>
+
+<header class="dy-header">
+  <div class="dy-container">
+    <a href="/" class="dy-logo-wrap">
+      <img src="/assets/img/dynos_logo_square.png" alt="Dynos AI" />
+      <span class="marca">Dynos AI</span>
+    </a>
+    <nav class="dy-nav">
+      <a href="/">Home</a>
+      <a href="/termos-de-uso.html">Termos</a>
+      <a href="/lgpd.html">LGPD</a>
+      <a href="mailto:contato@dynosai.com.br" class="dy-btn dy-btn-dourado" style="padding: 10px 20px; font-size: 14px;">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main class="legal-content">
+  <h1 style="font-size: 42px; margin-bottom: 8px;">Política de Privacidade</h1>
+  <p style="color: var(--dy-text-subtle); margin-bottom: 32px;">Última atualização: 29 de abril de 2026 · Versão 2.0</p>
+
+  <div class="legal-meta">
+    <p style="margin: 0;"><strong>Controlador dos dados:</strong> DYNOS AI LTDA</p>
+    <p style="margin: 4px 0;"><strong>CNPJ:</strong> 66.472.269/0001-89</p>
+    <p style="margin: 4px 0;"><strong>Endereço:</strong> R. José Amadeu Soares, 54, Combate, Quixadá/CE — CEP 63.903-385</p>
+    <p style="margin: 4px 0;"><strong>E-mail do Encarregado de Proteção de Dados (DPO):</strong> contato@dynosai.com.br</p>
+    <p style="margin: 4px 0;"><strong>WhatsApp:</strong> (88) 98875-9968</p>
+    <p style="margin: 4px 0 0;"><strong>Base legal:</strong> Lei nº 13.709/2018 (LGPD)</p>
+  </div>
+
+  <p>A <strong>DYNOS AI LTDA</strong> respeita a privacidade dos titulares de dados e está comprometida com a proteção de dados pessoais conforme a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018) e demais normas aplicáveis. Esta política descreve como coletamos, utilizamos, armazenamos e compartilhamos os dados pessoais dos usuários dos nossos produtos, em especial <strong>Notalink</strong> (vertical Contabilidade) e <strong>LexLink</strong> (vertical Direito).</p>
+
+  <h2>1. Quem somos</h2>
+  <p>A Dynos AI é uma empresa brasileira (CNPJ 66.472.269/0001-89, sediada em Quixadá/CE) que desenvolve sistemas de inteligência artificial para profissões reguladas (contabilidade, direito, medicina, odontologia). Nossos produtos comerciais atuais são:</p>
+  <ul>
+    <li><strong>Notalink</strong> — captura automática de NFes da SEFAZ para escritórios de contabilidade</li>
+    <li><strong>LexLink</strong> — captura automática de publicações DJEN/CNJ e gestão de processos para escritórios de advocacia, com IA Gemini Pro</li>
+  </ul>
+
+  <h2>2. Quais dados coletamos</h2>
+
+  <h3>2.1. Dados de cadastro do escritório contábil</h3>
+  <ul>
+    <li>Razão social, nome fantasia, CNPJ, e-mail, telefone</li>
+    <li>Nome do usuário responsável, e-mail, senha (armazenada com hash bcrypt)</li>
+  </ul>
+
+  <h3>2.2. Dados das empresas clientes do escritório (titulares dos dados fiscais)</h3>
+  <ul>
+    <li>CNPJ, razão social, nome fantasia, inscrição estadual, regime tributário, UF</li>
+    <li>Certificados digitais A1 (.pfx) — cifrados com Fernet/AES no armazenamento</li>
+    <li>NFes (Notas Fiscais Eletrônicas) baixadas da SEFAZ — XMLs autorizados</li>
+  </ul>
+
+  <h3>2.3. Dados dos clientes finais (Portal do Cliente)</h3>
+  <ul>
+    <li>Nome, e-mail, senha (hash bcrypt) — para acesso ao portal próprio</li>
+    <li>Vínculo com a empresa cliente do escritório (sandbox isolado)</li>
+  </ul>
+
+  <h3>2.4. Dados de uso e técnicos</h3>
+  <ul>
+    <li>Endereço IP, navegador, sistema operacional</li>
+    <li>Logs de acesso e operações realizadas (auditoria)</li>
+    <li>Cookies de sessão (estritamente necessários)</li>
+  </ul>
+
+  <h3>2.5. Dados de pagamento</h3>
+  <p>Pagamentos são processados pela <strong>Stripe Payments Brasil</strong>. Não armazenamos dados de cartão de crédito em nossos servidores. A Stripe é certificada PCI-DSS Nível 1.</p>
+
+  <h2>3. Bases legais para o tratamento (LGPD Art. 7º e 11)</h2>
+  <ul>
+    <li><strong>Execução de contrato</strong> (Art. 7º, V): para fornecer os serviços contratados</li>
+    <li><strong>Cumprimento de obrigação legal</strong> (Art. 7º, II): retenção de NFes para fins fiscais</li>
+    <li><strong>Consentimento</strong> (Art. 7º, I): para envio de comunicações de marketing</li>
+    <li><strong>Legítimo interesse</strong> (Art. 7º, IX): segurança, prevenção a fraudes, melhoria contínua</li>
+  </ul>
+
+  <h2>4. Como usamos os dados</h2>
+  <ul>
+    <li><strong>Operacional:</strong> baixar NFes da SEFAZ usando o certificado A1 fornecido pelo escritório</li>
+    <li><strong>Comunicação:</strong> notificações operacionais (cert vencendo, falha SEFAZ, etc) via e-mail</li>
+    <li><strong>Suporte:</strong> responder dúvidas e solicitações técnicas</li>
+    <li><strong>Faturamento:</strong> emissão de cobranças e gestão de assinatura</li>
+    <li><strong>Segurança:</strong> detectar e prevenir abuso da plataforma</li>
+    <li><strong>Análise estatística:</strong> dados agregados anonimizados para melhorar o produto</li>
+  </ul>
+
+  <h2>5. Compartilhamento de dados</h2>
+  <p>Compartilhamos dados apenas quando estritamente necessário e com bases legais adequadas:</p>
+  <ul>
+    <li><strong>SEFAZ (Receita Federal):</strong> consultas oficiais via NFeDistribuicaoDFe usando o certificado do contribuinte (Notalink)</li>
+    <li><strong>DJEN/CNJ:</strong> consultas a publicações oficiais vinculadas às OABs cadastradas (LexLink)</li>
+    <li><strong>Google (API Gemini):</strong> processamento de IA para classificação automatizada — não usado para treinamento conforme política do provedor</li>
+    <li><strong>Stripe Payments Brasil:</strong> processamento de pagamentos (dados mínimos: nome, e-mail, valor)</li>
+    <li><strong>Hostinger:</strong> hospedagem de servidores em território brasileiro/internacional</li>
+    <li><strong>GoDaddy:</strong> e-mail corporativo e DNS</li>
+    <li><strong>Autoridades competentes:</strong> mediante ordem judicial ou requisição legal</li>
+  </ul>
+  <p>Em hipótese alguma vendemos ou alugamos seus dados pessoais.</p>
+
+  <h2>6. Transferência internacional</h2>
+  <p>Alguns processadores (Stripe, Microsoft, GoDaddy) podem armazenar dados em servidores fora do Brasil. Garantimos que essas transferências obedeçam aos requisitos da LGPD (Art. 33), com cláusulas contratuais adequadas.</p>
+
+  <h2>7. Tempo de retenção</h2>
+  <ul>
+    <li><strong>Dados de cadastro:</strong> enquanto a conta estiver ativa + 5 anos após cancelamento (obrigação fiscal)</li>
+    <li><strong>NFes (XMLs):</strong> 5 anos (CTN Art. 173) ou conforme exigência fiscal específica</li>
+    <li><strong>Logs de acesso:</strong> 6 meses (Marco Civil da Internet, Art. 15)</li>
+    <li><strong>Dados de pagamento:</strong> 5 anos para fins contábeis e fiscais</li>
+    <li><strong>Backups:</strong> rotacionados a cada 90 dias</li>
+  </ul>
+  <p>Após o período de retenção, os dados são apagados ou anonimizados de forma irrecuperável.</p>
+
+  <h2>8. Direitos do titular (LGPD Art. 18)</h2>
+  <p>Você tem direito a, a qualquer momento:</p>
+  <ul>
+    <li>Confirmar a existência de tratamento</li>
+    <li>Acessar seus dados</li>
+    <li>Corrigir dados incompletos, inexatos ou desatualizados</li>
+    <li>Solicitar anonimização, bloqueio ou eliminação de dados desnecessários</li>
+    <li>Solicitar portabilidade</li>
+    <li>Eliminar dados tratados com base em consentimento</li>
+    <li>Obter informação sobre compartilhamentos</li>
+    <li>Revogar consentimento</li>
+    <li>Peticionar perante a ANPD (Autoridade Nacional de Proteção de Dados)</li>
+  </ul>
+  <p>Para exercer qualquer direito, acesse <a href="/lgpd.html">a Central LGPD</a> ou envie e-mail para <a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a>. Responderemos em até 15 dias.</p>
+
+  <h2>9. Segurança da informação</h2>
+  <p>Implementamos medidas técnicas e administrativas de segurança:</p>
+  <ul>
+    <li>HTTPS obrigatório (TLS 1.2+) com certificados Let's Encrypt</li>
+    <li>Senhas armazenadas com hash bcrypt (rounds=12)</li>
+    <li>Certificados digitais A1 cifrados com Fernet/AES-128</li>
+    <li>Sandbox total entre escritórios (multi-tenant isolation)</li>
+    <li>Cookies HttpOnly + Secure + SameSite</li>
+    <li>Backups diários automatizados</li>
+    <li>Logs de auditoria de operações sensíveis</li>
+    <li>Atualizações de segurança contínuas</li>
+  </ul>
+  <p>Em caso de incidente de segurança que possa acarretar risco aos titulares, comunicaremos a ANPD e os afetados em prazo razoável (LGPD Art. 48).</p>
+
+  <h2>10. Cookies</h2>
+  <p>Utilizamos cookies estritamente necessários para o funcionamento do sistema (sessão, autenticação). Não utilizamos cookies de rastreamento de terceiros para fins de marketing. Veja mais em <a href="/cookies.html">Política de Cookies</a>.</p>
+
+  <h2>11. Crianças e adolescentes</h2>
+  <p>Nossos serviços são destinados a profissionais regulados (contadores, advogados, médicos, dentistas). Não coletamos intencionalmente dados de menores de 18 anos. Se identificarmos tal coleta, removeremos prontamente.</p>
+
+  <h2>12. Alterações desta política</h2>
+  <p>Podemos atualizar esta política periodicamente. Alterações significativas serão comunicadas por e-mail e/ou aviso destacado no sistema com antecedência mínima de 30 dias.</p>
+
+  <h2>13. Contato e DPO</h2>
+  <p>Encarregado de Proteção de Dados (DPO):</p>
+  <ul>
+    <li>E-mail: <a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a></li>
+    <li>Assunto sugerido: <code>[LGPD]</code> + descrição do pedido</li>
+  </ul>
+  <p>Você também pode peticionar diretamente à <strong>ANPD (Autoridade Nacional de Proteção de Dados)</strong>:</p>
+  <ul>
+    <li>Site: <a href="https://www.gov.br/anpd" target="_blank">gov.br/anpd</a></li>
+    <li>E-mail: comunicacao@anpd.gov.br</li>
+  </ul>
+</main>
+
+<footer class="dy-footer">
+  <div class="dy-container">
+    <div>
+      <div class="dy-logo-wrap" style="margin-bottom: 16px;">
+        <img src="/assets/img/dynos_logo_square.png" alt="" />
+        <span class="marca">Dynos AI</span>
+      </div>
+      <p style="font-size: 14px;">Software inteligente para profissões reguladas brasileiras.</p>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/politica-privacidade.html">Política de Privacidade</a></li>
+        <li><a href="/termos-de-uso.html">Termos de Uso</a></li>
+        <li><a href="/cookies.html">Cookies</a></li>
+        <li><a href="/lgpd.html">Central LGPD</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="/#sobre">Sobre</a></li>
+        <li><a href="mailto:contato@dynosai.com.br">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Acessos</h4>
+      <ul>
+        <li><a href="https://notalink.dynosai.com.br">Notalink</a></li>
+        <li><a href="https://lexlink.dynosai.com.br">LexLink</a></li>
+        <li><a href="https://notalink.dynosai.com.br/cliente/login">Portal Cliente</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="dy-container">
+    <div class="copyright">© 2026 Dynos AI LTDA · CNPJ 66.472.269/0001-89 · Quixadá/CE</div>
+  </div>
+</footer>
+
+</body>
+</html>

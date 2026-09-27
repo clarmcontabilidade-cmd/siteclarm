@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Baixar o Auditor SPED | Dynos AI</title>
+  <meta name="description" content="Download do Auditor SPED para Windows. O programa roda em demonstração sem licença; a licença é enviada por e-mail após a assinatura." />
+  <!-- Decisão da dona (26/08/2026): a página é pública — quem tem o link baixa —
+       mas fica FORA da busca. É o endereço que ela manda por e-mail; não é para
+       o Google servir como "download do Auditor SPED" solto no resultado. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260427d" />
+  <link rel="icon" href="/assets/img/dynos_logo_square.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* mesmos tons de `auditor_sped.py` e `laudo_pdf.py`: quem baixa aqui e abre
+       o programa vê a mesma casa */
+    :root {
+      --as-azul-esc:   #1f3b66;
+      --as-azul:       #2f5a9e;
+      --as-azul-claro: #a9c0e4;
+      --as-brilho:     #5b9ae8;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--as-azul-claro) 0%, var(--as-brilho) 50%, #7fb4f0 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .dl-hero {
+      padding: 80px 0 56px; text-align: center;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(47,90,158,0.20), transparent 70%),
+        var(--dy-bg);
+    }
+    .dl-hero h1 { max-width: 760px; margin: 24px auto 18px; }
+    .dl-hero .subtitulo {
+      max-width: 620px; margin: 0 auto; font-size: 18px; line-height: 1.65;
+      color: var(--dy-text-muted);
+    }
+
+    .as-logo-tile {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 108px; height: 108px; border-radius: 24px;
+      background: linear-gradient(145deg, rgba(47,90,158,0.22), rgba(31,59,102,0.10));
+      border: 1px solid rgba(91,154,232,0.30);
+      box-shadow: 0 8px 40px rgba(47,90,158,0.25);
+    }
+
+    /* o botão de download é o assunto da página inteira */
+    .dl-caixa {
+      max-width: 560px; margin: 40px auto 0; padding: 32px 28px;
+      background: var(--dy-bg-card); border: 1px solid rgba(91,154,232,0.35);
+      border-radius: var(--dy-radius-lg); box-shadow: 0 8px 40px rgba(47,90,158,0.18);
+    }
+    .dl-botao {
+      display: block; width: 100%; box-sizing: border-box; text-align: center;
+      padding: 22px 32px; font-size: 19px; font-weight: 700;
+      background: linear-gradient(135deg, var(--as-azul) 0%, var(--as-azul-esc) 100%);
+      color: #fff; border: none; border-radius: var(--dy-radius);
+      text-decoration: none; letter-spacing: 0.2px;
+      box-shadow: 0 6px 28px rgba(47,90,158,0.45);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+    .dl-botao:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(47,90,158,0.60); color: #fff; }
+    .dl-meta {
+      margin-top: 16px; font-size: 14px; color: var(--dy-text-subtle);
+      display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+    }
+    .dl-meta span::after { content: " ·"; color: var(--dy-border-strong); }
+    .dl-meta span:last-child::after { content: ""; }
+
+    .passos { counter-reset: passo; list-style: none; padding: 0; margin: 0; }
+    .passos li {
+      counter-increment: passo; position: relative;
+      padding: 0 0 26px 58px; margin: 0;
+      border-left: 1px solid var(--dy-border); margin-left: 17px;
+    }
+    .passos li:last-child { border-left-color: transparent; padding-bottom: 0; }
+    .passos li::before {
+      content: counter(passo); position: absolute; left: -17px; top: -4px;
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--dy-bg-card); border: 1px solid rgba(91,154,232,0.45);
+      color: var(--as-azul-claro); font-weight: 700; font-size: 15px;
+    }
+    .passos h4 { margin: 0 0 6px; font-size: 17px; color: var(--dy-text); }
+    .passos p { margin: 0; color: var(--dy-text-muted); line-height: 1.6; font-size: 15px; }
+
+    .aviso {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 22px 24px; border-radius: var(--dy-radius);
+      background: rgba(212,175,55,0.07); border: 1px solid rgba(212,175,55,0.28);
+    }
+    .aviso .icone { font-size: 22px; line-height: 1.2; }
+    .aviso p { margin: 0; color: var(--dy-text-muted); line-height: 1.65; font-size: 15px; }
+    .aviso strong { color: var(--dy-text); }
+
+    .lista-arquivos { list-style: none; padding: 0; margin: 0; }
+    .lista-arquivos li {
+      display: flex; gap: 14px; align-items: baseline;
+      padding: 12px 0; border-bottom: 1px solid var(--dy-border);
+    }
+    .lista-arquivos li:last-child { border-bottom: none; }
+    .lista-arquivos code {
+      font-size: 14px; color: var(--as-azul-claro); white-space: nowrap;
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    }
+    .lista-arquivos span { color: var(--dy-text-muted); font-size: 15px; line-height: 1.5; }
+
+    .plano-tabela { width: 100%; border-collapse: collapse; font-size: 15px; }
+    .plano-tabela th, .plano-tabela td {
+      padding: 13px 12px; text-align: left; border-bottom: 1px solid var(--dy-border);
+    }
+    .plano-tabela th { color: var(--dy-text-subtle); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .plano-tabela td:first-child { color: var(--dy-text-muted); }
+    .plano-tabela .sim { color: var(--dy-verde); font-weight: 600; }
+    .plano-tabela .nao { color: var(--dy-text-subtle); }
+    .plano-tabela tr:last-child td { border-bottom: none; }
+    .rolagem { overflow-x: auto; }
+
+    @media (max-width: 720px) {
+      .dl-hero { padding: 56px 0 40px; }
+      .dl-caixa { padding: 24px 20px; }
+      .dl-botao { font-size: 17px; padding: 20px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="dy-header">
+  <div class="dy-container">
+    <a href="/" class="dy-logo-wrap">
+      <img src="/assets/img/dynos_logo_square.png" alt="Dynos AI" />
+      <span class="marca">Dynos AI</span>
+    </a>
+    <nav class="dy-nav">
+      <a href="/">← Home</a>
+      <a href="https://auditorsped.dynosai.com.br/">Sobre o produto</a>
+      <a href="https://auditorsped.dynosai.com.br/#preco" class="dy-btn dy-btn-dourado" style="padding: 10px 20px; font-size: 14px;">Assinar</a>
+    </nav>
+  </div>
+</header>
+
+<section class="dl-hero">
+  <div class="dy-container">
+    <div class="as-logo-tile">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Auditor SPED">
+        <rect x="18" y="10" width="52" height="68" rx="6" fill="rgba(240,231,216,0.08)" stroke="#5b9ae8" stroke-width="2.5"/>
+        <line x1="28" y1="26" x2="60" y2="26" stroke="#a9c0e4" stroke-width="3" stroke-linecap="round"/>
+        <line x1="28" y1="37" x2="54" y2="37" stroke="rgba(240,231,216,0.45)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="28" y1="48" x2="60" y2="48" stroke="rgba(240,231,216,0.45)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="28" y1="59" x2="46" y2="59" stroke="rgba(240,231,216,0.45)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="66" cy="64" r="21" fill="#0a0612" stroke="#39d9aa" stroke-width="3"/>
+        <path d="M56 64.5 L63 71.5 L77 57" stroke="#39d9aa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+
+    <h1>Baixar o <span class="gradient-text">Auditor SPED</span></h1>
+
+    <p class="subtitulo">
+      Instale e rode com os seus próprios arquivos. Sem licença o programa abre em
+      <strong style="color: var(--as-azul-claro);">modo demonstração</strong> — a licença
+      chega por e-mail depois da assinatura.
+    </p>
+
+    <div class="dl-caixa">
+      <a href="/download/AuditorSPED.zip" class="dl-botao" download>
+        ⬇ Baixar para Windows
+      </a>
+      <div class="dl-meta">
+        <span>AuditorSPED.zip</span>
+        <span>11,9 MB</span>
+        <span>Windows 10 e 11</span>
+        <span>versão de 20/08/2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dy-secao">
+  <div class="dy-container">
+    <h2 class="dy-secao-titulo">Como instalar</h2>
+
+    <div style="max-width: 700px; margin: 0 auto;">
+      <ol class="passos">
+        <li>
+          <h4>Baixe e extraia o arquivo</h4>
+          <p>Clique com o botão direito no <code>AuditorSPED.zip</code> → <strong>Extrair tudo</strong>.
+             Rodar direto de dentro do zip não funciona: o Windows abre o programa numa pasta
+             temporária, e é lá que ele iria procurar a sua licença.</p>
+        </li>
+        <li>
+          <h4>Abra o AuditorSPED.exe</h4>
+          <p>Não há instalador: o programa é um arquivo só. Guarde a pasta onde preferir —
+             pode ser a área de trabalho ou uma pasta da rede do escritório.</p>
+        </li>
+        <li>
+          <h4>O Windows vai avisar. É esperado.</h4>
+          <p>Aparece a tela azul do SmartScreen dizendo que o programa não é reconhecido.
+             Clique em <strong>Mais informações</strong> → <strong>Executar assim mesmo</strong>.
+             O aviso é porque o instalador ainda não tem certificado de assinatura — não porque
+             o programa faça algo com a sua máquina.</p>
+        </li>
+        <li>
+          <h4>Escolha os arquivos SPED</h4>
+          <p>Segure <strong>Ctrl</strong> para abrir os três de uma vez (EFD ICMS/IPI,
+             EFD-Contribuições e ECF) — é assim que ele consegue cruzar um arquivo com o outro.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="dy-secao">
+  <div class="dy-container">
+    <h2 class="dy-secao-titulo">O que a demonstração já faz</h2>
+
+    <div style="max-width: 700px; margin: 0 auto 32px;" class="rolagem">
+      <table class="plano-tabela">
+        <thead>
+          <tr>
+            <th></th>
+            <th style="text-align: center;">Demonstração</th>
+            <th style="text-align: center;">Licenciado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Auditar os arquivos e cruzar os três</td>
+            <td style="text-align: center;" class="sim">✓</td>
+            <td style="text-align: center;" class="sim">✓</td>
+          </tr>
+          <tr>
+            <td>Ver quantos erros e avisos existem</td>
+            <td style="text-align: center;" class="sim">✓</td>
+            <td style="text-align: center;" class="sim">✓</td>
+          </tr>
+          <tr>
+            <td>Laudo completo em PDF, com o detalhe de cada achado</td>
+            <td style="text-align: center;" class="nao">—</td>
+            <td style="text-align: center;" class="sim">✓</td>
+          </tr>
+          <tr>
+            <td>Gerar o SPED corrigido</td>
+            <td style="text-align: center;" class="nao">—</td>
+            <td style="text-align: center;" class="sim">Pro</td>
+          </tr>
+          <tr>
+            <td>Explicar os achados com IA</td>
+            <td style="text-align: center;" class="nao">—</td>
+            <td style="text-align: center;" class="sim">Pro</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="text-align: center; color: var(--dy-text-muted); max-width: 620px; margin: 0 auto;">
+      A auditoria roda inteira na demonstração, com os seus arquivos de verdade. O que fica
+      para o plano pago é o <strong style="color: var(--dy-text);">laudo</strong> — o documento
+      que você entrega ao cliente ou guarda no arquivo.
+      <a href="https://auditorsped.dynosai.com.br/#preco" style="color: var(--as-azul-claro);">Ver os planos →</a>
+    </p>
+  </div>
+</section>
+
+<section class="dy-secao">
+  <div class="dy-container">
+    <h2 class="dy-secao-titulo">Já assinou? Como ativar</h2>
+
+    <div style="max-width: 700px; margin: 0 auto;">
+      <div class="aviso" style="margin-bottom: 28px;">
+        <span class="icone">✉️</span>
+        <p>
+          A licença <strong>não vem dentro do download</strong> — ela é emitida no nome do seu
+          escritório e enviada por e-mail, num arquivo chamado <strong>licenca.json</strong>.
+          É esse nome que sai carimbado no rodapé de todo laudo que você gerar.
+        </p>
+      </div>
+
+      <ol class="passos">
+        <li>
+          <h4>Salve o licenca.json junto do programa</h4>
+          <p>Na mesma pasta onde está o <code>AuditorSPED.exe</code>, ou em
+             <code>C:\ProgramData\Auditor SPED\</code> — tanto faz qual dos dois.
+             Não renomeie nem edite o arquivo: ele é assinado digitalmente, e qualquer
+             alteração faz o programa recusá-lo.</p>
+        </li>
+        <li>
+          <h4>Feche e abra o Auditor SPED</h4>
+          <p>O nome do licenciado passa a aparecer no rodapé dos laudos. Não é preciso
+             internet: a licença é conferida dentro da sua máquina.</p>
+        </li>
+        <li>
+          <h4>Você vai receber duas licenças — isso é normal</h4>
+          <p>A primeira sai logo após a aprovação do pagamento e cobre o prazo de
+             arrependimento previsto em lei. A segunda, de 12 meses contados da data da
+             compra, chega depois de encerrado esse prazo. Quando ela vier, salve por cima
+             da primeira, no mesmo lugar.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="dy-secao">
+  <div class="dy-container">
+    <h2 class="dy-secao-titulo">O que vem no pacote</h2>
+
+    <div style="max-width: 660px; margin: 0 auto;">
+      <ul class="lista-arquivos">
+        <li>
+          <code>AuditorSPED.exe</code>
+          <span>o programa — arquivo único, não precisa de instalação</span>
+        </li>
+        <li>
+          <code>COMO-ATIVAR-A-LICENCA.txt</code>
+          <span>o mesmo passo a passo desta página, para consultar depois</span>
+        </li>
+        <li>
+          <code>LEIAME.txt</code>
+          <span>o que ele confere e como usar</span>
+        </li>
+        <li>
+          <code>LICENCA.txt</code>
+          <span>os termos de uso do software</span>
+        </li>
+      </ul>
+
+      <div class="aviso" style="margin-top: 32px;">
+        <span class="icone">🔒</span>
+        <p>
+          O Auditor SPED <strong>não envia o arquivo do seu cliente para lugar nenhum</strong>.
+          A auditoria, o laudo e a conferência da licença acontecem inteiramente dentro do seu
+          computador — ele funciona com a máquina desconectada da internet.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dy-secao" style="text-align: center;">
+  <div class="dy-container">
+    <h2 style="margin-bottom: 16px;">Deu algum problema?</h2>
+    <p style="color: var(--dy-text-muted); max-width: 520px; margin: 0 auto 28px;">
+      Escreva contando o que aconteceu — se puder, com a mensagem que apareceu na tela.
+      Respondemos no mesmo dia útil.
+    </p>
+    <a href="mailto:contato@dynosai.com.br?subject=Auditor%20SPED%20%E2%80%94%20ajuda%20com%20o%20download" class="dy-btn dy-btn-dourado dy-btn-lg">
+      contato@dynosai.com.br
+    </a>
+  </div>
+</section>
+
+<footer class="dy-footer">
+  <div class="dy-container">
+    <div>
+      <div class="dy-logo-wrap" style="margin-bottom: 16px;">
+        <img src="/assets/img/dynos_logo_square.png" alt="" />
+        <span class="marca">Dynos AI</span>
+      </div>
+      <p style="font-size: 14px; color: var(--dy-text-muted);">Auditor SPED é um produto Dynos AI. Tecnologia que faz o trabalho pesado pelo seu escritório.</p>
+    </div>
+    <div>
+      <h4>Auditor SPED</h4>
+      <ul>
+        <li><a href="https://auditorsped.dynosai.com.br/">Sobre o produto</a></li>
+        <li><a href="https://auditorsped.dynosai.com.br/#preco">Preço</a></li>
+        <li><a href="https://auditorsped.dynosai.com.br/#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Dynos AI</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#produtos">Outros produtos</a></li>
+        <li><a href="/produtos/notalink.html">Notalink</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a></li>
+        <li>Quixadá, CE</li>
+      </ul>
+    </div>
+  </div>
+  <div class="dy-container">
+    <div class="copyright">© 2026 Dynos AI · Auditor SPED é uma marca da Dynos AI · Todos os direitos reservados</div>
+  </div>
+</footer>
+
+<script src="/assets/js/cookies-banner.js"></script>
+</body>
+</html>

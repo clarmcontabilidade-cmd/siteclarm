@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynos AI — IA para profissões que exigem precisão</title>
+  <meta name="description" content="A Dynos AI desenvolve sistemas inteligentes por vertical profissional. Contabilidade, Direito, Medicina, Odontologia. Notalink é o primeiro produto." />
+  <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260428a" />
+  <link rel="icon" href="/assets/img/dynos_logo_square.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .vertical-card {
+      background: var(--dy-bg-card); border: 1px solid var(--dy-border);
+      backdrop-filter: blur(20px); border-radius: var(--dy-radius-lg);
+      padding: 36px; transition: all 0.3s ease;
+      display: flex; flex-direction: column; height: 100%;
+      position: relative; overflow: hidden;
+    }
+    .vertical-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: var(--accent-gradient);
+    }
+    .vertical-card:hover { transform: translateY(-6px); border-color: var(--dy-border-strong); }
+    .vertical-card.contabilidade { --accent-gradient: linear-gradient(90deg, #1cc8a8, #2d5cf2); --accent: #1cc8a8; }
+    .vertical-card.direito { --accent-gradient: linear-gradient(90deg, #d4af37, #f5d97e); --accent: #d4af37; }
+    .vertical-card.medicina { --accent-gradient: linear-gradient(90deg, #ff5c7a, #ff9a5c); --accent: #ff5c7a; }
+    .vertical-card.odontologia { --accent-gradient: linear-gradient(90deg, #6e3aff, #b993ff); --accent: #b993ff; }
+    .vertical-card.outros { --accent-gradient: linear-gradient(90deg, #39d9aa, #5ce1c0); --accent: #39d9aa; }
+    .vertical-card .icone-vertical {
+      font-size: 44px; margin-bottom: 16px; filter: drop-shadow(0 0 16px var(--accent));
+    }
+    .vertical-card h3 {
+      font-size: 24px; margin-bottom: 8px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .vertical-card h3 .nome { color: var(--dy-text); }
+    .vertical-card .descricao { color: var(--dy-text-muted); font-size: 15px; margin-bottom: 20px; min-height: 48px; }
+    .vertical-card .lista-produtos { list-style: none; padding: 0; margin: 0; flex: 1; }
+    .vertical-card .lista-produtos li {
+      padding: 12px 0; border-bottom: 1px solid var(--dy-border);
+      display: flex; justify-content: space-between; align-items: center; font-size: 14px;
+    }
+    .vertical-card .lista-produtos li:last-child { border-bottom: none; }
+    .vertical-card .lista-produtos li .produto-nome { color: var(--dy-text); font-weight: 500; }
+    .vertical-card .lista-produtos li .produto-status { font-size: 11px; padding: 4px 10px; border-radius: var(--dy-radius-pill); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+    .status-disponivel { background: rgba(57,217,170,0.15); color: var(--dy-verde); border: 1px solid rgba(57,217,170,0.3); }
+    .status-dev { background: rgba(212,175,55,0.12); color: var(--dy-dourado-claro); border: 1px solid rgba(212,175,55,0.25); }
+    .status-estudo { background: rgba(255,255,255,0.04); color: var(--dy-text-subtle); border: 1px solid var(--dy-border); }
+
+    .manifesto {
+      padding: 100px 24px; text-align: center;
+      background: linear-gradient(180deg, transparent, rgba(212,175,55,0.04), transparent);
+      border-top: 1px solid var(--dy-border); border-bottom: 1px solid var(--dy-border);
+    }
+    .manifesto blockquote {
+      font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 3vw, 32px);
+      font-weight: 500; line-height: 1.4; color: var(--dy-text);
+      max-width: 880px; margin: 0 auto; padding: 0;
+      border: none; quotes: none;
+    }
+    .manifesto blockquote::before {
+      content: '"'; font-size: 80px; color: var(--dy-dourado);
+      font-family: serif; line-height: 1; display: block; margin-bottom: -20px; opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+
+<header class="dy-header">
+  <div class="dy-container">
+    <a href="/" class="dy-logo-wrap">
+      <img src="/assets/img/dynos_logo_square.png" alt="Dynos AI" />
+      <span class="marca">Dynos AI</span>
+    </a>
+    <nav class="dy-nav">
+      <a href="#verticais">Verticais</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#sobre">Sobre</a>
+      <a href="/produtos/lexlink.html" class="dy-btn dy-btn-ghost" style="padding: 10px 18px; font-size: 14px; display:inline-flex; align-items:center; gap:6px;"><img src="/assets/img/lexlink_logo.png?v=20260428b" alt="" style="height:18px; width:18px; border-radius:4px;" /> LexLink</a>
+      <a href="https://auditorsped.dynosai.com.br/" class="dy-btn dy-btn-ghost" style="padding: 10px 18px; font-size: 14px;">Auditor SPED 🧾</a>
+      <a href="/produtos/notalink.html" class="dy-btn dy-btn-dourado" style="padding: 10px 18px; font-size: 14px;">Notalink 📊</a>
+    </nav>
+  </div>
+</header>
+
+<section class="dy-hero">
+  <div class="dy-container">
+    <img src="/assets/img/dynos_logo_square.png" alt="" class="logo-grande" />
+    <span class="badge-pre"><span class="dot"></span> Software inteligente por vertical profissional</span>
+    <h1>Tecnologia para profissões <span class="gradient-text">que não admitem erro.</span></h1>
+    <p class="subtitulo">A Dynos AI desenvolve sistemas de inteligência artificial específicos por área. Contabilidade, Direito, Medicina, Odontologia — cada vertical, uma solução afiada para automatizar o operacional e libertar o profissional pra análise estratégica.</p>
+    <div class="cta-grupo">
+      <a href="/produtos/notalink.html" class="dy-btn dy-btn-dourado dy-btn-lg">Conhecer o Notalink →</a>
+      <a href="#verticais" class="dy-btn dy-btn-ghost dy-btn-lg">Ver todas as verticais</a>
+    </div>
+    <p style="margin-top: 20px; font-size: 14px; color: var(--dy-text-subtle);">
+      Já em produção também: <a href="/produtos/lexlink.html" style="color: #e6c97a; font-weight: 500; display:inline-flex; align-items:center; gap:6px;"><img src="/assets/img/lexlink_logo.png?v=20260428b" alt="" style="width:18px; height:18px; border-radius:4px; vertical-align:middle;" /> LexLink — Direito</a>
+    </p>
+  </div>
+</section>
+
+<section class="manifesto">
+  <div class="dy-container">
+    <blockquote>
+      Cada profissão tem uma dor operacional específica.<br/>
+      A gente <span class="gradient-text">automatiza ela.</span>
+    </blockquote>
+    <p style="margin-top: 32px; color: var(--dy-text-muted); font-size: 16px;">
+      — Diego e equipe Dynos AI · Quixadá, CE
+    </p>
+  </div>
+</section>
+
+<section id="verticais" class="dy-secao">
+  <div class="dy-container">
+    <div class="dy-secao-titulo dy-fade-up">
+      <span class="label">// Verticais profissionais</span>
+      <h2>Quatro áreas. <span class="gradient-text">Soluções afiadas.</span></h2>
+      <p>Profissionais regulados (contadores, advogados, médicos, dentistas) lidam com burocracia pesada e prazos críticos. Cada vertical tem sua linha de produtos.</p>
+    </div>
+
+    <div class="dy-grid dy-grid-2">
+
+      <div class="vertical-card contabilidade dy-fade-up">
+        <div class="icone-vertical">📊</div>
+        <h3>
+          <span class="nome">Contabilidade</span>
+          <span class="dy-badge">● ativa</span>
+        </h3>
+        <p class="descricao">Automação fiscal-contábil pra escritórios brasileiros. SEFAZ, RFB, eSocial, Reforma Tributária.</p>
+        <ul class="lista-produtos">
+          <li>
+            <a href="/produtos/notalink.html" class="produto-nome">Notalink — captura SEFAZ + Fortes</a>
+            <span class="produto-status status-disponivel">disponível</span>
+          </li>
+          <li>
+            <span class="produto-nome">TribSN — ERP fiscal completo</span>
+            <span class="produto-status status-dev">em uso</span>
+          </li>
+          <li>
+            <a href="https://auditorsped.dynosai.com.br/" class="produto-nome">Auditor SPED — confere o SPED antes do PVA</a>
+            <span class="produto-status status-disponivel">disponível</span>
+          </li>
+          <li>
+            <span class="produto-nome">Robô de obrigações acessórias (DCTFWeb, EFD)</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+          <li>
+            <span class="produto-nome">Conciliação bancária com IA</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="vertical-card direito dy-fade-up">
+        <div class="icone-vertical">⚖️</div>
+        <h3>
+          <span class="nome">Direito</span>
+          <span class="dy-badge">● ativa</span>
+        </h3>
+        <p class="descricao">Captura de publicações, automação de prazos, IA jurídica integrada com tribunais brasileiros.</p>
+        <ul class="lista-produtos">
+          <li>
+            <a href="/produtos/lexlink.html" class="produto-nome">LexLink — captura DJE + prazos CPC automáticos</a>
+            <span class="produto-status status-disponivel">disponível</span>
+          </li>
+          <li>
+            <span class="produto-nome">PetiLink — Petição IA assistida</span>
+            <span class="produto-status status-dev">em dev</span>
+          </li>
+          <li>
+            <span class="produto-nome">CRM jurídico com PJE/eSAJ/Projudi</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+          <li>
+            <span class="produto-nome">Gestão de honorários + contratos digitais</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+          <li>
+            <span class="produto-nome">Análise de jurisprudência com IA</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="vertical-card medicina dy-fade-up">
+        <div class="icone-vertical">🩺</div>
+        <h3>
+          <span class="nome">Medicina</span>
+          <span class="dy-badge em-breve">2026</span>
+        </h3>
+        <p class="descricao">Prontuário inteligente, telemedicina, receituário digital ICP-Brasil, faturamento TISS.</p>
+        <ul class="lista-produtos">
+          <li>
+            <span class="produto-nome">MediLink — prontuário com IA</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+          <li>
+            <span class="produto-nome">Telemedicina + agendamento</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+          <li>
+            <span class="produto-nome">Receituário digital ICP-Brasil</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+          <li>
+            <span class="produto-nome">Faturamento TISS / glosas</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="vertical-card odontologia dy-fade-up">
+        <div class="icone-vertical">🦷</div>
+        <h3>
+          <span class="nome">Odontologia</span>
+          <span class="dy-badge em-breve">2026</span>
+        </h3>
+        <p class="descricao">Gestão clínica, odontograma digital, agenda inteligente com lembretes via WhatsApp.</p>
+        <ul class="lista-produtos">
+          <li>
+            <span class="produto-nome">OdontoLink — gestão clínica + odontograma</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+          <li>
+            <span class="produto-nome">Agenda + lembretes WhatsApp</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+          <li>
+            <span class="produto-nome">Faturamento ANS / convênios</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+          <li>
+            <span class="produto-nome">Imagens + IA diagnóstica</span>
+            <span class="produto-status status-estudo">em estudo</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="dy-card dy-fade-up" style="margin-top: 32px; text-align: center; background: linear-gradient(135deg, rgba(57,217,170,0.04), rgba(212,175,55,0.04));">
+      <div style="font-size: 36px; margin-bottom: 12px;">🚀</div>
+      <h3 style="margin-bottom: 12px;">Outras verticais no radar</h3>
+      <p style="color: var(--dy-text-muted); margin-bottom: 20px;">
+        Estamos avaliando expansão pra outras profissões reguladas brasileiras
+      </p>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 12px;">
+        <span class="dy-badge em-breve">🐾 PetLink (Veterinária)</span>
+        <span class="dy-badge em-breve">🏘️ ImobiLink (Corretores)</span>
+        <span class="dy-badge em-breve">🏗️ EngeLink (Engenharia/CREA)</span>
+        <span class="dy-badge em-breve">🧠 PsicoLink (Psicologia)</span>
+        <span class="dy-badge em-breve">💼 ConsulLink (Consultoria)</span>
+      </div>
+      <p style="margin-top: 20px; font-size: 14px; color: var(--dy-text-subtle);">
+        Tem ideia de vertical ou produto? <a href="mailto:contato@dynosai.com.br?subject=Ideia%20de%20vertical">Manda pra gente</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="produtos" class="dy-secao" style="padding-top: 60px;">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// Em destaque</span>
+      <h2>Notalink: <span class="gradient-text">o primeiro</span></h2>
+      <p>Nosso primeiro produto comercial é da vertical Contabilidade. Já em produção, captando os primeiros escritórios.</p>
+    </div>
+
+    <div class="dy-feature-row">
+      <div>
+        <span class="label">// Vertical Contabilidade</span>
+        <h3 style="font-size: 36px; margin: 16px 0 20px;">Do XML da SEFAZ direto na <span class="gradient-text">contabilidade do contador</span></h3>
+        <p style="font-size: 17px; color: var(--dy-text-muted);">
+          Cadastra a empresa cliente, sobe o certificado A1, e o robô faz o resto. NFes baixadas automaticamente, organizadas, com DANFE PDF, prontas pro Fortes Captura.
+        </p>
+        <p style="color: var(--dy-text-muted);">
+          Cliente final acessa portal próprio e baixa XML+DANFE sozinho — chega de e-mails toda semana de cliente pedindo cópia da nota.
+        </p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
+          <a href="/produtos/notalink.html" class="dy-btn dy-btn-dourado dy-btn-lg">Ver Notalink completo →</a>
+          <a href="https://notalink.dynosai.com.br" class="dy-btn dy-btn-ghost dy-btn-lg">Acessar Notalink</a>
+        </div>
+      </div>
+      <div class="visual" style="padding: 0; overflow: hidden;">
+        <video autoplay muted loop playsinline poster="/assets/img/notalink_logo.png" style="width: 100%; display: block; border-radius: var(--dy-radius-lg);">
+          <source src="/assets/notalink_video.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <div class="dy-card dy-fade-up lex-companion" style="margin-top: 60px; background: linear-gradient(135deg, rgba(122,31,46,0.08), rgba(200,168,90,0.06)); border: 1px solid rgba(200,168,90,0.20);">
+      <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: space-between;">
+        <img src="/assets/img/lexlink_logo.png?v=20260428b" alt="LexLink" style="width: 110px; height: 110px; object-fit: contain; border-radius: 12px;" />
+        <div style="flex: 1 1 320px; min-width: 240px;">
+          <span class="label" style="color: #e6c97a;">// Também disponível · Vertical Direito</span>
+          <h3 style="font-size: 22px; margin: 8px 0 6px;">LexLink — captura DJE/DJEN-CNJ + prazos do CPC automáticos</h3>
+          <p style="color: var(--dy-text-muted); margin: 0; font-size: 15px;">
+            Para advogados. Trial 7 dias grátis. R$ 19,90 por OAB/mês.
+          </p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; min-width: 180px;">
+          <a href="/produtos/lexlink.html" class="dy-btn" style="background: linear-gradient(135deg, #7a1f2e, #501018); color: #f8f3e8; padding: 12px 24px; font-size: 14px; text-align: center;">Conhecer LexLink →</a>
+          <a href="https://lexlink.dynosai.com.br/cadastrar" class="dy-btn dy-btn-ghost" style="padding: 10px 20px; font-size: 13px; text-align: center;">Trial 7 dias</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="dy-secao">
+  <div class="dy-container">
+    <div class="dy-feature-row">
+      <div class="visual" style="padding: 0; overflow: hidden; background: transparent; border: none;">
+        <img src="/assets/img/dynos_logo_wide.png" alt="Dynos AI" style="width: 100%; border-radius: var(--dy-radius-lg); box-shadow: 0 30px 80px rgba(212, 175, 55, 0.2); border: 1px solid var(--dy-border-strong);" />
+      </div>
+      <div>
+        <span class="label">// Sobre nós</span>
+        <h2 style="margin-top: 16px;">Vivemos as duas <span class="gradient-text">profissões.</span></h2>
+        <p style="font-size: 17px; color: var(--dy-text-muted); margin-top: 24px;">
+          A Dynos AI nasceu da convivência diária com o operacional pesado de quem é profissional regulado. Nossa fundadora é <strong style="color: var(--dy-text);">contadora e advogada</strong> — vive na pele a burocracia que a gente ataca.
+        </p>
+        <p style="color: var(--dy-text-muted);">
+          Vendo profissionais gastando horas baixando documentos, controlando prazos, conferindo dados — percebemos que a tecnologia podia (e devia) fazer esse trabalho repetitivo, liberando o especialista pra análise estratégica e o que realmente importa: relacionamento com cliente.
+        </p>
+        <p style="color: var(--dy-text-muted);">
+          Construímos sistemas que rodam em segundo plano, integram com os ERPs/sistemas que cada profissão já usa, e respeitam as nuances regulatórias brasileiras em constante mudança.
+        </p>
+        <div style="margin-top: 32px; padding: 24px; background: var(--dy-bg-card); border: 1px solid var(--dy-border); border-radius: var(--dy-radius);">
+          <p style="margin: 0; font-size: 14px; color: var(--dy-text-subtle);">📍 Sede</p>
+          <p style="margin: 4px 0 12px;"><strong style="color: var(--dy-text);">Quixadá, Ceará</strong></p>
+          <p style="margin: 0; font-size: 14px; color: var(--dy-text-subtle);">📧 Contato</p>
+          <p style="margin: 4px 0 0;"><a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="dy-secao" style="padding-bottom: 60px;">
+  <div class="dy-container" style="text-align: center; max-width: 720px;">
+    <span class="label">// Vamos conversar</span>
+    <h2 style="margin-top: 16px;">Quer levar a Dynos AI <span class="gradient-text">pra sua área?</span></h2>
+    <p style="font-size: 18px; color: var(--dy-text-muted); margin: 24px 0 36px;">
+      Tem ideia, demanda ou parceria em alguma vertical? Mande um e-mail. A próxima vertical pode ser a sua.
+    </p>
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+      <a href="mailto:contato@dynosai.com.br" class="dy-btn dy-btn-dourado dy-btn-lg">📧 contato@dynosai.com.br</a>
+      <a href="/produtos/notalink.html" class="dy-btn dy-btn-ghost dy-btn-lg">📊 Ver Notalink</a>
+      <a href="/produtos/lexlink.html" class="dy-btn dy-btn-ghost dy-btn-lg">Ver LexLink</a>
+    </div>
+  </div>
+</section>
+
+<footer class="dy-footer">
+  <div class="dy-container">
+    <div>
+      <div class="dy-logo-wrap" style="margin-bottom: 16px;">
+        <img src="/assets/img/dynos_logo_square.png" alt="" />
+        <span class="marca">Dynos AI</span>
+      </div>
+      <p style="font-size: 14px; color: var(--dy-text-muted);">Software inteligente para profissões reguladas brasileiras. Contabilidade, Direito, Medicina, Odontologia.</p>
+    </div>
+    <div>
+      <h4>Verticais</h4>
+      <ul>
+        <li><a href="#verticais">Contabilidade</a></li>
+        <li><a href="#verticais">Direito</a></li>
+        <li><a href="#verticais">Medicina</a></li>
+        <li><a href="#verticais">Odontologia</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Produtos</h4>
+      <ul>
+        <li><a href="/produtos/notalink.html">📊 Notalink</a></li>
+        <li><a href="/produtos/lexlink.html">LexLink</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/politica-privacidade.html">Privacidade</a></li>
+        <li><a href="/termos-de-uso.html">Termos de Uso</a></li>
+        <li><a href="/cookies.html">Cookies</a></li>
+        <li><a href="/lgpd.html">Central LGPD</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="dy-container">
+    <div class="copyright">© 2026 Dynos AI · Quixadá, CE · Construindo o futuro do trabalho profissional brasileiro</div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.dy-fade-up').forEach(el => obs.observe(el));
+</script>
+<script src="/assets/js/cookies-banner.js"></script>
+
+</body>
+</html>

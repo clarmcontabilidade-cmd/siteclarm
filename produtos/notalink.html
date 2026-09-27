@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notalink — Captura fiscal automática para escritórios de contabilidade | Dynos AI</title>
+  <meta name="description" content="O Notalink captura automaticamente todos os documentos fiscais dos seus clientes na SEFAZ — NF-e, notas de serviço (NFS-e), conhecimentos de transporte (CT-e), MDF-e e CF-e — manifesta ciência sozinho e organiza tudo para o seu escritório. Trial grátis, sem cartão." />
+  <link rel="stylesheet" href="/assets/css/dynosai.css?v=20260427d" />
+  <link rel="icon" href="/assets/img/notalink_logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .nl-hero {
+      padding: 100px 24px 80px; text-align: center; position: relative;
+      background:
+        radial-gradient(ellipse at top, rgba(28, 200, 168, 0.12), transparent 60%),
+        radial-gradient(ellipse at bottom, rgba(45, 92, 242, 0.08), transparent 60%);
+    }
+    .nl-hero .badge-pre {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: var(--dy-radius-pill);
+      background: rgba(28, 200, 168, 0.1); border: 1px solid rgba(28, 200, 168, 0.3);
+      color: #1cc8a8; font-size: 13px; font-weight: 500; backdrop-filter: blur(10px);
+    }
+    .nl-hero h1 .verde {
+      background: linear-gradient(135deg, #1cc8a8 0%, #2ddbb5 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nl-logo-tile {
+      width: 160px; margin: 0 auto 32px; padding: 24px;
+      background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px);
+      border: 1px solid rgba(28, 200, 168, 0.3); border-radius: 32px;
+      box-shadow: 0 20px 60px rgba(28, 200, 168, 0.2);
+      animation: floatGlow 4s ease-in-out infinite;
+    }
+    @keyframes floatGlow { 0%,100% { transform: translateY(0); box-shadow: 0 20px 60px rgba(28, 200, 168, 0.2); } 50% { transform: translateY(-8px); box-shadow: 0 30px 80px rgba(28, 200, 168, 0.35); } }
+
+    .vs-card { padding: 36px; border-radius: var(--dy-radius-lg); height: 100%; }
+    .vs-ruim { background: rgba(255, 92, 122, 0.05); border: 1px solid rgba(255, 92, 122, 0.2); }
+    .vs-bom { background: linear-gradient(135deg, rgba(28,200,168,0.08), rgba(212,175,55,0.05)); border: 2px solid rgba(28, 200, 168, 0.4); }
+    .vs-card h3 { display: flex; align-items: center; gap: 12px; }
+    .vs-card ul { list-style: none; padding: 0; line-height: 2.4; color: var(--dy-text-muted); }
+    .vs-ruim ul li::before { content: "✕"; color: var(--dy-vermelho); margin-right: 12px; font-weight: 700; }
+    .vs-bom ul li::before { content: "✓"; color: var(--dy-verde); margin-right: 12px; font-weight: 700; }
+
+    /* ─── A ESCADA ────────────────────────────────────────────────────────
+       O preço do Notalink é uma função escada sobre UMA variável (CNPJs na
+       carteira). Então a seção é desenhada como escada: a altura de cada
+       degrau é proporcional ao preço real, e o 4º degrau é aberto porque
+       é a faixa sem teto. Rampa de cor = as duas cores da marca Notalink:
+       verde (ponta self-service) → azul (ponta consultiva).            */
+    .nl-planos {
+      padding: 100px 24px;
+      --nl-verde: #1cc8a8;
+      --nl-azul: #4570ff;
+      --esc-alt: 330px;   /* altura útil do gráfico */
+    }
+
+    /* — cabeçalho da seção + campo "quantos CNPJs" — */
+    .esc-topo {
+      display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+      gap: 28px; max-width: 1180px; margin: 0 auto 44px;
+    }
+    .esc-topo h2 { margin: 0; }
+    .esc-topo .sub { color: var(--dy-text-muted); margin: 12px 0 0; max-width: 46ch; }
+    .esc-medidor {
+      border: 1px solid var(--dy-border); border-radius: var(--dy-radius);
+      background: var(--dy-bg-card); padding: 18px 22px;
+      /* largura travada: a resposta muda de comprimento e não pode empurrar
+         o cabeçalho pra outra linha enquanto a pessoa digita */
+      flex: 0 0 310px; max-width: 100%;
+    }
+    .esc-medidor label {
+      display: block; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--dy-text-subtle); margin-bottom: 10px;
+    }
+    .esc-medidor input {
+      width: 118px; background: rgba(0,0,0,0.28); border: 1px solid var(--dy-border-strong);
+      border-radius: var(--dy-radius-sm); color: var(--dy-text); padding: 9px 12px;
+      font-family: 'Space Mono', ui-monospace, monospace; font-size: 20px; font-weight: 700;
+    }
+    .esc-medidor input:focus-visible { outline: 2px solid var(--nl-verde); outline-offset: 2px; }
+    .esc-medidor .saida {
+      margin: 12px 0 0; font-size: 14px; color: var(--dy-text-muted); min-height: 1.5em;
+    }
+    .esc-medidor .saida b { color: var(--nl-verde); font-weight: 600; }
+
+    /* — o gráfico-escada — */
+    .esc { max-width: 1180px; margin: 0 auto; }
+    .esc-cols { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .esc-col {
+      position: relative; padding: 0 22px 0 24px;
+      display: flex; flex-direction: column;
+      border-left: 1px solid var(--dy-rule, rgba(255,255,255,0.07));
+      transition: background 0.25s ease;
+    }
+    .esc-col:last-child { border-right: 1px solid rgba(255,255,255,0.07); }
+    .esc-col:hover, .esc-col.is-voce { background: rgba(255,255,255,0.022); }
+
+    .esc-plot { position: relative; height: var(--esc-alt); }
+    /* grade: os tetos dos três degraus fechados, atravessando o gráfico inteiro.
+       É o que dá sentido ao vazio acima dos degraus baixos — dá pra comparar
+       a altura de um degrau com a do outro correndo o olho na horizontal. */
+    .esc-plot::before {
+      content: ""; position: absolute; left: -24px; right: -22px; top: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-repeat: no-repeat;
+      background-size: 100% 1px;
+      background-position: 0 calc(100% - 65px), 0 calc(100% - 131px), 0 calc(100% - 219px);
+      pointer-events: none;
+    }
+    /* piso (tread): a linha horizontal onde o preço pousa. Vaza a padding da
+       coluna nos dois lados pra encostar no espelho da coluna seguinte —
+       sem isso os degraus ficam soltos e a escada não se lê. */
+    .esc-tread {
+      position: absolute; left: -24px; right: -22px; bottom: var(--h); height: 2px;
+      background: var(--acc); transform-origin: left center;
+    }
+    /* piso do 4º degrau: tracejado, porque a faixa não tem teto */
+    .esc-col--aberto .esc-tread {
+      height: 0; background: none; border-top: 2px dashed var(--acc);
+    }
+    /* espelho (riser): o degrau vertical, do topo do degrau anterior até este */
+    .esc-riser {
+      position: absolute; left: -25px; bottom: var(--hp);
+      width: 2px; height: calc(var(--h) - var(--hp)); background: var(--acc);
+    }
+    /* bloco do preço: selo e valor empilhados e ancorados no piso, pra não
+       precisar de conta de altura e pra não pular quando o selo acende */
+    .esc-marca { position: absolute; left: 0; bottom: calc(var(--h) + 12px); }
+    .esc-preco {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 40px;
+      line-height: 1; letter-spacing: -0.02em; color: var(--dy-text);
+      font-variant-numeric: tabular-nums; white-space: nowrap;
+    }
+    .esc-preco .cifra { font-size: 19px; vertical-align: top; color: var(--dy-text-muted); margin-right: 3px; }
+    .esc-preco .per { font-size: 14px; font-weight: 400; color: var(--dy-text-muted); letter-spacing: 0; }
+    .esc-col.is-voce .esc-preco { color: var(--acc); }
+    .esc-voce {
+      display: inline-block; margin-bottom: 9px;
+      font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+      background: var(--acc); color: #041014; padding: 4px 9px; border-radius: 999px;
+      opacity: 0; transform: translateY(5px); transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .esc-col.is-voce .esc-voce { opacity: 1; transform: translateY(0); }
+
+    /* — eixo x: o intervalo de CNPJs de cada degrau — */
+    .esc-eixo {
+      border-top: 1px solid var(--dy-border-strong); padding-top: 14px;
+      display: flex; flex-direction: column; flex: 1;
+    }
+    .esc-eixo .dy-btn { margin-top: auto; }
+    .esc-faixa {
+      font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--acc); margin-bottom: 4px;
+    }
+    .esc-intervalo {
+      font-family: 'Space Mono', monospace; font-size: 15px; color: var(--dy-text);
+    }
+    .esc-unit { font-size: 12.5px; color: var(--dy-text-subtle); margin: 8px 0 0; }
+    .esc-quem { font-size: 13.5px; color: var(--dy-text-muted); margin: 16px 0 22px; }
+    .esc-col .dy-btn { width: 100%; }
+    .esc-col .dy-btn-ghost { border-color: rgba(69,112,255,0.42); color: #a9bcff; }
+    .esc-col .dy-btn-ghost:hover { background: rgba(69,112,255,0.14); border-color: var(--nl-azul); color: #d5deff; }
+    .esc-col .btn-nl-verde {
+      background: linear-gradient(135deg, #1cc8a8, #2ddbb5); color: #052020; border: none;
+    }
+    .esc-col .btn-nl-verde:hover { box-shadow: 0 8px 30px rgba(28,200,168,0.45); color: #052020; }
+    .esc-rodape { padding: 20px 24px 0; }
+    /* o design system Dynos não define foco em lugar nenhum — aqui define */
+    .esc a:focus-visible {
+      outline: 2px solid var(--nl-verde); outline-offset: 3px;
+    }
+
+    /* — entrada: os degraus sobem da linha de base, da esquerda pra direita — */
+    @media (prefers-reduced-motion: no-preference) {
+      .esc-anim .esc-riser { transform: scaleY(0); transform-origin: bottom; }
+      .esc-anim .esc-tread { transform: scaleX(0); }
+      .esc-anim .esc-marca { opacity: 0; }
+      .esc-anim.esc-visivel .esc-riser { transform: scaleY(1); transition: transform 0.34s cubic-bezier(0.22,1,0.36,1) var(--atraso); }
+      .esc-anim.esc-visivel .esc-tread { transform: scaleX(1); transition: transform 0.42s cubic-bezier(0.22,1,0.36,1) calc(var(--atraso) + 0.16s); }
+      .esc-anim.esc-visivel .esc-marca { opacity: 1; transition: opacity 0.4s ease calc(var(--atraso) + 0.34s); }
+    }
+
+    /* — mobile: a escada deita, o comprimento da barra vira o preço — */
+    @media (max-width: 860px) {
+      .esc-cols { grid-template-columns: 1fr; }
+      .esc-col {
+        border-left: none; border-top: 1px solid rgba(255,255,255,0.07);
+        padding: 26px 0 30px;
+      }
+      .esc-col:last-child { border-right: none; }
+      .esc-plot { height: auto; }
+      .esc-plot::before { display: none; }
+      .esc-riser { display: none; }
+      .esc-tread {
+        position: static; height: 3px; width: var(--larg); margin: 6px 0 16px;
+        background: var(--acc); border-radius: 2px;
+      }
+      .esc-col--aberto .esc-tread {
+        height: 3px; border-top: none;
+        background: linear-gradient(to right, var(--acc) 72%, transparent);
+      }
+      .esc-marca { position: static; }
+      .esc-preco { font-size: 34px; }
+      .esc-eixo { border-top: none; padding-top: 12px; }
+      .esc-quem { min-height: 0; }
+      .esc-rodape { padding: 24px 0 0; }
+    }
+
+    /* — o que vem junto em qualquer degrau — */
+    .planos-inclui {
+      max-width: 1180px; margin: 40px auto 0;
+      border-top: 1px solid var(--dy-border); padding-top: 30px;
+    }
+    .planos-inclui h4 {
+      font-family: 'Space Mono', monospace; font-size: 11px; margin: 0 0 20px;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--dy-text-subtle);
+    }
+    .planos-inclui ul {
+      list-style: none; padding: 0; margin: 0; columns: 3; column-gap: 40px;
+      line-height: 2.05; color: var(--dy-text-muted); font-size: 14.5px;
+    }
+    .planos-inclui ul li { break-inside: avoid; }
+    .planos-inclui ul li::before { content: "✓"; color: var(--nl-verde); font-weight: 700; margin-right: 10px; }
+    @media (max-width: 900px) { .planos-inclui ul { columns: 2; } }
+    @media (max-width: 560px) { .planos-inclui ul { columns: 1; } }
+
+    .nl-faq { max-width: 800px; margin: 0 auto; }
+    .nl-faq details {
+      background: var(--dy-bg-card); border: 1px solid var(--dy-border);
+      backdrop-filter: blur(20px); border-radius: var(--dy-radius);
+      padding: 22px 28px; margin-bottom: 14px; transition: all 0.2s;
+    }
+    .nl-faq details[open] { border-color: rgba(212, 175, 55, 0.3); box-shadow: 0 10px 40px rgba(212, 175, 55, 0.1); }
+    .nl-faq summary {
+      font-weight: 600; cursor: pointer; font-size: 17px; color: var(--dy-text);
+      list-style: none; display: flex; justify-content: space-between; align-items: center;
+    }
+    .nl-faq summary::after { content: "+"; font-size: 30px; color: var(--dy-dourado-claro); transition: transform 0.2s; }
+    .nl-faq details[open] summary::after { transform: rotate(45deg); }
+    .nl-faq details > p { margin-top: 14px; color: var(--dy-text-muted); }
+
+    .cta-final {
+      padding: 100px 24px; text-align: center;
+      background: linear-gradient(135deg, rgba(28,200,168,0.06), rgba(212,175,55,0.04));
+      border-top: 1px solid var(--dy-border); border-bottom: 1px solid var(--dy-border);
+    }
+  </style>
+</head>
+<body>
+
+<header class="dy-header">
+  <div class="dy-container">
+    <a href="/" class="dy-logo-wrap">
+      <img src="/assets/img/dynos_logo_square.png" alt="Dynos AI" />
+      <span class="marca">Dynos AI</span>
+    </a>
+    <nav class="dy-nav">
+      <a href="/">← Home</a>
+      <a href="#planos">Planos</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://notalink.dynosai.com.br/cadastrar" class="dy-btn dy-btn-dourado" style="padding: 10px 20px; font-size: 14px;">Trial 7 dias</a>
+    </nav>
+  </div>
+</header>
+
+<section class="nl-hero">
+  <div class="dy-container">
+    <span class="badge-pre"><span style="width: 6px; height: 6px; border-radius: 50%; background: #1cc8a8; box-shadow: 0 0 8px #1cc8a8; animation: pulse 2s ease-in-out infinite;"></span> Powered by Dynos AI</span>
+    <div style="margin: 40px 0 16px;">
+      <img src="/assets/img/notalink_logo.png" alt="Notalink" class="nl-logo-tile" />
+    </div>
+    <h1 style="max-width: 980px; margin: 0 auto 24px;">
+      Toda a papelada fiscal dos seus clientes,<br/><span class="verde">capturada sozinha</span> na SEFAZ.
+    </h1>
+    <p class="subtitulo">
+      O Notalink baixa automaticamente, todos os dias, <strong style="color: #1cc8a8;">NF-e, notas de serviço (NFS-e),
+      conhecimentos de transporte (CT-e), MDF-e e CF-e</strong> das suas empresas clientes — manifesta ciência
+      sozinho, organiza por CNPJ e competência e entrega pronto para a escrituração. Sem login no e-CAC,
+      sem digitação, sem retrabalho.
+    </p>
+    <div class="cta-grupo">
+      <a href="https://notalink.dynosai.com.br/cadastrar" class="dy-btn dy-btn-lg" style="background: linear-gradient(135deg, #1cc8a8, #2ddbb5); color: #052020; box-shadow: 0 4px 30px rgba(28,200,168,0.4);">🎁 Teste 7 dias grátis →</a>
+      <a href="#planos" class="dy-btn dy-btn-ghost dy-btn-lg">Ver planos</a>
+    </div>
+    <p style="margin-top: 20px; font-size: 14px; color: var(--dy-text-subtle);">Sem cartão pra começar · Cancele quando quiser</p>
+  </div>
+</section>
+
+<section class="dy-secao" style="padding-top: 40px;">
+  <div class="dy-container" style="text-align: center;">
+    <h2 style="margin-bottom: 32px;">Entenda o Notalink em <span class="gradient-text">50 segundos</span></h2>
+    <video controls style="width:100%; max-width: 920px; border-radius: var(--dy-radius-lg); box-shadow: 0 30px 80px rgba(0,0,0,0.5); border: 1px solid var(--dy-border-strong);">
+      <source src="/assets/notalink_institucional_50s.mp4" type="video/mp4" />
+    </video>
+  </div>
+</section>
+
+<section class="dy-secao">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// Antes vs depois</span>
+      <h2>O que muda na <span class="gradient-text">rotina do escritório</span></h2>
+    </div>
+    <div class="dy-grid dy-grid-2">
+      <div class="vs-card vs-ruim">
+        <h3 style="color: var(--dy-vermelho);">😩 Antes (rotina atual)</h3>
+        <ul>
+          <li>Logar no e-CAC empresa por empresa pra baixar XMLs</li>
+          <li>Cliente esquece de mandar XML, atrasa fechamento</li>
+          <li>Digitar manualmente NFes que o emissor já emitiu</li>
+          <li>E-mail toda semana de cliente pedindo cópia da nota</li>
+          <li>Esquecer de baixar antes do prazo de 30 dias</li>
+          <li>Conferir um por um se autorização foi cStat=100</li>
+        </ul>
+      </div>
+      <div class="vs-card vs-bom">
+        <h3 style="color: var(--dy-verde);">✨ Depois (com Notalink)</h3>
+        <ul>
+          <li>Robô baixa todos os documentos de madrugada, automaticamente</li>
+          <li>NF-e, NFS-e (serviços), CT-e (transporte), MDF-e e CF-e num só lugar</li>
+          <li>Agente local captura também as notas de SAÍDA do cliente</li>
+          <li>Cliente acessa o Portal e baixa XML+DANFE PDF sozinho</li>
+          <li>Alertas automáticos de certificado vencendo</li>
+          <li>Dashboard com KPIs por empresa, mês e valores</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dy-secao" style="padding: 60px 24px;">
+  <div class="dy-container">
+    <div class="dy-feature-row">
+      <div>
+        <span class="label">// Robô SEFAZ</span>
+        <h3 style="font-size: 36px; margin: 16px 0 20px;">Rodando 24/7, <span class="gradient-text">enquanto você dorme</span></h3>
+        <p style="font-size: 17px; color: var(--dy-text-muted);">
+          Cadastra a empresa cliente, sobe o certificado A1 dela. <strong style="color: var(--dy-text);">Pronto.</strong>
+          Todo dia o robô consulta o serviço NFeDistribuicaoDFe da SEFAZ e baixa todas as NFes que chegaram.
+        </p>
+        <p style="color: var(--dy-text-muted);">Você acorda com tudo pronto: XMLs autorizados, organizados por CNPJ e competência, prontos pra escrituração.</p>
+      </div>
+      <div class="visual">
+        <div class="icone-grande">🌙</div>
+        <h3>Cron noturno automático</h3>
+        <p>Roda de madrugada até processar todas as empresas. Você não precisa fazer nada.</p>
+      </div>
+    </div>
+
+    <div class="dy-feature-row">
+      <div class="visual">
+        <div class="icone-grande">🧾</div>
+        <h3>Não é só NF-e</h3>
+        <p>Serviços, transporte, energia e telecom — a papelada fiscal inteira, organizada.</p>
+      </div>
+      <div>
+        <span class="label">// Cobertura completa</span>
+        <h3 style="font-size: 36px; margin: 16px 0 20px;">Serviços e transporte <span class="gradient-text">também</span></h3>
+        <p style="font-size: 17px; color: var(--dy-text-muted);">
+          A maioria das ferramentas só pega NF-e. O Notalink vai além e captura
+          <strong style="color: var(--dy-text);">notas de serviço (NFS-e)</strong> e
+          <strong style="color: var(--dy-text);">conhecimentos de transporte (CT-e)</strong>,
+          além de MDF-e, CF-e SAT e até contas de energia (NF3e) e telecom (NFCom).
+        </p>
+        <p style="color: var(--dy-text-muted);">
+          Tudo classificado por empresa, tipo de documento e competência — entrada e saída —
+          pronto para a escrituração, sem você caçar nota em portal de prefeitura.
+        </p>
+      </div>
+    </div>
+
+    <div class="dy-feature-row">
+      <div>
+        <span class="label">// Portal do Cliente</span>
+        <h3 style="font-size: 36px; margin: 16px 0 20px;">Seu cliente <span class="gradient-text">se vira sozinho</span></h3>
+        <p style="font-size: 17px; color: var(--dy-text-muted);">
+          Cada empresa cliente tem login próprio no portal Notalink e <strong style="color: var(--dy-text);">baixa todas as NFes em XML+DANFE PDF</strong> sozinha, quando precisar.
+        </p>
+        <p style="color: var(--dy-text-muted);">Acabaram os e-mails toda semana pedindo cópia da nota. Sandbox total: cada cliente vê só as próprias notas.</p>
+      </div>
+      <div class="visual">
+        <div class="icone-grande">📱</div>
+        <h3>Self-service</h3>
+        <p>Login isolado, sandbox por empresa. Cliente baixa XML+DANFE quando quiser.</p>
+      </div>
+    </div>
+
+    <div class="dy-feature-row">
+      <div class="visual">
+        <div class="icone-grande">🔐</div>
+        <h3>A1 e A3</h3>
+        <p>Cert A1 sobe pelo painel; A3 (cartão/token) usa o agente Windows.</p>
+      </div>
+      <div>
+        <span class="label">// Certificados</span>
+        <h3 style="font-size: 36px; margin: 16px 0 20px;">Suporte completo <span class="gradient-text">a A1 e A3</span></h3>
+        <p style="font-size: 17px; color: var(--dy-text-muted);">Tem certificado <strong style="color: var(--dy-text);">A1 (.pfx)</strong>? Sobe direto no painel — robô usa sozinho.</p>
+        <p style="color: var(--dy-text-muted);">Cliente usa <strong style="color: var(--dy-text);">A3 (cartão/token)</strong>? O agente Notalink Windows pega no PC do contador, sem precisar mover o cartão.</p>
+        <p style="color: var(--dy-text-muted);">Dashboard de vencimento de certificados com alertas automáticos 30/15/5 dias antes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dy-secao">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// Plataforma completa</span>
+      <h2>Muito <span class="gradient-text">além de baixar notas</span></h2>
+      <p>Virou uma central fiscal: captura, organiza, analisa, integra e atende — tudo num lugar só.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:18px; margin-top:36px;">
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
+        <div style="font-size:28px; margin-bottom:10px;">📄</div>
+        <h3 style="margin:0 0 8px; font-size:18px;">Todos os documentos</h3>
+        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">NF-e, NFC-e, NFS-e, CT-e, MDF-e e CF-e — e até contas de <strong style="color:var(--dy-text);">energia (NF3e)</strong> e <strong style="color:var(--dy-text);">telecom (NFCom)</strong>.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
+        <div style="font-size:28px; margin-bottom:10px;">📈</div>
+        <h3 style="margin:0 0 8px; font-size:18px;">Relatórios avançados</h3>
+        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Evolução mensal, top fornecedores e clientes, distribuição por documento e CFOP, com exportação.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
+        <div style="font-size:28px; margin-bottom:10px;">🧮</div>
+        <h3 style="margin:0 0 8px; font-size:18px;">Confere Chaves &amp; SPED</h3>
+        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Confronta o que você capturou com o ERP/SPED (blocos C100/D100) e recupera o que falta pela SEFAZ.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
+        <div style="font-size:28px; margin-bottom:10px;">↩️</div>
+        <h3 style="margin:0 0 8px; font-size:18px;">Controle de devolução</h3>
+        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Identifica as NF-e de devolução (de venda e de compra) pelo CFOP, com totais e DANFE.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
+        <div style="font-size:28px; margin-bottom:10px;">⚙️</div>
+        <h3 style="margin:0 0 8px; font-size:18px;">Automações</h3>
+        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">"Quando chegar a nota X, faça Y": etiqueta, notifica e organiza sozinho.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
+        <div style="font-size:28px; margin-bottom:10px;">🔌</div>
+        <h3 style="margin:0 0 8px; font-size:18px;">Exporta pro seu sistema</h3>
+        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">No formato que cada sistema contábil importa: Fortes, Domínio, Mastermaq, Contmatic, Calima, SCI e AlterData — além de Omie, Bling e API REST.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
+        <div style="font-size:28px; margin-bottom:10px;">🔗</div>
+        <h3 style="margin:0 0 8px; font-size:18px;">Integração Trib.SN</h3>
+        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Manda as NF-e de entrada e saída automaticamente para o Trib.SN das empresas.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px;">
+        <div style="font-size:28px; margin-bottom:10px;">💬</div>
+        <h3 style="margin:0 0 8px; font-size:18px;">Atendimento no portal</h3>
+        <p style="margin:0; color:var(--dy-text-muted); font-size:14px; line-height:1.6;">Chat de suporte em tempo real e Central de Ajuda com onboarding e vídeos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planos" class="nl-planos">
+  <div class="dy-container">
+    <div class="esc-topo">
+      <div>
+        <span class="label">// Planos</span>
+        <h2>O preço acompanha <span class="gradient-text">a sua carteira.</span></h2>
+        <p class="sub">Quatro degraus, uma mensalidade fixa em cada um. Dentro do seu, adicione e remova empresas à vontade.</p>
+      </div>
+      <div class="esc-medidor">
+        <label for="esc-input">Quantos CNPJs você atende hoje?</label>
+        <input type="number" id="esc-input" min="1" max="9999" step="1" placeholder="130" inputmode="numeric" />
+        <p class="saida" id="esc-saida" aria-live="polite">Digite e a gente acende o seu degrau.</p>
+      </div>
+    </div>
+
+    <div class="esc esc-anim" id="esc">
+      <div class="esc-cols">
+
+        <div class="esc-col" data-faixa="1"
+             style="--h: 65px;  --hp: 0px;     --acc: #1cc8a8; --larg: 30%;  --atraso: 0s;">
+          <div class="esc-plot">
+            <div class="esc-marca">
+              <span class="esc-voce">VOCÊ</span>
+              <div class="esc-preco"><span class="cifra">R$</span>297<span class="per">/mês</span></div>
+            </div>
+            <div class="esc-tread"></div>
+            <div class="esc-riser"></div>
+          </div>
+          <div class="esc-eixo">
+            <div class="esc-faixa">Faixa 1</div>
+            <div class="esc-intervalo">1 a 25 CNPJs</div>
+            <p class="esc-unit">R$ 11,88 por CNPJ no teto do degrau</p>
+            <p class="esc-quem">Contador solo ou escritório em formação.</p>
+            <a href="https://notalink.dynosai.com.br/cadastrar?plano=fixo" class="dy-btn btn-nl-verde">Começar trial 7 dias</a>
+          </div>
+        </div>
+
+        <div class="esc-col" data-faixa="2"
+             style="--h: 131px; --hp: 65px;   --acc: #35b6c9; --larg: 60%;  --atraso: 0.09s;">
+          <div class="esc-plot">
+            <div class="esc-marca">
+              <span class="esc-voce">VOCÊ</span>
+              <div class="esc-preco"><span class="cifra">R$</span>597<span class="per">/mês</span></div>
+            </div>
+            <div class="esc-tread"></div>
+            <div class="esc-riser"></div>
+          </div>
+          <div class="esc-eixo">
+            <div class="esc-faixa">Faixa 2</div>
+            <div class="esc-intervalo">26 a 75 CNPJs</div>
+            <p class="esc-unit">R$ 7,96 por CNPJ no teto do degrau</p>
+            <p class="esc-quem">Escritório de bairro, com carteira formada.</p>
+            <a href="mailto:contato@dynosai.com.br?subject=NotaLink%20-%20Faixa%202%20(26%20a%2075%20CNPJs)" class="dy-btn dy-btn-ghost">Falar com a gente</a>
+          </div>
+        </div>
+
+        <div class="esc-col" data-faixa="3"
+             style="--h: 219px; --hp: 131px; --acc: #3f92ea; --larg: 100%; --atraso: 0.18s;">
+          <div class="esc-plot">
+            <div class="esc-marca">
+              <span class="esc-voce">VOCÊ</span>
+              <div class="esc-preco"><span class="cifra">R$</span>997<span class="per">/mês</span></div>
+            </div>
+            <div class="esc-tread"></div>
+            <div class="esc-riser"></div>
+          </div>
+          <div class="esc-eixo">
+            <div class="esc-faixa">Faixa 3</div>
+            <div class="esc-intervalo">76 a 200 CNPJs</div>
+            <p class="esc-unit">R$ 4,99 por CNPJ no teto do degrau</p>
+            <p class="esc-quem">Escritório com equipe fiscal montada.</p>
+            <a href="mailto:contato@dynosai.com.br?subject=NotaLink%20-%20Faixa%203%20(76%20a%20200%20CNPJs)" class="dy-btn dy-btn-ghost">Falar com a gente</a>
+          </div>
+        </div>
+
+        <div class="esc-col esc-col--aberto" data-faixa="4"
+             style="--h: 242px; --hp: 219px; --acc: #4570ff; --larg: 100%; --atraso: 0.27s;">
+          <div class="esc-plot">
+            <div class="esc-marca">
+              <span class="esc-voce">VOCÊ</span>
+              <div class="esc-preco"><span class="cifra">R$</span>4,90<span class="per">/CNPJ/mês</span></div>
+            </div>
+            <div class="esc-tread"></div>
+            <div class="esc-riser"></div>
+          </div>
+          <div class="esc-eixo">
+            <div class="esc-faixa">Faixa 4</div>
+            <div class="esc-intervalo">acima de 200 CNPJs</div>
+            <p class="esc-unit">Sem teto de CNPJs · mínimo de R$ 997/mês</p>
+            <p class="esc-quem">Carteira regional, alto volume de documentos.</p>
+            <a href="mailto:contato@dynosai.com.br?subject=NotaLink%20-%20Faixa%204%20(acima%20de%20200%20CNPJs)" class="dy-btn dy-btn-ghost">Falar com a gente</a>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="esc-rodape" style="color: var(--dy-text-subtle); font-size: 14px;">
+        Passou o teto do seu degrau? A gente avisa antes e você sobe pro seguinte, sem corte de serviço.
+        O trial de 7 dias é completo e não pede cartão.
+      </p>
+    </div>
+
+    <div class="planos-inclui">
+      <h4>Vem junto em qualquer degrau</h4>
+      <ul>
+        <li>Robô SEFAZ noturno</li>
+        <li>NF-e, NFS-e, CT-e, MDF-e e CF-e</li>
+        <li>Manifestação de ciência automática</li>
+        <li>Agente Windows A1/A3</li>
+        <li>Vigia de pasta (saídas)</li>
+        <li>Exportação pro sistema contábil</li>
+        <li>Portal do Cliente Final</li>
+        <li>DANFE PDF</li>
+        <li>Dashboard de certificados</li>
+        <li>Sem fidelidade, cancele quando quiser</li>
+        <li>Chat de suporte dentro do sistema + e-mail</li>
+        <li>Backup diário automatizado</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="dy-secao">
+  <div class="dy-container">
+    <div class="dy-secao-titulo">
+      <span class="label">// FAQ</span>
+      <h2>Perguntas <span class="gradient-text">frequentes</span></h2>
+    </div>
+    <div class="nl-faq">
+      <details>
+        <summary>Como o Notalink baixa as NFes da SEFAZ?</summary>
+        <p>Usamos o serviço oficial NFeDistribuicaoDFe (Ambiente Nacional), com autenticação mútua via certificado digital A1 da empresa. É o mesmo serviço que sistemas contábeis profissionais usam — totalmente legal e oficial. O Notalink consulta de hora em hora todas as empresas cadastradas e baixa apenas NFes com cStat=100 (autorizadas).</p>
+      </details>
+      <details>
+        <summary>Preciso ter um sistema contábil específico pra usar o Notalink?</summary>
+        <p>Não. O Notalink funciona de forma independente — seu cliente acessa o Portal e você baixa os documentos organizados por CNPJ. Na hora de escriturar, o Notalink exporta no formato que cada sistema importa: Fortes, Domínio, Mastermaq, Contmatic, Calima, SCI e AlterData. Também integra com Omie, Bling e qualquer sistema próprio via API REST.</p>
+      </details>
+      <details>
+        <summary>E os certificados A3 (cartão/token)?</summary>
+        <p>O agente Windows Notalink (executável que você instala no PC do contador) acessa o cartão A3 plugado pra fazer a consulta SEFAZ. Você não precisa mover o cartão de máquina — basta deixar plugado no PC onde o agente roda.</p>
+      </details>
+      <details>
+        <summary>Quantos CNPJs eu posso cadastrar?</summary>
+        <p>O preço vai pela faixa de porte do seu escritório: até 25 CNPJs, R$ 297/mês; de 26 a 75, R$ 597/mês; de 76 a 200, R$ 997/mês. Acima de 200 CNPJs, R$ 4,90 por CNPJ ativo, com mínimo de R$ 997/mês. Dentro da sua faixa você adiciona e remove empresas à vontade — se a carteira passar do teto, avisamos antes de mudar a faixa, sem corte de serviço.</p>
+      </details>
+      <details>
+        <summary>Como funciona o trial?</summary>
+        <p>7 dias com tudo liberado, sem cartão. No fim do período, se quiser continuar, ativa a assinatura via Stripe. Se não ativar, a conta é suspensa mas os dados ficam preservados por 90 dias caso queira reativar.</p>
+      </details>
+      <details>
+        <summary>Meus dados estão seguros?</summary>
+        <p>Sim. Os certificados A1 (.pfx) são armazenados com criptografia Fernet (AES-128) com chave derivada do servidor. Cada escritório tem seu sandbox total — nenhum escritório vê os dados de outro. HTTPS obrigatório (Let's Encrypt). Backups diários automatizados.</p>
+      </details>
+      <details>
+        <summary>Posso cancelar quando quiser?</summary>
+        <p>Sim. Sem fidelidade, sem multa. Cancela direto no painel a qualquer momento e os dados ficam disponíveis até o final do ciclo pago.</p>
+      </details>
+      <details>
+        <summary>Tem suporte humano?</summary>
+        <p>Sim — <strong>chat de suporte em tempo real dentro do próprio Notalink</strong> (painel do escritório e portal do cliente), além de e-mail com resposta em até 1 dia útil. Inclusos em todos os planos. WhatsApp e SLA estendido sob consulta — fale com a gente em <a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="dy-container" style="max-width: 760px;">
+    <span class="label">// Pronto?</span>
+    <h2 style="margin: 16px 0 20px;">Pronto pra parar de <span class="gradient-text">digitar XML?</span></h2>
+    <p style="font-size: 18px; color: var(--dy-text-muted); margin-bottom: 36px;">
+      Comece o trial agora. Em 5 minutos seu primeiro cliente está cadastrado e baixando NFes automaticamente.
+    </p>
+    <a href="https://notalink.dynosai.com.br/cadastrar" class="dy-btn dy-btn-lg" style="background: linear-gradient(135deg, #1cc8a8, #2ddbb5); color: #052020; padding: 22px 44px; font-size: 18px; box-shadow: 0 8px 40px rgba(28,200,168,0.4);">
+      🎁 Começar trial 7 dias grátis
+    </a>
+    <p style="margin-top: 20px; font-size: 14px; color: var(--dy-text-subtle);">Sem cartão · Setup em 5 minutos · Cancele quando quiser</p>
+  </div>
+</section>
+
+<footer class="dy-footer">
+  <div class="dy-container">
+    <div>
+      <div class="dy-logo-wrap" style="margin-bottom: 16px;">
+        <img src="/assets/img/dynos_logo_square.png" alt="" />
+        <span class="marca">Dynos AI</span>
+      </div>
+      <p style="font-size: 14px; color: var(--dy-text-muted);">Notalink é um produto Dynos AI. Tecnologia que faz o trabalho pesado pelo seu escritório.</p>
+    </div>
+    <div>
+      <h4>Notalink</h4>
+      <ul>
+        <li><a href="https://notalink.dynosai.com.br/cadastrar">Trial 7 dias</a></li>
+        <li><a href="https://notalink.dynosai.com.br">Login</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Dynos AI</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#produtos">Outros produtos</a></li>
+        <li><a href="/#sobre">Sobre</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="mailto:contato@dynosai.com.br">contato@dynosai.com.br</a></li>
+        <li>Quixadá, CE</li>
+      </ul>
+    </div>
+  </div>
+  <div class="dy-container">
+    <div class="copyright">© 2026 Dynos AI · Notalink é uma marca da Dynos AI · Todos os direitos reservados</div>
+  </div>
+</footer>
+
+<script src="/assets/js/cookies-banner.js"></script>
+<script>
+/* A escada de preços: acende o degrau do visitante e faz os degraus subirem
+   quando a seção entra na tela. Sem dependência externa. */
+(function () {
+  "use strict";
+  var esc = document.getElementById("esc");
+  if (!esc) return;
+
+  var colunas = [].slice.call(esc.querySelectorAll(".esc-col"));
+  var campo = document.getElementById("esc-input");
+  var saida = document.getElementById("esc-saida");
+
+  var DEGRAUS = [
+    { ate: 25,       rotulo: "Faixa 1", preco: "R$ 297/mês" },
+    { ate: 75,       rotulo: "Faixa 2", preco: "R$ 597/mês" },
+    { ate: 200,      rotulo: "Faixa 3", preco: "R$ 997/mês" },
+    { ate: Infinity, rotulo: "Faixa 4", preco: "R$ 4,90 por CNPJ" }
+  ];
+
+  function acende() {
+    var n = parseInt(campo.value, 10);
+    colunas.forEach(function (c) { c.classList.remove("is-voce"); });
+
+    if (!isFinite(n) || n < 1) {
+      saida.textContent = "Digite e a gente acende o seu degrau.";
+      return;
+    }
+    var i = 0;
+    while (i < DEGRAUS.length - 1 && n > DEGRAUS[i].ate) i++;
+    colunas[i].classList.add("is-voce");
+
+    var d = DEGRAUS[i];
+    saida.innerHTML = i === 3
+      ? "Com " + n + " CNPJs você está na <b>" + d.rotulo + "</b> — " + d.preco +
+        ", ou <b>R$ " + (n * 4.9).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "</b>/mês."
+      : "Com " + n + " CNPJs você está na <b>" + d.rotulo + "</b> — " + d.preco + ".";
+  }
+
+  if (campo) { campo.addEventListener("input", acende); acende(); }
+
+  /* entrada dos degraus */
+  if ("IntersectionObserver" in window) {
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) { esc.classList.add("esc-visivel"); obs.disconnect(); }
+      });
+    }, { threshold: 0.25 });
+    obs.observe(esc);
+  } else {
+    esc.classList.add("esc-visivel");
+  }
+})();
+</script>
+</body>
+</html>
