@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anadeboraadvocacia.com/sitemap.xml
