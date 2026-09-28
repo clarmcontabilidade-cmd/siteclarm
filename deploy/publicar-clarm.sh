@@ -38,6 +38,8 @@ fi
 if [ -z "${DEST:-}" ] || [ ! -d "$DEST" ]; then
   # 2º jeito: procura um index.html que fale da Clarm nas pastas comuns de sites
   ACHADOS="$(grep -lis "clarm" /var/www/*/index.html /var/www/*/*/index.html /var/www/*/public_html/index.html /opt/*/index.html /srv/*/index.html /home/*/public_html/index.html /home/*/*/public_html/index.html /home/*/domains/*/public_html/index.html /usr/share/nginx/*/index.html 2>/dev/null || true)"
+  # ignora index.html de subpastas (ex.: o do blog dentro do site)
+  ACHADOS="$(printf '%s\n' "$ACHADOS" | grep -v '/blog/' | awk -F/ '{print NF, $0}' | sort -n | awk '{print $2}' | awk 'NR==1{print; base=$0; sub(/index.html$/,"",base); next} index($0, base)!=1{print}' || true)"
   QTD="$(printf '%s\n' "$ACHADOS" | grep -c . || true)"
   if [ "$QTD" = "1" ]; then
     DEST="$(dirname "$ACHADOS")"
