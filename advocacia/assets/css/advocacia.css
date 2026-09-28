@@ -965,3 +965,6 @@ ul, ol { margin: 0; padding: 0; }
 .marca-ad .marca-texto img.ad-nome-img { height: calc(var(--alt) * .56); width: auto; }
 .marca-ad .marca-texto img.ad-frase-img { height: calc(var(--alt) * .24); width: auto; }
 .marca-ad .ad-caixa img { height: calc(var(--alt) * .72); }
+
+/* Cabeçalho mais largo: logo mais à esquerda e menu mais à direita */
+.topo .container { max-width: 1340px; }
