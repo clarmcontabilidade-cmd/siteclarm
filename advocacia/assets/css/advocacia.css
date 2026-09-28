@@ -952,3 +952,16 @@ ul, ol { margin: 0; padding: 0; }
 .chamada { background: linear-gradient(120deg, #7a1230, #5c0d24, #0c0a0b, #5c0d24, #7a1230); background-size: 300% 300%; }
 .marca-ad { background: #7a1230; }
 .hero .retrato-moldura { background: #7a1230; }
+
+/* Nome e frase da logo em linhas separadas, com a frase legível */
+.ad-bloco { display: grid; justify-items: center; gap: 3px; }
+.ad-nome-img { height: calc(var(--alt) * .56); }
+.ad-frase-img { height: calc(var(--alt) * .24); width: auto; }
+.marca-ad .marca-texto img.ad-frase-img { animation-delay: .55s; }
+.topo .marca-ad { --alt: 60px; padding: 4px 14px 5px 8px; }
+.rodape .marca-ad { --alt: 68px; }
+:root { --topo: 82px; }
+@media (max-width: 640px) { :root { --topo: 72px; } .topo .marca-ad { --alt: 52px; padding: 4px 10px 4px 6px; } }
+.marca-ad .marca-texto img.ad-nome-img { height: calc(var(--alt) * .56); width: auto; }
+.marca-ad .marca-texto img.ad-frase-img { height: calc(var(--alt) * .24); width: auto; }
+.marca-ad .ad-caixa img { height: calc(var(--alt) * .72); }
