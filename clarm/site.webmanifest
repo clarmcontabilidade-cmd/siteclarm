@@ -1,0 +1,13 @@
+{
+  "name": "Clarm Contabilidade",
+  "short_name": "Clarm",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#fbf8f4",
+  "theme_color": "#ab1c20",
+  "icons": [
+    { "src": "/assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/assets/img/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
