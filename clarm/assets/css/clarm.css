@@ -457,7 +457,7 @@ ul, ol { margin: 0; padding: 0; }
 
 /* Notificações que aparecem uma a uma */
 .notificacoes {
-  position: absolute; right: -36px; bottom: 112px; width: 232px; padding: 10px 12px; border-radius: 16px;
+  position: relative; width: 208px; padding: 10px 12px; border-radius: 16px; align-self: center;
   background: rgba(20, 14, 15, .72); border: 1px solid rgba(255, 255, 255, .12); backdrop-filter: blur(14px);
   box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
 }
@@ -793,4 +793,15 @@ ul, ol { margin: 0; padding: 0; }
   .retrato-cartao { position: static; margin: 14px 0 0; max-width: none; animation: none; }
   .notificacoes { position: relative; right: auto; bottom: auto; width: 100%; margin-top: 12px; }
   .retrato { margin-bottom: 0; }
+}
+
+/* Foto e caixa "rotina mensal" lado a lado */
+@media (min-width: 1141px) {
+  .hero .container { grid-template-columns: 1fr 1.08fr; gap: 44px; }
+  .retrato { display: grid; grid-template-columns: minmax(0, 1fr) 208px; gap: 18px; align-items: center; }
+  .retrato-borda { grid-column: 1; }
+  .retrato-cartao { left: -20px; bottom: -22px; max-width: 250px; padding: 12px 16px; }
+  .retrato-cartao strong { font-size: 15px; }
+  .retrato-cartao span { font-size: 13px; }
+  .notificacoes { grid-column: 2; }
 }
