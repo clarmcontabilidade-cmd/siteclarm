@@ -942,3 +942,13 @@ ul, ol { margin: 0; padding: 0; }
 .topo .marca-ad { --alt: 46px; }
 .rodape .marca-ad { --alt: 52px; }
 .marca-brilho { background: linear-gradient(105deg, transparent, rgba(255, 240, 200, .35), transparent); mix-blend-mode: screen; }
+
+/* Vinho um pouco mais claro, puxado para o bordô (menos marrom) */
+:root { --vinho: #7a1230; --vermelho: #7a1230; --vermelho-escuro: #5c0d24; --noite-2: #4e0b20; --brilho: 122 18 48; --brilho-2: 122 18 48; --whats: #7a1230; --c1: #7a1230; --c3: #5c0d24; --c5: #7a1230; --vermelho-fundo: #f8eef1; }
+.btn-primario:hover, .btn-whats:hover { background: #5c0d24; }
+.hero { background: linear-gradient(150deg, #0c0a0b 0%, #2a0913 45%, #5c0d24 100%); }
+.secao-tech { background: linear-gradient(200deg, #5c0d24 0%, #34081a 55%, #0c0a0b 100%); }
+.letreiro { background: linear-gradient(90deg, #0c0a0b, #7a1230, #5c0d24, #7a1230, #0c0a0b); background-size: 300% 100%; }
+.chamada { background: linear-gradient(120deg, #7a1230, #5c0d24, #0c0a0b, #5c0d24, #7a1230); background-size: 300% 300%; }
+.marca-ad { background: #7a1230; }
+.hero .retrato-moldura { background: #7a1230; }
