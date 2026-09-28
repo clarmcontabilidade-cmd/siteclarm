@@ -916,3 +916,29 @@ ul, ol { margin: 0; padding: 0; }
 .registro strong, .credenciais strong { color: inherit; }
 .cidades li.sede { background: var(--vinho); border-color: var(--vinho); }
 .status-disponivel, .etiqueta { background: var(--vinho); }
+
+
+/* =========================================================
+   LOGO ORIGINAL — "AD" dourado sobre vinho + nome em dourado
+   ========================================================= */
+:root { --vinho: #5d0808; --vermelho: #5d0808; --vermelho-escuro: #3a0505; --noite-2: #3a0505; --neon: #d4a92e; --rotulo: #dcb64a; --ok: #dcb64a; --dourado: #b08615; --rede: 212 169 46; --ponto: 240 210 110; --whats: #5d0808; --brilho: 93 8 8; --brilho-2: 93 8 8; --c1: #5d0808; --c2: #b08615; --c3: #3a0505; --c4: #8a6a10; --c5: #5d0808; --c6: #b08615; }
+.btn-primario:hover, .btn-whats:hover { background: #3a0505; }
+.marca-ad { gap: 10px; }
+.ad-caixa { display: grid; place-items: center; width: calc(var(--alt) * 1.15); height: var(--alt); border-radius: 8px; background: var(--vinho); border: 1.5px solid #bc8e19; flex: none; }
+.ad-caixa img { height: calc(var(--alt) * .7); width: auto; }
+.ad-nome-img { height: calc(var(--alt) * 1.0); width: auto; }
+.marca-ad .marca-texto { overflow: hidden; }
+.marca-ad .marca-texto img { animation: logo-nome 1s cubic-bezier(.7, 0, .2, 1) .35s both; }
+.marca-ad .ad-caixa { animation: logo-entra 1.1s cubic-bezier(.2, .9, .3, 1.2) both, logo-balanca 7s ease-in-out 1.6s infinite; }
+.hero .retrato-moldura { background: var(--vinho); }
+.hero .retrato-moldura .reserva { padding: 0; }
+@media (max-width: 640px) { .marca-viva { --alt: 40px; } }
+
+/* Logo inteira dentro da caixa vinho com borda dourada, como no original */
+.marca-ad { background: var(--vinho); border: 1.5px solid #bc8e19; border-radius: 10px; padding: 5px 12px 5px 8px; margin: 0; gap: 10px; overflow: hidden; }
+.ad-caixa { background: none; border: 0; width: auto; }
+.ad-caixa img { height: calc(var(--alt) * .78); }
+.ad-nome-img { height: calc(var(--alt) * .92); }
+.topo .marca-ad { --alt: 46px; }
+.rodape .marca-ad { --alt: 52px; }
+.marca-brilho { background: linear-gradient(105deg, transparent, rgba(255, 240, 200, .35), transparent); mix-blend-mode: screen; }
