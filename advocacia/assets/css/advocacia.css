@@ -968,3 +968,7 @@ ul, ol { margin: 0; padding: 0; }
 
 /* Cabeçalho mais largo: logo mais à esquerda e menu mais à direita */
 .topo .container { max-width: 1340px; }
+
+/* Cabeçalho de ponta a ponta: logo na borda esquerda, menu na borda direita */
+.topo .container { max-width: none; padding: 0 28px; }
+@media (max-width: 640px) { .topo .container { padding: 0 16px; } }
