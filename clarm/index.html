@@ -29,8 +29,8 @@
 
   <link rel="preload" href="/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/playfair-600-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/css/clarm.css?v=20260928" />
-  <script src="/assets/js/clarm.js?v=20260928" defer></script>
+  <link rel="stylesheet" href="/assets/css/clarm.css?v=20260928b" />
+  <script src="/assets/js/clarm.js?v=20260928b" defer></script>
 
   <!-- Dados estruturados: ajudam o Google a mostrar endereço, horário e perguntas frequentes -->
   <script type="application/ld+json">
@@ -119,6 +119,8 @@
   <symbol id="i-relogio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-cadeado" viewBox="0 0 24 24"><rect x="4" y="10.5" width="16" height="11" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></symbol>
   <symbol id="i-calendario" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></symbol>
+  <symbol id="i-grafico" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="m15.5 10.5 6-3.5v10l-6-3.5"/></symbol>
   <symbol id="i-seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-fechar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
@@ -128,6 +130,7 @@
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
 <header class="topo" id="topo">
+  <div class="progresso" aria-hidden="true"><span></span></div>
   <div class="container">
     <a class="marca" href="/" aria-label="Clarm Contabilidade — página inicial">
       <img src="/assets/img/clarm-logo-vermelha.png" alt="Clarm Contabilidade" width="798" height="175" />
@@ -137,11 +140,11 @@
     </button>
     <nav class="menu" id="menu" aria-label="Menu principal">
       <a href="#sobre">Sobre</a>
+      <a href="#digital">Digital</a>
       <a href="#empresas">Empresas</a>
       <a href="#pessoa-fisica">Pessoa Física</a>
       <a href="#tributario">Direito Tributário</a>
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#duvidas">Dúvidas</a>
+            <a href="#duvidas">Dúvidas</a>
       <a href="/blog/">Artigos</a>
       <a class="btn btn-primario" href="#contato">Fale conosco</a>
     </nav>
@@ -152,36 +155,61 @@
 
   <!-- ===================== TOPO ===================== -->
   <section class="hero" aria-labelledby="titulo-principal">
+    <canvas class="hero-rede" aria-hidden="true"></canvas>
+    <div class="hero-grade" aria-hidden="true"></div>
     <div class="container">
       <div>
-        <span class="selo">Solonópole · Ceará · Desde 2007</span>
-        <h1 id="titulo-principal">Contabilidade técnica e <em>direito tributário</em> sob a mesma assinatura.</h1>
-        <p class="lead">Atendemos pessoas físicas e empresas com o rigor de um escritório contábil tradicional e a visão estratégica de quem também é advogada tributarista. Presencial em Solonópole e à distância em todo o Ceará.</p>
+        <span class="selo selo-mono"><span class="pulso" aria-hidden="true"></span>Solonópole · Ceará · Desde 2007</span>
+        <h1 id="titulo-principal" aria-label="Contabilidade técnica e direito tributário sob a mesma assinatura.">
+          <span aria-hidden="true">Contabilidade técnica e <em class="rotativo" data-palavras="direito tributário|planejamento fiscal|defesa em autuações|gestão digital">direito tributário</em><span class="cursor"></span> sob a mesma assinatura.</span>
+        </h1>
+        <p class="lead">Atendemos pessoas físicas e empresas com o rigor de um escritório contábil tradicional, rotina 100% digital e a visão estratégica de quem também é advogada tributarista. Presencial em Solonópole e à distância em todo o Ceará.</p>
         <div class="acoes">
-          <a class="btn btn-primario" href="https://wa.me/5588996523773?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20atendimento%20com%20a%20Clarm%20Contabilidade" target="_blank" rel="noopener">
+          <a class="btn btn-primario btn-brilho" href="https://wa.me/5588996523773?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20atendimento%20com%20a%20Clarm%20Contabilidade" target="_blank" rel="noopener">
             <svg class="icone" style="fill:currentColor;stroke:none"><use href="#i-whats"/></svg> Agendar atendimento
           </a>
-          <a class="btn btn-contorno" href="#empresas">Ver serviços</a>
+          <a class="btn btn-contorno-claro" href="#empresas">Ver serviços</a>
         </div>
         <dl class="credenciais">
-          <div><dt class="sr-only">Experiência</dt><dd style="margin:0"><strong>18+</strong><span>anos de atuação</span></dd></div>
-          <div><dt class="sr-only">Registro no Conselho de Contabilidade</dt><dd style="margin:0"><strong>CRC</strong><span>CE 19853</span></dd></div>
-          <div><dt class="sr-only">Registro na Ordem dos Advogados</dt><dd style="margin:0"><strong>OAB</strong><span>CE 57115</span></dd></div>
+          <div><dt class="sr-only">Experiência</dt><dd><strong><span data-contar="18">18</span>+</strong><span>anos de atuação</span></dd></div>
+          <div><dt class="sr-only">Registro no Conselho de Contabilidade</dt><dd><strong>CRC</strong><span>CE 19853</span></dd></div>
+          <div><dt class="sr-only">Registro na Ordem dos Advogados</dt><dd><strong>OAB</strong><span>CE 57115</span></dd></div>
         </dl>
       </div>
 
       <div class="retrato">
-        <div class="retrato-moldura">
-          <div class="reserva" aria-hidden="true"><img src="/assets/img/clarm-logo-branca.png" alt="" width="798" height="175" /></div>
-          <img class="foto" src="/assets/contadora-CL96REF3.jpg" alt="Ana Débora Dantas Pinheiro, contadora e advogada da Clarm Contabilidade" width="640" height="800" fetchpriority="high" />
+        <div class="retrato-borda">
+          <div class="retrato-moldura">
+            <div class="reserva" aria-hidden="true"><img src="/assets/img/clarm-logo-branca.png" alt="" width="798" height="175" /></div>
+            <img class="foto" src="/assets/contadora-CL96REF3.jpg" alt="Ana Débora Dantas Pinheiro, contadora e advogada da Clarm Contabilidade" width="640" height="800" fetchpriority="high" />
+            <div class="varredura" aria-hidden="true"></div>
+          </div>
         </div>
         <div class="retrato-cartao">
           <strong>Ana Débora Dantas Pinheiro</strong>
           <span>Contadora · Advogada tributarista</span>
         </div>
+        <div class="notificacoes" aria-hidden="true">
+          <span class="rotulo-mono">rotina mensal · exemplo</span>
+          <ul>
+            <li><i></i>Guia do Simples enviada</li>
+            <li><i></i>Folha e eSocial transmitidos</li>
+            <li><i></i>CND Federal emitida</li>
+            <li><i></i>Lembrete de obrigação enviado</li>
+            <li><i></i>Relatório mensal disponível</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- ===================== FAIXA ROLANTE ===================== -->
+  <div class="letreiro" aria-hidden="true">
+    <div class="letreiro-trilho">
+      <span>Simples Nacional</span><b>◆</b><span>eSocial</span><b>◆</b><span>DCTFWeb</span><b>◆</b><span>EFD-Reinf</span><b>◆</b><span>IRPF</span><b>◆</b><span>MEI</span><b>◆</b><span>Certidões negativas</span><b>◆</b><span>Reforma Tributária · CBS e IBS</span><b>◆</b><span>Recuperação de créditos</span><b>◆</b><span>Defesa em autuações</span><b>◆</b>
+      <span>Simples Nacional</span><b>◆</b><span>eSocial</span><b>◆</b><span>DCTFWeb</span><b>◆</b><span>EFD-Reinf</span><b>◆</b><span>IRPF</span><b>◆</b><span>MEI</span><b>◆</b><span>Certidões negativas</span><b>◆</b><span>Reforma Tributária · CBS e IBS</span><b>◆</b><span>Recuperação de créditos</span><b>◆</b><span>Defesa em autuações</span><b>◆</b>
+    </div>
+  </div>
 
   <!-- ===================== DIFERENCIAIS ===================== -->
   <section class="faixa" aria-label="Diferenciais">
@@ -205,7 +233,7 @@
         </blockquote>
       </div>
       <div class="revelar">
-        <span class="selo">A profissional</span>
+        <span class="selo selo-mono">A profissional</span>
         <h2 id="titulo-sobre">Ana Débora Dantas Pinheiro</h2>
         <p class="cargo">Contadora · Advogada Tributarista · Especialista em Direito e Processos Tributários</p>
         <p>Mais de dezoito anos de experiência em contabilidade, somados à formação em Direito e à pós-graduação em Direito e Processos Tributários. Essa combinação permite à Clarm entregar um serviço pouco comum no interior do Ceará: contabilidade tecnicamente sólida, planejamento tributário estratégico e atuação jurídica direta na defesa de autuações fiscais — sob a responsabilidade de uma única profissional que conhece o cliente por completo.</p>
@@ -223,16 +251,56 @@
     </div>
   </section>
 
+  <!-- ===================== ESCRITÓRIO DIGITAL ===================== -->
+  <section class="secao secao-tech" id="digital" aria-labelledby="titulo-digital">
+    <div class="hero-grade" aria-hidden="true"></div>
+    <div class="container digital">
+      <div class="revelar">
+        <span class="selo selo-mono">Escritório digital</span>
+        <h2 id="titulo-digital">Sua contabilidade organizada, <em>sem papel e sem sair de casa</em>.</h2>
+        <p class="lead">Documentos, guias, certidões e relatórios circulam por canais digitais seguros. Você acompanha tudo pelo celular e fala direto com quem cuida do seu caso.</p>
+        <ul class="recursos">
+          <li><span class="icone-caixa"><svg class="icone"><use href="#i-doc"/></svg></span><div><strong>Documentos digitais</strong><span>Envio por WhatsApp, e-mail ou plataforma segura de arquivos.</span></div></li>
+          <li><span class="icone-caixa"><svg class="icone"><use href="#i-calendario"/></svg></span><div><strong>Guias antes do vencimento</strong><span>Lembretes de obrigações para você não perder nenhum prazo.</span></div></li>
+          <li><span class="icone-caixa"><svg class="icone"><use href="#i-grafico"/></svg></span><div><strong>Relatórios gerenciais</strong><span>Números do seu negócio mês a mês, explicados em linguagem simples.</span></div></li>
+          <li><span class="icone-caixa"><svg class="icone"><use href="#i-video"/></svg></span><div><strong>Reuniões por videochamada</strong><span>Atendimento completo para qualquer cidade do Ceará.</span></div></li>
+        </ul>
+      </div>
+
+      <div class="painel revelar" aria-label="Ilustração de um painel de obrigações mensais">
+        <div class="painel-topo">
+          <span class="bolinhas" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="rotulo-mono">painel de obrigações · ilustração</span>
+        </div>
+        <div class="painel-resumo">
+          <div><span class="rotulo-mono">obrigações do mês</span><strong><span data-contar="12">12</span></strong></div>
+          <div><span class="rotulo-mono">entregues</span><strong class="ok"><span data-contar="12">12</span></strong></div>
+          <div><span class="rotulo-mono">pendências</span><strong>0</strong></div>
+        </div>
+        <ul class="painel-lista">
+          <li style="--p:100%"><span>DAS · Simples Nacional</span><em>entregue</em><i></i></li>
+          <li style="--p:100%"><span>Folha de pagamento · eSocial</span><em>entregue</em><i></i></li>
+          <li style="--p:100%"><span>DCTFWeb</span><em>entregue</em><i></i></li>
+          <li style="--p:100%"><span>EFD-Reinf</span><em>entregue</em><i></i></li>
+          <li style="--p:100%"><span>Certidões negativas</span><em>regular</em><i></i></li>
+        </ul>
+        <div class="painel-grafico" aria-hidden="true">
+          <span style="--h:42%"></span><span style="--h:58%"></span><span style="--h:51%"></span><span style="--h:66%"></span><span style="--h:62%"></span><span style="--h:74%"></span><span style="--h:70%"></span><span style="--h:83%"></span><span style="--h:79%"></span><span style="--h:91%"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== EMPRESAS ===================== -->
   <section class="secao" id="empresas" aria-labelledby="titulo-empresas">
     <div class="container">
       <div class="cabeca revelar">
-        <span class="selo">Pessoa jurídica</span>
+        <span class="selo selo-mono">Pessoa jurídica</span>
         <h2 id="titulo-empresas">Contabilidade empresarial completa</h2>
         <p>Da abertura ao encerramento da empresa, com acompanhamento técnico contínuo de todas as obrigações principais e acessórias.</p>
       </div>
       <div class="grade grade-3">
-        <article class="cartao revelar">
+        <article class="cartao luz revelar">
           <div class="icone-caixa"><svg class="icone"><use href="#i-predio"/></svg></div>
           <h3>Abertura de empresas</h3>
           <ul class="lista-check">
@@ -242,7 +310,7 @@
             <li>Alvará de funcionamento</li>
           </ul>
         </article>
-        <article class="cartao revelar">
+        <article class="cartao luz revelar">
           <div class="icone-caixa"><svg class="icone"><use href="#i-calc"/></svg></div>
           <h3>Apuração e tributos mensais</h3>
           <ul class="lista-check">
@@ -252,7 +320,7 @@
             <li>Obrigações acessórias da Receita</li>
           </ul>
         </article>
-        <article class="cartao revelar">
+        <article class="cartao luz revelar">
           <div class="icone-caixa"><svg class="icone"><use href="#i-pessoas"/></svg></div>
           <h3>Departamento pessoal e eSocial</h3>
           <ul class="lista-check">
@@ -262,7 +330,7 @@
             <li>FGTS, INSS e IRRF</li>
           </ul>
         </article>
-        <article class="cartao revelar">
+        <article class="cartao luz revelar">
           <div class="icone-caixa"><svg class="icone"><use href="#i-doc"/></svg></div>
           <h3>Certidões e regularidade fiscal</h3>
           <ul class="lista-check">
@@ -272,7 +340,7 @@
             <li>CND Trabalhista — TST</li>
           </ul>
         </article>
-        <article class="cartao revelar">
+        <article class="cartao luz revelar">
           <div class="icone-caixa"><svg class="icone"><use href="#i-editar"/></svg></div>
           <h3>Alterações contratuais</h3>
           <ul class="lista-check">
@@ -282,7 +350,7 @@
             <li>Transformação do tipo societário</li>
           </ul>
         </article>
-        <article class="cartao revelar">
+        <article class="cartao luz revelar">
           <div class="icone-caixa"><svg class="icone"><use href="#i-loja"/></svg></div>
           <h3>Microempreendedor Individual</h3>
           <ul class="lista-check">
@@ -300,12 +368,12 @@
   <section class="secao secao-branca" id="pessoa-fisica" aria-labelledby="titulo-pf">
     <div class="container">
       <div class="cabeca revelar">
-        <span class="selo">Pessoa física</span>
+        <span class="selo selo-mono">Pessoa física</span>
         <h2 id="titulo-pf">Imposto de Renda e tributação pessoal</h2>
         <p>Da declaração anual ao planejamento tributário pessoal, com atenção especial às isenções previstas em lei.</p>
       </div>
       <div class="grade grade-4">
-        <article class="cartao revelar">
+        <article class="cartao luz revelar">
           <div class="icone-caixa"><svg class="icone"><use href="#i-recibo"/></svg></div>
           <h3>IRPF anual</h3>
           <ul class="lista-check">
@@ -315,7 +383,7 @@
             <li>Saída da malha fina</li>
           </ul>
         </article>
-        <article class="cartao cartao-destaque revelar">
+        <article class="cartao luz cartao-destaque revelar">
           <span class="etiqueta">Destaque</span>
           <div class="icone-caixa"><svg class="icone"><use href="#i-coracao"/></svg></div>
           <h3>Isenção de IR por doença grave</h3>
@@ -326,7 +394,7 @@
             <li>Acompanhamento pericial e administrativo</li>
           </ul>
         </article>
-        <article class="cartao revelar">
+        <article class="cartao luz revelar">
           <div class="icone-caixa"><svg class="icone"><use href="#i-casa"/></svg></div>
           <h3>Ganho de capital</h3>
           <ul class="lista-check">
@@ -336,7 +404,7 @@
             <li>GCAP e DIRPF</li>
           </ul>
         </article>
-        <article class="cartao revelar">
+        <article class="cartao luz revelar">
           <div class="icone-caixa"><svg class="icone"><use href="#i-maleta"/></svg></div>
           <h3>Profissionais autônomos</h3>
           <ul class="lista-check">
@@ -354,7 +422,7 @@
   <section class="secao secao-escura" id="tributario" aria-labelledby="titulo-trib">
     <div class="container tributario">
       <div class="revelar">
-        <span class="selo">Direito tributário</span>
+        <span class="selo selo-mono">Direito tributário</span>
         <div class="selo-duplo"><span>Contadora · CRC/CE 19853</span><span>Advogada · OAB/CE 57115</span></div>
         <h2 id="titulo-trib" style="font-size:clamp(30px,4vw,44px)">Quando o problema vai além da escrituração contábil.</h2>
         <p class="lead">Autuações fiscais, parcelamentos especiais, recursos administrativos, recuperação de tributos pagos a mais. Uma profissional habilitada nos dois conselhos atua no mesmo caso, com a continuidade de quem já conhece a sua contabilidade.</p>
@@ -376,11 +444,11 @@
   <section class="secao" id="como-funciona" aria-labelledby="titulo-como">
     <div class="container">
       <div class="cabeca centro revelar">
-        <span class="selo">Como funciona</span>
+        <span class="selo selo-mono">Como funciona</span>
         <h2 id="titulo-como">Do primeiro contato à rotina mensal</h2>
         <p>Um processo simples, com canal direto e prazos combinados desde o início.</p>
       </div>
-      <ol class="passos grade grade-4">
+      <ol class="passos grade grade-4" data-linha>
         <li class="revelar"><h3>Conversa inicial</h3><p>Você conta a sua situação pelo WhatsApp, por telefone ou no escritório.</p></li>
         <li class="revelar"><h3>Análise do caso</h3><p>Avaliamos documentos, regime tributário e pendências antes de qualquer proposta.</p></li>
         <li class="revelar"><h3>Proposta clara</h3><p>Você recebe escopo, prazos e condições por escrito, sem surpresas.</p></li>
@@ -393,7 +461,7 @@
   <section class="secao secao-branca" id="cidades" aria-labelledby="titulo-cidades">
     <div class="container">
       <div class="cabeca centro revelar">
-        <span class="selo">Atendimento</span>
+        <span class="selo selo-mono">Atendimento</span>
         <h2 id="titulo-cidades">Solonópole e todo o Ceará</h2>
         <p>Atendimento presencial no escritório e à distância para clientes de qualquer cidade do estado.</p>
       </div>
@@ -410,24 +478,24 @@
   <section class="secao" id="artigos" aria-labelledby="titulo-artigos">
     <div class="container">
       <div class="cabeca revelar">
-        <span class="selo">Artigos</span>
+        <span class="selo selo-mono">Artigos</span>
         <h2 id="titulo-artigos">Contabilidade e tributos em linguagem simples</h2>
         <p>Conteúdo escrito por Ana Débora para ajudar você a entender seus direitos e obrigações.</p>
       </div>
       <div class="grade grade-3">
-        <a class="cartao artigo revelar" href="/blog/isencao-imposto-de-renda-doenca-grave.html">
+        <a class="cartao luz artigo revelar" href="/blog/isencao-imposto-de-renda-doenca-grave.html">
           <span class="tag">Imposto de Renda</span>
           <h3>Isenção de IR por doença grave: quem tem direito e como pedir</h3>
           <p>Lista de doenças, documentos necessários e o passo a passo para pedir a isenção e a restituição dos últimos 5 anos.</p>
           <span class="ler">Ler artigo →</span>
         </a>
-        <a class="cartao artigo revelar" href="/blog/mei-estourou-o-limite-o-que-fazer.html">
+        <a class="cartao luz artigo revelar" href="/blog/mei-estourou-o-limite-o-que-fazer.html">
           <span class="tag">MEI</span>
           <h3>MEI estourou o limite de faturamento: o que fazer</h3>
           <p>O que acontece quando o excesso é de até 20% ou maior, como regularizar e quando vale virar Microempresa.</p>
           <span class="ler">Ler artigo →</span>
         </a>
-        <a class="cartao artigo revelar" href="/blog/reforma-tributaria-pequenos-negocios-2026.html">
+        <a class="cartao luz artigo revelar" href="/blog/reforma-tributaria-pequenos-negocios-2026.html">
           <span class="tag">Reforma tributária</span>
           <h3>Reforma tributária 2026: o que muda para o pequeno negócio</h3>
           <p>CBS e IBS no ano-teste, o cronograma e as decisões que o optante do Simples precisa tomar.</p>
@@ -441,7 +509,7 @@
   <section class="secao secao-branca" id="duvidas" aria-labelledby="titulo-duvidas">
     <div class="container">
       <div class="cabeca centro revelar">
-        <span class="selo">Perguntas frequentes</span>
+        <span class="selo selo-mono">Perguntas frequentes</span>
         <h2 id="titulo-duvidas">Dúvidas comuns</h2>
       </div>
       <div class="faq">
@@ -481,7 +549,7 @@
   <section class="secao" id="contato" aria-labelledby="titulo-contato">
     <div class="container">
       <div class="cabeca revelar">
-        <span class="selo">Contato</span>
+        <span class="selo selo-mono">Contato</span>
         <h2 id="titulo-contato">Estamos à disposição</h2>
         <p>Atendimento em horário comercial. Para mais agilidade, prefira o WhatsApp.</p>
       </div>

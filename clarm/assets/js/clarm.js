@@ -81,6 +81,156 @@
       });
     });
 
+    // ---------- Camada tecnológica ----------
+    var calmo = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Barra de progresso de leitura
+    var barra = document.querySelector(".progresso span");
+    if (barra) {
+      var progresso = function () {
+        var total = document.documentElement.scrollHeight - window.innerHeight;
+        barra.style.setProperty("--rolagem", total > 0 ? Math.min(1, window.scrollY / total) : 0);
+      };
+      window.addEventListener("scroll", progresso, { passive: true });
+      progresso();
+    }
+
+    // Palavra que se digita sozinha no título
+    var rot = document.querySelector(".rotativo");
+    if (rot && !calmo) {
+      var palavras = rot.getAttribute("data-palavras").split("|");
+      var iPal = 0, iLetra = palavras[0].length, apagando = true;
+      var passo = function () {
+        var alvo = palavras[iPal];
+        if (apagando) {
+          iLetra--;
+          if (iLetra <= 0) { apagando = false; iPal = (iPal + 1) % palavras.length; }
+        } else {
+          iLetra++;
+          if (iLetra >= palavras[iPal].length) { apagando = true; rot.textContent = palavras[iPal]; return setTimeout(passo, 2600); }
+        }
+        rot.textContent = palavras[iPal].slice(0, Math.max(0, iLetra)) || "​";
+        setTimeout(passo, apagando ? 38 : 70);
+      };
+      setTimeout(passo, 2600);
+    }
+
+    // Números que contam ao aparecer na tela
+    var contar = function (el) {
+      var fim = parseInt(el.getAttribute("data-contar"), 10), ini = null;
+      if (calmo) { el.textContent = fim; return; }
+      var tick = function (t) {
+        if (!ini) ini = t;
+        var k = Math.min(1, (t - ini) / 1400);
+        el.textContent = Math.round(fim * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    var contadores = document.querySelectorAll("[data-contar]");
+    if ("IntersectionObserver" in window) {
+      var obsNum = new IntersectionObserver(function (ents) {
+        ents.forEach(function (en) { if (en.isIntersecting) { contar(en.target); obsNum.unobserve(en.target); } });
+      }, { threshold: .6 });
+      contadores.forEach(function (c) { c.textContent = "0"; obsNum.observe(c); });
+    }
+
+    // Notificações da rotina mensal (aparecem uma a uma e recomeçam)
+    var notas = document.querySelectorAll(".notificacoes li");
+    if (notas.length) {
+      if (calmo) notas.forEach(function (n) { n.classList.add("on"); });
+      else {
+        var iNota = 0;
+        var mostrar = function () {
+          if (iNota < notas.length) { notas[iNota].classList.add("on"); iNota++; setTimeout(mostrar, 900); }
+          else setTimeout(function () { notas.forEach(function (n) { n.classList.remove("on"); }); iNota = 0; setTimeout(mostrar, 700); }, 4200);
+        };
+        setTimeout(mostrar, 800);
+      }
+    }
+
+    // Luz que segue o mouse nos cartões
+    document.querySelectorAll(".luz").forEach(function (c) {
+      c.addEventListener("pointermove", function (e) {
+        var r = c.getBoundingClientRect();
+        c.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        c.style.setProperty("--my", (e.clientY - r.top) + "px");
+      });
+    });
+
+    // Linha do "Como funciona" que se preenche
+    var linha = document.querySelector("[data-linha]");
+    if (linha && "IntersectionObserver" in window && !calmo) {
+      linha.style.setProperty("--linha", 0);
+      var obsLinha = new IntersectionObserver(function (ents) {
+        if (ents[0].isIntersecting) { linha.style.setProperty("--linha", 1); obsLinha.disconnect(); }
+      }, { threshold: .4 });
+      obsLinha.observe(linha);
+    }
+
+    // Rede de pontos conectados no fundo do topo
+    var tela = document.querySelector(".hero-rede");
+    if (tela && tela.getContext && !calmo) {
+      var ctx = tela.getContext("2d"), pontos = [], larg = 0, alt = 0, dpr = 1, ativo = true, mouse = null;
+      var montar = function () {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        larg = tela.clientWidth; alt = tela.clientHeight;
+        tela.width = larg * dpr; tela.height = alt * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        var qtd = Math.min(80, Math.round(larg * alt / 16000));
+        pontos = [];
+        for (var i = 0; i < qtd; i++) {
+          pontos.push({ x: Math.random() * larg, y: Math.random() * alt, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35, r: Math.random() * 1.6 + .6 });
+        }
+      };
+      var desenhar = function () {
+        if (!ativo) return;
+        ctx.clearRect(0, 0, larg, alt);
+        var dist = 140;
+        for (var i = 0; i < pontos.length; i++) {
+          var p = pontos[i];
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > larg) p.vx *= -1;
+          if (p.y < 0 || p.y > alt) p.vy *= -1;
+          for (var j = i + 1; j < pontos.length; j++) {
+            var q = pontos[j], dx = p.x - q.x, dy = p.y - q.y, d = dx * dx + dy * dy;
+            if (d < dist * dist) {
+              ctx.strokeStyle = "rgba(255,90,98," + (0.22 * (1 - Math.sqrt(d) / dist)) + ")";
+              ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+            }
+          }
+          if (mouse) {
+            var mx = p.x - mouse.x, my = p.y - mouse.y, md = mx * mx + my * my;
+            if (md < 180 * 180) {
+              ctx.strokeStyle = "rgba(255,255,255," + (0.25 * (1 - Math.sqrt(md) / 180)) + ")";
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+            }
+          }
+          ctx.fillStyle = "rgba(255,140,146,.75)";
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+        }
+        requestAnimationFrame(desenhar);
+      };
+      var heroEl = tela.parentElement;
+      heroEl.addEventListener("pointermove", function (e) { var r = tela.getBoundingClientRect(); mouse = { x: e.clientX - r.left, y: e.clientY - r.top }; });
+      heroEl.addEventListener("pointerleave", function () { mouse = null; });
+      var tempo;
+      window.addEventListener("resize", function () { clearTimeout(tempo); tempo = setTimeout(montar, 200); });
+      // Só anima quando o topo está visível (economiza bateria)
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (ents) {
+          var antes = ativo; ativo = ents[0].isIntersecting && !document.hidden;
+          if (ativo && !antes) requestAnimationFrame(desenhar);
+        }).observe(heroEl);
+      }
+      document.addEventListener("visibilitychange", function () {
+        var antes = ativo; ativo = !document.hidden;
+        if (ativo && !antes) requestAnimationFrame(desenhar);
+      });
+      montar();
+      requestAnimationFrame(desenhar);
+    }
+
     // Formulário -> mensagem pronta no WhatsApp
     var form = document.getElementById("form-contato");
     if (!form) return;
