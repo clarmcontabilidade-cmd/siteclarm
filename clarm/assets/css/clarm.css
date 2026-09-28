@@ -457,14 +457,14 @@ ul, ol { margin: 0; padding: 0; }
 
 /* Notificações que aparecem uma a uma */
 .notificacoes {
-  position: absolute; right: -24px; top: 32px; width: 250px; padding: 14px; border-radius: 16px;
+  position: absolute; right: -36px; bottom: 112px; width: 232px; padding: 10px 12px; border-radius: 16px;
   background: rgba(20, 14, 15, .72); border: 1px solid rgba(255, 255, 255, .12); backdrop-filter: blur(14px);
   box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
 }
 .rotulo-mono { display: block; font: 500 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #a99d97; }
 .notificacoes .rotulo-mono { margin-bottom: 8px; }
-.notificacoes ul { list-style: none; display: grid; gap: 6px; }
-.notificacoes li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #f1e9e4; padding: 8px 10px; border-radius: 10px; background: rgba(255, 255, 255, .05); }
+.notificacoes ul { list-style: none; display: grid; gap: 5px; }
+.notificacoes li { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #f1e9e4; padding: 6px 10px; border-radius: 10px; background: rgba(255, 255, 255, .05); }
 .notificacoes i { width: 18px; height: 18px; border-radius: 50%; flex: none; background: linear-gradient(135deg, var(--neon), var(--dourado)); position: relative; }
 .notificacoes i::after { content: ""; position: absolute; left: 6px; top: 4px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
 .js .notificacoes li { opacity: 0; transform: translateX(12px); transition: opacity .45s, transform .45s; }
@@ -561,8 +561,8 @@ ul, ol { margin: 0; padding: 0; }
 
 @media (max-width: 1020px) {
   .digital { grid-template-columns: 1fr; gap: 44px; }
-  .notificacoes { right: -8px; top: auto; bottom: -40px; }
-  .retrato { margin-bottom: 40px; }
+  .notificacoes { position: relative; right: auto; bottom: auto; width: 100%; margin-top: 18px; }
+  .retrato { margin-bottom: 0; }
   .passos[data-linha]::before { display: none; }
 }
 @media (max-width: 370px) {
@@ -787,4 +787,10 @@ ul, ol { margin: 0; padding: 0; }
 @media (prefers-reduced-motion: reduce) {
   .marca-simbolo, .marca-texto img, .marca-brilho, .marca-viva:hover .marca-simbolo { animation: none !important; clip-path: none; }
   .marca-brilho { display: none; }
+}
+
+@media (max-width: 1140px) {
+  .retrato-cartao { position: static; margin: 14px 0 0; max-width: none; animation: none; }
+  .notificacoes { position: relative; right: auto; bottom: auto; width: 100%; margin-top: 12px; }
+  .retrato { margin-bottom: 0; }
 }
