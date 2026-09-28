@@ -171,6 +171,9 @@
     // Rede de pontos conectados no fundo do topo
     var tela = document.querySelector(".hero-rede");
     if (tela && tela.getContext && !calmo) {
+      var estilo = getComputedStyle(document.documentElement);
+      var corRede = (estilo.getPropertyValue("--rede") || "255 90 98").trim().split(/\s+/).join(",");
+      var corPonto = (estilo.getPropertyValue("--ponto") || "255 140 146").trim().split(/\s+/).join(",");
       var ctx = tela.getContext("2d"), pontos = [], larg = 0, alt = 0, dpr = 1, ativo = true, mouse = null;
       var montar = function () {
         dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -195,7 +198,7 @@
           for (var j = i + 1; j < pontos.length; j++) {
             var q = pontos[j], dx = p.x - q.x, dy = p.y - q.y, d = dx * dx + dy * dy;
             if (d < dist * dist) {
-              ctx.strokeStyle = "rgba(255,90,98," + (0.22 * (1 - Math.sqrt(d) / dist)) + ")";
+              ctx.strokeStyle = "rgba(" + corRede + "," + (0.28 * (1 - Math.sqrt(d) / dist)) + ")";
               ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
             }
           }
@@ -206,7 +209,7 @@
               ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
             }
           }
-          ctx.fillStyle = "rgba(255,140,146,.75)";
+          ctx.fillStyle = "rgba(" + corPonto + ",.8)";
           ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
         }
         requestAnimationFrame(desenhar);
@@ -229,6 +232,35 @@
       });
       montar();
       requestAnimationFrame(desenhar);
+    }
+
+    // Cartões inclinam em 3D acompanhando o mouse
+    if (!calmo && window.matchMedia("(hover: hover)").matches) {
+      document.querySelectorAll(".grade > .cartao").forEach(function (c) {
+        c.addEventListener("pointermove", function (e) {
+          var r = c.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+          c.classList.add("inclinado");
+          c.style.setProperty("--ry", (x * 8).toFixed(2) + "deg");
+          c.style.setProperty("--rx", (-y * 8).toFixed(2) + "deg");
+        });
+        c.addEventListener("pointerleave", function () { c.classList.remove("inclinado"); });
+      });
+    }
+
+    // Paralaxe: textos e foto do topo se movem em velocidades diferentes
+    var hero = document.querySelector(".hero");
+    if (hero && !calmo) {
+      var agendado = false;
+      window.addEventListener("scroll", function () {
+        if (agendado) return;
+        agendado = true;
+        requestAnimationFrame(function () {
+          agendado = false;
+          var y = window.scrollY;
+          if (y < hero.offsetHeight + 200) hero.style.setProperty("--par", y);
+        });
+      }, { passive: true });
     }
 
     // Formulário -> mensagem pronta no WhatsApp
