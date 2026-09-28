@@ -952,3 +952,21 @@ ul, ol { margin: 0; padding: 0; }
 .chamada { background: linear-gradient(120deg, #7a1230, #5c0d24, #0c0a0b, #5c0d24, #7a1230); background-size: 300% 300%; }
 .marca-ad { background: #7a1230; }
 .hero .retrato-moldura { background: #7a1230; }
+
+/* Fundos escuros: bordô puxando para o dourado (sem preto) */
+:root { --noite: #4e0b20; --noite-2: #7a1230; --brilho-2: 176 134 21; }
+.hero { background: linear-gradient(150deg, #4e0b20 0%, #7a1230 48%, #8a5f14 100%); }
+.secao-tech { background: linear-gradient(200deg, #7a1230 0%, #5c0d24 50%, #7d5512 100%); }
+.secao-escura { background-color: #5c0d24; background-image: linear-gradient(160deg, #5c0d24 0%, #7a1230 55%, #6e4a10 100%); }
+.secao-escura::before, .secao-tech::before, .hero::before { display: none; }
+.aurora i:nth-child(1) { background: #7a1230; }
+.aurora i:nth-child(2) { background: #b08615; opacity: .45; }
+.aurora i:nth-child(3) { background: #d4a92e; opacity: .18; }
+.faixa { background: #4e0b20; border-bottom-color: rgba(212, 169, 46, .35); }
+.letreiro { background: linear-gradient(90deg, #8a5f14, #7a1230, #5c0d24, #7a1230, #8a5f14); background-size: 300% 100%; }
+.chamada { background: linear-gradient(120deg, #7a1230, #5c0d24, #8a5f14, #5c0d24, #7a1230); background-size: 300% 300%; }
+.rodape { background: linear-gradient(180deg, #4e0b20 0%, #3a0818 100%); border-top-color: #d4a92e; }
+.rodape, .rodape a { color: #e9d9c9; }
+.rodape-base { color: #cdb9a8; }
+.pilares li, .painel { background: rgba(0, 0, 0, .22); }
+.hero-grade { background-image: linear-gradient(rgba(255, 220, 150, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 220, 150, .06) 1px, transparent 1px); }
