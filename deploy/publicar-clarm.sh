@@ -28,19 +28,33 @@ trap 'rm -rf "$TMP"' EXIT
 
 echo "==> 1/5 Procurando a pasta do site da Clarm"
 if [ -z "${DEST:-}" ]; then
-  CONF="$(grep -rl "clarmcontabilidade" /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null | head -n 1 || true)"
+  # 1º jeito: configuração do nginx ou apache que cite o domínio
+  CONF="$(grep -rl "clarmcontabilidade" /etc/nginx /etc/apache2 /etc/httpd 2>/dev/null | grep -v "\.bak" | head -n 1 || true)"
   if [ -n "$CONF" ]; then
-    DEST="$(grep -E '^\s*root\s+' "$CONF" | head -n 1 | awk '{print $2}' | tr -d ';')"
+    DEST="$(grep -E '^\s*(root|DocumentRoot)\s+' "$CONF" | head -n 1 | awk '{print $2}' | tr -d ';"')"
+    echo "    (achei pela configuração: $CONF)"
   fi
 fi
 if [ -z "${DEST:-}" ] || [ ! -d "$DEST" ]; then
-  echo "ERRO: não achei a pasta do site. Rode de novo informando a pasta, por exemplo:"
-  echo "  DEST=/var/www/clarmcontabilidade bash <(curl -fsSL ...)"
-  exit 1
+  # 2º jeito: procura um index.html que fale da Clarm nas pastas comuns de sites
+  ACHADOS="$(grep -lis "clarm" /var/www/*/index.html /var/www/*/*/index.html /var/www/*/public_html/index.html /opt/*/index.html /srv/*/index.html /home/*/public_html/index.html /home/*/*/public_html/index.html /home/*/domains/*/public_html/index.html /usr/share/nginx/*/index.html 2>/dev/null || true)"
+  QTD="$(printf '%s\n' "$ACHADOS" | grep -c . || true)"
+  if [ "$QTD" = "1" ]; then
+    DEST="$(dirname "$ACHADOS")"
+    echo "    (achei procurando o index.html da Clarm)"
+  elif [ "$QTD" -gt 1 ]; then
+    echo "ERRO: achei mais de uma pasta possível. Rode de novo escolhendo uma delas:"
+    printf '%s\n' "$ACHADOS" | while read -r f; do echo "  DEST=$(dirname "$f") bash <(curl -fsSL ...)"; done
+    exit 1
+  fi
 fi
-# Trava de segurança: só publica numa pasta que já tem o site da Clarm
-if [ -f "$DEST/index.html" ] && ! grep -qi "clarm" "$DEST/index.html"; then
-  echo "ERRO: a pasta $DEST não parece ser o site da Clarm. Nada foi alterado."
+if [ -z "${DEST:-}" ] || [ ! -d "$DEST" ]; then
+  echo "ERRO: não achei a pasta do site."
+  echo "Cole o resultado destes dois comandos na conversa para eu descobrir:"
+  echo "  grep -rE 'server_name|root ' /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null"
+  echo "  find / -maxdepth 5 -name index.html -not -path '*/node_modules/*' 2>/dev/null | xargs grep -lis clarm"
+  echo "Depois rode informando a pasta, por exemplo:"
+  echo "  DEST=/var/www/clarmcontabilidade bash <(curl -fsSL ...)"
   exit 1
 fi
 echo "    pasta: $DEST"
