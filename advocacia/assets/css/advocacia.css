@@ -858,3 +858,61 @@ ul, ol { margin: 0; padding: 0; }
 .menu .btn { white-space: nowrap; }
 @media (min-width: 1141px) and (max-width: 1240px) { .menu a:not(.btn) { padding: 8px 9px; font-size: 14px; } }
 .topo .marca { flex: none; }
+
+
+/* =========================================================
+   PALETA DA ADVOCACIA — vinho e dourado (preto e branco de apoio)
+   ========================================================= */
+:root {
+  --vermelho: #6d1026;          /* "vermelho" do sistema vira vinho */
+  --vermelho-escuro: #4a0d1c;
+  --vermelho-fundo: #f6eef0;
+  --vinho: #6d1026;
+  --noite: #0c0a0b;
+  --noite-2: #3d0a18;
+  --neon: #c9a24a;              /* dourado fechado para fundos escuros */
+  --rotulo: #d8b565;
+  --ok: #d8b565;
+  --dourado: #a8862f;           /* dourado para fundos claros */
+  --brilho: 109 16 38;
+  --brilho-2: 109 16 38;
+  --rede: 201 162 74;
+  --ponto: 232 200 120;
+  --whats: #6d1026;
+  --c1: #6d1026; --c2: #a8862f; --c3: #4a0d1c; --c4: #8a6a1f; --c5: #6d1026; --c6: #a8862f;
+}
+.btn-primario { box-shadow: 0 8px 20px rgba(109, 16, 38, .3); }
+.btn-primario:hover, .btn-whats:hover { background: #4a0d1c; }
+.hero { background: linear-gradient(150deg, #0c0a0b 0%, #1c0810 45%, var(--noite-2) 100%); }
+.secao-tech { background: linear-gradient(200deg, #4a0d1c 0%, #250712 55%, #0c0a0b 100%); }
+.letreiro { background: linear-gradient(90deg, #0c0a0b, var(--vinho), #4a0d1c, var(--vinho), #0c0a0b); background-size: 300% 100%; border-block: 1px solid rgba(201, 162, 74, .45); }
+.letreiro span { color: #f2e6cf; }
+.chamada { background: linear-gradient(120deg, var(--vinho), #4a0d1c, #0c0a0b, #4a0d1c, var(--vinho)); background-size: 300% 300%; }
+.hero h1 em, .secao-tech h2 em {
+  background: linear-gradient(100deg, var(--neon) 0%, #f3e3b6 25%, var(--neon) 45%, #e0c070 70%, var(--neon) 100%);
+  background-size: 250% 100%; -webkit-background-clip: text; background-clip: text;
+}
+.progresso span { background: linear-gradient(90deg, var(--vinho), var(--neon)); box-shadow: 0 0 10px rgba(201, 162, 74, .6); }
+.pulso { background: var(--neon); }
+.cursor { background: var(--neon); }
+.retrato-borda::before { background: conic-gradient(from 0deg, transparent 0 60%, var(--neon) 75%, #fff 80%, transparent 90%); }
+.varredura { background: linear-gradient(180deg, transparent, rgba(201, 162, 74, .16), transparent); }
+.faixa li .icone, .lista-trib .icone { color: var(--neon); }
+.selo-mono, .secao:not(.secao-escura):not(.secao-tech) .selo { background: linear-gradient(90deg, var(--vinho), var(--dourado)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.secao:not(.secao-escura):not(.secao-tech) .selo::before { background: linear-gradient(90deg, var(--vinho), var(--dourado)); }
+.hero .selo, .secao-tech .selo, .secao-escura .selo { background: none; -webkit-text-fill-color: var(--rotulo); color: var(--rotulo); }
+.sobre .cargo { color: var(--vinho); }
+.citacao::before { color: var(--neon); }
+.whats-flutuante { background: linear-gradient(135deg, var(--vinho), #4a0d1c); border-color: var(--neon); box-shadow: 0 10px 28px rgba(74, 13, 28, .5); }
+.whats-flutuante::before { border-color: var(--neon); }
+.notificacoes i { background: linear-gradient(135deg, var(--neon), var(--dourado)); }
+.painel-lista i, .passos[data-linha]::before { background: linear-gradient(90deg, var(--vinho), var(--neon)); }
+.painel-grafico span { background: linear-gradient(180deg, var(--neon), rgba(109, 16, 38, .35)); }
+.ad-monograma { background: var(--vinho); color: var(--neon); border-color: var(--neon); box-shadow: inset 0 0 0 2px var(--vinho); }
+.ad-nome b { font-weight: 600; }
+.ad-nome small { color: var(--vinho); }
+.rodape { border-top-color: var(--neon); }
+.rodape h4 { color: var(--neon); }
+.registro strong, .credenciais strong { color: inherit; }
+.cidades li.sede { background: var(--vinho); border-color: var(--vinho); }
+.status-disponivel, .etiqueta { background: var(--vinho); }
